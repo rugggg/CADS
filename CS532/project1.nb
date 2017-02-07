@@ -1,0 +1,643 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     29000,        635]
+NotebookOptionsPosition[     27939,        598]
+NotebookOutlinePosition[     28276,        613]
+CellTagsIndexPosition[     28233,        610]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+ RowBox[{" ", "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"Initial", " ", "Setup", " ", "Here"}], " ", "-", 
+     "\[IndentingNewLine]", "   ", 
+     RowBox[{
+     "hands", " ", "and", " ", "probabilities", " ", "are", " ", "in", " ", 
+      "lists", "\[IndentingNewLine]", "\t", "probabilities", " ", "get", " ", 
+      "accumlated", " ", "up", "\[IndentingNewLine]", "\t", "We", " ", "then",
+       " ", "draw", " ", "a", " ", "random", " ", "integer", " ", "between", 
+      " ", "1"}], "-", 
+     RowBox[{
+     "1000000", "\[IndentingNewLine]", "\t", "as", " ", "we", " ", "have", 
+      " ", "6", " ", "signifigant", " ", "digits", " ", "here", 
+      "\[IndentingNewLine]", "\t", "Each", " ", "hand"}]}], ",", " ", 
+    RowBox[{
+    "we", " ", "run", " ", "a", " ", "while", " ", "loop", " ", "checking", 
+     " ", "if", " ", "the", "\[IndentingNewLine]", "\t", "random", " ", 
+     "integer", " ", "is", " ", "less", " ", "than", " ", "the", " ", 
+     "accumlated", " ", "probabilty", "\[IndentingNewLine]", "\t", 
+     "incrementing", " ", "i", " ", "each", " ", "loop", 
+     "\[IndentingNewLine]", "\t", "We", " ", "will", " ", "eventually", " ", 
+     "hit", " ", "this", " ", "condition"}], ",", " ", 
+    RowBox[{
+    "at", " ", "which", " ", "point", "\[IndentingNewLine]", "\t", "the", " ",
+      "value", " ", "of", " ", "i", " ", "is", " ", "set", " ", "for", " ", 
+     RowBox[{"us", ".", " ", "We"}], " ", "use", " ", "i", " ", "as", " ", 
+     "the", " ", "index", "\[IndentingNewLine]", "\t", "to", " ", "use", " ", 
+     "when", " ", "getting", " ", "the", " ", "result", " ", "and", " ", 
+     RowBox[{"payout", "."}]}]}], "\[IndentingNewLine]", " ", "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"hands", " ", "=", " ", 
+     RowBox[{"{", 
+      RowBox[{
+      "\"\<Natural Royal Flush\>\"", ",", "\"\<Four Deuces\>\"", ",", 
+       "\"\<Wild Royal Flush\>\"", ",", "\"\<Five of a kind\>\"", ",", " ", 
+       "\"\<Straight Flush\>\"", ",", "\"\<Four of a Kind\>\"", ",", 
+       "\"\<Full House\>\"", ",", "\"\<Flush\>\"", ",", "\"\<Straight\>\"", 
+       ",", "\"\<Three of a kind\>\"", ",", "\"\<Nothing\>\""}], "}"}]}], 
+    ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"probs", " ", "=", " ", 
+     RowBox[{"{", 
+      RowBox[{
+      "22", ",", "204", ",", "1796", ",", "3202", ",", "4168", ",", " ", 
+       "64938", ",", "21229", ",", "16784", ",", "56070", ",", "284690", ",", 
+       "546897"}], "}"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"payouts", " ", "=", " ", 
+     RowBox[{"{", 
+      RowBox[{
+      "800", ",", "200", ",", "25", ",", "15", ",", "9", ",", "5", ",", "3", 
+       ",", "2", ",", "2", ",", "1", ",", "0"}], "}"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"weights", " ", "=", " ", 
+     RowBox[{"Accumulate", "[", "probs", "]"}]}], ";"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"numSims", " ", "=", " ", "10000"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"walkAway", " ", "=", 
+     RowBox[{"Table", "[", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"cash", " ", "=", " ", "50"}], ";", "\[IndentingNewLine]", 
+        RowBox[{"turn", " ", "=", " ", "0"}], ";", "\[IndentingNewLine]", " ", 
+        RowBox[{"i", " ", "=", "1"}], ";", "\[IndentingNewLine]", 
+        RowBox[{"While", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"cash", " ", ">", "0"}], " ", "&&", " ", 
+           RowBox[{"turn", "  ", "<", " ", "200"}]}], ",", 
+          "\[IndentingNewLine]", "\t", 
+          RowBox[{
+           RowBox[{"cash", "--"}], ";", "\[IndentingNewLine]", "\t", 
+           RowBox[{"hand", " ", "=", " ", 
+            RowBox[{"RandomInteger", "[", "1000000", "]"}]}], ";", 
+           "\[IndentingNewLine]", "     ", 
+           RowBox[{"i", " ", "=", " ", "1"}], ";", "\[IndentingNewLine]", 
+           "    ", 
+           RowBox[{"While", "[", 
+            RowBox[{
+             RowBox[{"hand", ">", 
+              RowBox[{"weights", "[", 
+               RowBox[{"[", "i", "]"}], "]"}]}], ",", 
+             RowBox[{"i", "++"}]}], "]"}], ";", "\[IndentingNewLine]", "    ", 
+           RowBox[{"cash", " ", "+=", " ", 
+            RowBox[{"payouts", "[", 
+             RowBox[{"[", "i", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+           "    ", 
+           RowBox[{"turn", "++"}]}]}], "\[IndentingNewLine]", "]"}], ";", 
+        "\[IndentingNewLine]", "cash"}], "\[IndentingNewLine]", ",", 
+       "numSims"}], "\[IndentingNewLine]", "]"}]}], ";"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Busts", " ", "=", " ", 
+     RowBox[{
+      RowBox[{"CountsBy", "[", 
+       RowBox[{"walkAway", ",", 
+        RowBox[{"LessEqualThan", "[", "0", "]"}]}], "]"}], "[", "True", 
+      "]"}]}], ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{"Print", "[", "\"\<Approx likelhood of going bust: \>\"", "]"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"N", "[", 
+     RowBox[{"Busts", "/", "numSims"}], "]"}], "*", "100", " ", "\"\<%\>\""}],
+    "\[IndentingNewLine]", 
+   RowBox[{"Print", "[", "\"\<Mean and Median of outcomes: \>\"", "]"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"N", "[", 
+    RowBox[{"Mean", "[", "walkAway", "]"}], "]"}], "\[IndentingNewLine]", 
+   RowBox[{"Median", "[", "walkAway", "]"}], "\[IndentingNewLine]", 
+   RowBox[{"Print", "[", "\"\<Chances of ending up ahead: \>\"", "]"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"N", "[", 
+      RowBox[{
+       RowBox[{"CountsBy", "[", 
+        RowBox[{"walkAway", ",", 
+         RowBox[{"GreaterThan", "[", "50", "]"}]}], "]"}], "[", "True", "]"}],
+       "]"}], "/", "numSims"}], "*", "100", " ", "\"\<%\>\""}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"Histogram", "[", "walkAway", "]"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]"}]}]], "Input",
+ CellChangeTimes->{{3.682362625963285*^9, 3.682362678389742*^9}, {
+   3.68236272384525*^9, 3.682362740421225*^9}, {3.682362922415814*^9, 
+   3.682362955541288*^9}, {3.682363143777424*^9, 3.682363339037772*^9}, {
+   3.68236342289956*^9, 3.68236349163888*^9}, {3.682363523247797*^9, 
+   3.682363523523582*^9}, {3.682363607732765*^9, 3.682363798447303*^9}, {
+   3.682363920838099*^9, 3.682364034274355*^9}, {3.6823641306335087`*^9, 
+   3.6823641466868477`*^9}, {3.682427257531886*^9, 3.682427303599125*^9}, {
+   3.6824273542746983`*^9, 3.6824274528207817`*^9}, {3.682427540620276*^9, 
+   3.682427577699255*^9}, {3.6824276123634787`*^9, 3.6824277147476807`*^9}, {
+   3.682427749430004*^9, 3.6824278642672157`*^9}, {3.682427952489023*^9, 
+   3.682428079964219*^9}, {3.682428121965307*^9, 3.6824282473316593`*^9}, {
+   3.6824283144214783`*^9, 3.6824283830271*^9}, {3.6824284606085653`*^9, 
+   3.682428574602346*^9}, {3.6824286215384617`*^9, 3.682428672626829*^9}, {
+   3.68242875628319*^9, 3.6824291007172937`*^9}, {3.682429134948882*^9, 
+   3.682429231150964*^9}, {3.682429431184532*^9, 3.682429659362252*^9}, {
+   3.682429722646851*^9, 3.682429844126232*^9}, {3.682429876729445*^9, 
+   3.682429961738727*^9}, {3.6824300043913927`*^9, 3.6824300415257397`*^9}, {
+   3.6824301140938883`*^9, 3.682430126781391*^9}, {3.682430208921548*^9, 
+   3.682430210332406*^9}, {3.6824302901236362`*^9, 3.6824303515954657`*^9}, {
+   3.682430439824272*^9, 3.682430465574917*^9}, {3.682430501089226*^9, 
+   3.6824306247924223`*^9}, {3.682430658595166*^9, 3.682430746746543*^9}, {
+   3.682430919302105*^9, 3.682430985520156*^9}, {3.682431148502277*^9, 
+   3.682431363208372*^9}, {3.682431461622335*^9, 3.682431511373858*^9}, 
+   3.682431558213805*^9, {3.682867563326469*^9, 3.6828675652423143`*^9}, {
+   3.682867734472878*^9, 3.682867771860622*^9}, {3.6828678488789663`*^9, 
+   3.682867857561652*^9}, {3.6828679760129013`*^9, 3.682868059660303*^9}, {
+   3.6828681216701717`*^9, 3.682868139148621*^9}, 3.6828682396989183`*^9, {
+   3.682868278273828*^9, 3.682868372012383*^9}, {3.682868553306241*^9, 
+   3.6828685715539303`*^9}, {3.682868649419923*^9, 3.6828686499406023`*^9}, {
+   3.682868700383544*^9, 3.682868847533477*^9}, {3.682868914841421*^9, 
+   3.682868958007908*^9}, {3.6828689939846773`*^9, 3.6828690226733217`*^9}, {
+   3.682869100610911*^9, 3.682869180225429*^9}, {3.6828693073897676`*^9, 
+   3.682869401996759*^9}, {3.6828695056093073`*^9, 3.682869531158247*^9}, {
+   3.682869648096223*^9, 3.6828696590180063`*^9}, {3.682869799687323*^9, 
+   3.682869799839275*^9}, {3.682869881538168*^9, 3.6828699916445827`*^9}, {
+   3.6828700489450893`*^9, 3.6828701070247393`*^9}, {3.682870150831944*^9, 
+   3.6828701924369183`*^9}, 3.682870225214603*^9}],
+
+Cell[BoxData["\<\"Approx likelhood of going bust: \"\>"], "Print",
+ CellChangeTimes->{
+  3.682870086807357*^9, {3.682870134806398*^9, 3.6828702048828163`*^9}, 
+   3.682870252525165*^9}],
+
+Cell[BoxData[
+ RowBox[{"9.049999999999999`", " ", "\<\"%\"\>"}]], "Output",
+ CellChangeTimes->{
+  3.682870086808154*^9, {3.6828701348076067`*^9, 3.682870204884016*^9}, 
+   3.682870252526752*^9}],
+
+Cell[BoxData["\<\"Mean and Median of outcomes: \"\>"], "Print",
+ CellChangeTimes->{
+  3.682870086807357*^9, {3.682870134806398*^9, 3.6828702048828163`*^9}, 
+   3.682870252528322*^9}],
+
+Cell[BoxData["51.8309`"], "Output",
+ CellChangeTimes->{
+  3.682870086808154*^9, {3.6828701348076067`*^9, 3.682870204884016*^9}, 
+   3.6828702525291862`*^9}],
+
+Cell[BoxData["40"], "Output",
+ CellChangeTimes->{
+  3.682870086808154*^9, {3.6828701348076067`*^9, 3.682870204884016*^9}, 
+   3.682870252530512*^9}],
+
+Cell[BoxData["\<\"Chances of ending up ahead: \"\>"], "Print",
+ CellChangeTimes->{
+  3.682870086807357*^9, {3.682870134806398*^9, 3.6828702048828163`*^9}, 
+   3.682870252531828*^9}],
+
+Cell[BoxData[
+ RowBox[{"36.06`", " ", "\<\"%\"\>"}]], "Output",
+ CellChangeTimes->{
+  3.682870086808154*^9, {3.6828701348076067`*^9, 3.682870204884016*^9}, 
+   3.682870252544284*^9}],
+
+Cell[BoxData[
+ GraphicsBox[{
+   {RGBColor[0.987148, 0.8073604000000001, 0.49470040000000004`], EdgeForm[{
+    Opacity[0.469], Thickness[Small]}], {}, 
+    {RGBColor[0.987148, 0.8073604000000001, 0.49470040000000004`], EdgeForm[{
+     Opacity[0.469], Thickness[Small]}], RectangleBox[{0., 0}, {5., 1021},
+      RoundingRadius->0], RectangleBox[{5., 0}, {10., 324},
+      RoundingRadius->0], RectangleBox[{10., 0}, {15., 416},
+      RoundingRadius->0], RectangleBox[{15., 0}, {20., 520},
+      RoundingRadius->0], RectangleBox[{20., 0}, {25., 621},
+      RoundingRadius->0], RectangleBox[{25., 0}, {30., 667},
+      RoundingRadius->0], RectangleBox[{30., 0}, {35., 699},
+      RoundingRadius->0], RectangleBox[{35., 0}, {40., 707},
+      RoundingRadius->0], RectangleBox[{40., 0}, {45., 656},
+      RoundingRadius->0], RectangleBox[{45., 0}, {50., 644},
+      RoundingRadius->0], RectangleBox[{50., 0}, {55., 601},
+      RoundingRadius->0], RectangleBox[{55., 0}, {60., 518},
+      RoundingRadius->0], RectangleBox[{60., 0}, {65., 460},
+      RoundingRadius->0], RectangleBox[{65., 0}, {70., 351},
+      RoundingRadius->0], RectangleBox[{70., 0}, {75., 307},
+      RoundingRadius->0], RectangleBox[{75., 0}, {80., 251},
+      RoundingRadius->0], RectangleBox[{80., 0}, {85., 209},
+      RoundingRadius->0], RectangleBox[{85., 0}, {90., 172},
+      RoundingRadius->0], RectangleBox[{90., 0}, {95., 114},
+      RoundingRadius->0], RectangleBox[{95., 0}, {100., 90},
+      RoundingRadius->0], RectangleBox[{100., 0}, {105., 56},
+      RoundingRadius->0], RectangleBox[{105., 0}, {110., 58},
+      RoundingRadius->0], RectangleBox[{110., 0}, {115., 35},
+      RoundingRadius->0], RectangleBox[{115., 0}, {120., 16},
+      RoundingRadius->0], RectangleBox[{120., 0}, {125., 21},
+      RoundingRadius->0], RectangleBox[{125., 0}, {130., 9},
+      RoundingRadius->0], RectangleBox[{130., 0}, {135., 9},
+      RoundingRadius->0], RectangleBox[{135., 0}, {140., 3},
+      RoundingRadius->0], RectangleBox[{140., 0}, {145., 2},
+      RoundingRadius->0], RectangleBox[{145., 0}, {150., 2},
+      RoundingRadius->0], RectangleBox[{150., 0}, {155., 1},
+      RoundingRadius->0], RectangleBox[{155., 0}, {160., 1},
+      RoundingRadius->0], RectangleBox[{160., 0}, {165., 1},
+      RoundingRadius->0], RectangleBox[{170., 0}, {175., 1},
+      RoundingRadius->0], RectangleBox[{175., 0}, {180., 2},
+      RoundingRadius->0], RectangleBox[{180., 0}, {185., 2},
+      RoundingRadius->0], RectangleBox[{185., 0}, {190., 3},
+      RoundingRadius->0], RectangleBox[{190., 0}, {195., 6},
+      RoundingRadius->0], RectangleBox[{195., 0}, {200., 8},
+      RoundingRadius->0], RectangleBox[{200., 0}, {205., 7},
+      RoundingRadius->0], RectangleBox[{205., 0}, {210., 19},
+      RoundingRadius->0], RectangleBox[{210., 0}, {215., 16},
+      RoundingRadius->0], RectangleBox[{215., 0}, {220., 18},
+      RoundingRadius->0], RectangleBox[{220., 0}, {225., 26},
+      RoundingRadius->0], RectangleBox[{225., 0}, {230., 36},
+      RoundingRadius->0], RectangleBox[{230., 0}, {235., 25},
+      RoundingRadius->0], RectangleBox[{235., 0}, {240., 27},
+      RoundingRadius->0], RectangleBox[{240., 0}, {245., 45},
+      RoundingRadius->0], RectangleBox[{245., 0}, {250., 22},
+      RoundingRadius->0], RectangleBox[{250., 0}, {255., 21},
+      RoundingRadius->0], RectangleBox[{255., 0}, {260., 13},
+      RoundingRadius->0], RectangleBox[{260., 0}, {265., 15},
+      RoundingRadius->0], RectangleBox[{265., 0}, {270., 13},
+      RoundingRadius->0], RectangleBox[{270., 0}, {275., 17},
+      RoundingRadius->0], RectangleBox[{275., 0}, {280., 13},
+      RoundingRadius->0], RectangleBox[{280., 0}, {285., 8},
+      RoundingRadius->0], RectangleBox[{285., 0}, {290., 9},
+      RoundingRadius->0], RectangleBox[{290., 0}, {295., 3},
+      RoundingRadius->0], RectangleBox[{295., 0}, {300., 4},
+      RoundingRadius->0], RectangleBox[{300., 0}, {305., 4},
+      RoundingRadius->0], RectangleBox[{305., 0}, {310., 1},
+      RoundingRadius->0], RectangleBox[{310., 0}, {315., 1},
+      RoundingRadius->0], RectangleBox[{315., 0}, {320., 1},
+      RoundingRadius->0], RectangleBox[{425., 0}, {430., 3},
+      RoundingRadius->0], RectangleBox[{430., 0}, {435., 2},
+      RoundingRadius->0], RectangleBox[{600., 0}, {605., 1},
+      RoundingRadius->0], RectangleBox[{640., 0}, {645., 1},
+      RoundingRadius->0], RectangleBox[{795., 0}, {800., 1},
+      RoundingRadius->0], RectangleBox[{800., 0}, {805., 2},
+      RoundingRadius->0], RectangleBox[{805., 0}, {810., 2},
+      RoundingRadius->0], RectangleBox[{810., 0}, {815., 4},
+      RoundingRadius->0], RectangleBox[{815., 0}, {820., 2},
+      RoundingRadius->0], RectangleBox[{820., 0}, {825., 1},
+      RoundingRadius->0], RectangleBox[{825., 0}, {830., 4},
+      RoundingRadius->0], RectangleBox[{830., 0}, {835., 2},
+      RoundingRadius->0], RectangleBox[{835., 0}, {840., 5},
+      RoundingRadius->0], RectangleBox[{840., 0}, {845., 3},
+      RoundingRadius->0], RectangleBox[{845., 0}, {850., 3},
+      RoundingRadius->0], RectangleBox[{850., 0}, {855., 3},
+      RoundingRadius->0], RectangleBox[{855., 0}, {860., 2},
+      RoundingRadius->0], RectangleBox[{860., 0}, {865., 1},
+      RoundingRadius->0], RectangleBox[{865., 0}, {870., 2},
+      RoundingRadius->0], RectangleBox[{870., 0}, {875., 1},
+      RoundingRadius->0], RectangleBox[{875., 0}, {880., 1},
+      RoundingRadius->0], RectangleBox[{885., 0}, {890., 1},
+      RoundingRadius->0], RectangleBox[{890., 0}, {895., 1},
+      RoundingRadius->0], RectangleBox[{895., 0}, {900., 1},
+      RoundingRadius->0], RectangleBox[{905., 0}, {910., 1},
+      RoundingRadius->0], RectangleBox[{1005., 0}, {1010., 1},
+      RoundingRadius->0], RectangleBox[{1040., 0}, {1045., 1},
+      RoundingRadius->
+       0]}, {}, {}}, {{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, \
+{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, \
+{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, \
+{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, \
+{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}}},
+  AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+  Axes->{True, True},
+  AxesLabel->{None, None},
+  AxesOrigin->{-3.1, 0},
+  FrameLabel->{{None, None}, {None, None}},
+  FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
+  GridLines->{None, None},
+  GridLinesStyle->Directive[
+    GrayLevel[0.5, 0.4]],
+  PlotRange->{{0, 155}, {All, All}},
+  PlotRangePadding->{{
+     Scaled[0.02], 
+     Scaled[0.02]}, {
+     Scaled[0.02], 
+     Scaled[0.05]}},
+  Ticks->{Automatic, Automatic}]], "Output",
+ CellChangeTimes->{
+  3.682870086808154*^9, {3.6828701348076067`*^9, 3.682870204884016*^9}, 
+   3.682870252667622*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"T", " ", "=", " ", "10"}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"ProfitFunc", "[", 
+    RowBox[{"n_", ",", "t_"}], "]"}], " ", ":=", " ", 
+   RowBox[{"N", "[", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{"750", "+", 
+       RowBox[{"(", 
+        RowBox[{"50", "*", "t"}], ")"}]}], ")"}], "/", 
+     RowBox[{"(", 
+      RowBox[{"n", "+", "1"}], ")"}]}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"buildSims", " ", "=", " ", "100000"}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"profits", " ", "=", 
+   RowBox[{"Table", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"curHotels", " ", "=", " ", "0"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"building", " ", "=", " ", "False"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"profits", " ", "=", " ", "0"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"buildProfile", " ", "=", " ", 
+       RowBox[{"Table", "[", "\[IndentingNewLine]", 
+        RowBox[{"(*", " ", 
+         RowBox[{"see", " ", "if", " ", "we", " ", "can", " ", "build"}], " ",
+          "*)"}], "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"If", "[", 
+           RowBox[{"building", ",", " ", "\[IndentingNewLine]", 
+            RowBox[{
+             RowBox[{"curHotels", "++"}], ";", "\[IndentingNewLine]", 
+             RowBox[{"building", " ", "=", " ", "False"}], ";"}], 
+            "\[IndentingNewLine]", ",", "\[IndentingNewLine]", 
+            RowBox[{
+             RowBox[{"chance", " ", "=", " ", 
+              RowBox[{"RandomInteger", "[", "100", "]"}]}], ";", 
+             "\[IndentingNewLine]", 
+             RowBox[{"If", "[", 
+              RowBox[{
+               RowBox[{"chance", "\[GreaterEqual]", " ", "50"}], ",", 
+               "\[IndentingNewLine]", 
+               RowBox[{
+                RowBox[{"building", " ", "=", " ", "True"}], ";"}], 
+               "\[IndentingNewLine]", ",", "\[IndentingNewLine]", 
+               RowBox[{
+                RowBox[{"building", " ", "=", " ", "False"}], ";"}]}], 
+              "\[IndentingNewLine]", "]"}], ";"}]}], "\[IndentingNewLine]", 
+           "]"}], ";", "\[IndentingNewLine]", "curHotels"}], 
+         "\[IndentingNewLine]", ",", "T"}], "\[IndentingNewLine]", "]"}]}], 
+      ";", "\[IndentingNewLine]", 
+      RowBox[{"MapIndexed", "[", 
+       RowBox[{"ProfitFunc", ",", "buildProfile"}], "]"}]}], 
+     "\[IndentingNewLine]", ",", "buildSims"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"simProfs", " ", "=", " ", 
+   RowBox[{"Map", "[", 
+    RowBox[{"Total", ",", "profits"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+
+ RowBox[{
+  RowBox[{"Mean", "[", "simProfs", "]"}], "\[IndentingNewLine]", 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]"}], "Input",
+ CellChangeTimes->{{3.682870508231099*^9, 3.682870513534631*^9}, {
+   3.6828705677144938`*^9, 3.682870774432056*^9}, {3.6828709032588463`*^9, 
+   3.682870916609065*^9}, {3.682871106468506*^9, 3.6828711442276573`*^9}, {
+   3.682871180300823*^9, 3.682871297484118*^9}, 3.682871506138095*^9, {
+   3.6828715843532267`*^9, 3.682871594703113*^9}, {3.682871764994115*^9, 
+   3.6828717689216957`*^9}, {3.682872070922105*^9, 3.6828720870109053`*^9}, {
+   3.682872164135446*^9, 3.6828721825728083`*^9}, {3.682872298593769*^9, 
+   3.682872333502637*^9}, {3.682872366071431*^9, 3.6828723847238827`*^9}, {
+   3.68287246667745*^9, 3.6828724679926033`*^9}, {3.6828725340871983`*^9, 
+   3.682872581437907*^9}, {3.6828726604109783`*^9, 3.682872778566496*^9}, {
+   3.6828729284884977`*^9, 3.682873023928437*^9}, {3.682873108458543*^9, 
+   3.682873181530568*^9}, {3.682873342949861*^9, 3.682873361397531*^9}, {
+   3.6828734417857933`*^9, 3.682873490960753*^9}, {3.682873550858985*^9, 
+   3.68287357198785*^9}, {3.682873664955916*^9, 3.6828736824950953`*^9}, {
+   3.6828738910817537`*^9, 3.682874107806191*^9}, 3.682874183000017*^9, {
+   3.682874435761204*^9, 3.682874436151258*^9}, {3.682874487675426*^9, 
+   3.682874501906385*^9}, {3.682874956132945*^9, 3.682875011534691*^9}, {
+   3.6828750647986107`*^9, 3.682875108921122*^9}, {3.6828751870121937`*^9, 
+   3.6828753532851753`*^9}, {3.6828754656231337`*^9, 3.682875498786312*^9}, 
+   3.682875530418192*^9, {3.682875765896799*^9, 3.68287579203575*^9}, {
+   3.682875865600185*^9, 3.682875887041453*^9}, {3.682875925275817*^9, 
+   3.682875927078717*^9}, {3.6828760410757017`*^9, 3.682876042918632*^9}, {
+   3.682876148576684*^9, 3.682876151117532*^9}, {3.6828761961833*^9, 
+   3.68287622391518*^9}, {3.6828762614748583`*^9, 3.682876286038714*^9}, {
+   3.682876330627696*^9, 3.682876471738759*^9}, {3.6828765619573317`*^9, 
+   3.682876620671122*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", "4726.791916666685`", "}"}]], "Output",
+ CellChangeTimes->{
+  3.682870689159916*^9, 3.6828731837628117`*^9, {3.682873347023017*^9, 
+   3.682873362418915*^9}, {3.682873444785288*^9, 3.682873463946136*^9}, 
+   3.6828735071282063`*^9, 3.682873684106045*^9, {3.682873973653523*^9, 
+   3.6828739962117233`*^9}, 3.682874033349433*^9, 3.6828740779066973`*^9, 
+   3.682874109412663*^9, {3.682874163044989*^9, 3.682874206625893*^9}, 
+   3.682874255916237*^9, {3.68287443983724*^9, 3.682874447509544*^9}, {
+   3.6828749409124193`*^9, 3.6828749770160027`*^9}, {3.682875307666305*^9, 
+   3.682875324902622*^9}, 3.682875358549512*^9, {3.682875450764001*^9, 
+   3.682875499872069*^9}, {3.682876139057007*^9, 3.682876155913443*^9}, 
+   3.6828762245856457`*^9, {3.682876269944523*^9, 3.682876287096321*^9}, 
+   3.682876348110756*^9, {3.682876405152851*^9, 3.6828764858206663`*^9}, {
+   3.682876581715756*^9, 3.682876641003455*^9}}]
+}, Open  ]],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.682874007705297*^9, 3.6828740115862713`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"rows", " ", "=", " ", "10"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"cols", " ", "=", " ", "10"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{"board", " ", "=", " ", 
+    RowBox[{"RandomInteger", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"0", ",", "1"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"rows", ",", "cols"}], "}"}]}], "]"}]}], "\[IndentingNewLine]", 
+   RowBox[{"generations", " ", "=", " ", "10"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"nextBoard", " ", "=", " ", "board"}], ";"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{"Table", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"board", "[", 
+      RowBox[{"[", 
+       RowBox[{"i", ",", "j"}], "]"}], "]"}], "\[IndentingNewLine]", ",", " ", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", 
+       RowBox[{"-", "1"}], ",", "1"}], "}"}], ",", 
+     RowBox[{"j", 
+      RowBox[{"{", 
+       RowBox[{"1", ",", 
+        RowBox[{"-", "1"}]}], "}"}]}]}], "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.683503671614129*^9, 3.6835037015373917`*^9}, {
+   3.68350376296073*^9, 3.683503909582889*^9}, {3.683504017182074*^9, 
+   3.683504072828866*^9}, {3.683504227922612*^9, 3.6835042394107533`*^9}, 
+   3.6835042935779457`*^9, {3.683504344081375*^9, 3.6835043812490396`*^9}, {
+   3.683504414968503*^9, 3.683504420304275*^9}, {3.6835044643596983`*^9, 
+   3.683504480687739*^9}, {3.68350451925537*^9, 3.6835045203108397`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+    "1", ",", "0", ",", "0", ",", "0", ",", "0", ",", "0", ",", "1", ",", "1",
+      ",", "0", ",", "1"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+    "1", ",", "0", ",", "1", ",", "1", ",", "0", ",", "0", ",", "0", ",", "1",
+      ",", "0", ",", "1"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+    "1", ",", "0", ",", "0", ",", "0", ",", "1", ",", "0", ",", "1", ",", "0",
+      ",", "1", ",", "1"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+    "1", ",", "1", ",", "0", ",", "1", ",", "0", ",", "0", ",", "0", ",", "1",
+      ",", "0", ",", "0"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+    "1", ",", "0", ",", "0", ",", "0", ",", "1", ",", "1", ",", "0", ",", "0",
+      ",", "0", ",", "1"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+    "0", ",", "0", ",", "1", ",", "0", ",", "1", ",", "1", ",", "1", ",", "1",
+      ",", "0", ",", "1"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+    "0", ",", "1", ",", "1", ",", "0", ",", "0", ",", "0", ",", "0", ",", "1",
+      ",", "1", ",", "0"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+    "0", ",", "0", ",", "0", ",", "1", ",", "1", ",", "0", ",", "0", ",", "0",
+      ",", "0", ",", "0"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+    "1", ",", "1", ",", "0", ",", "0", ",", "1", ",", "0", ",", "0", ",", "0",
+      ",", "1", ",", "1"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+    "0", ",", "1", ",", "0", ",", "0", ",", "1", ",", "0", ",", "0", ",", "1",
+      ",", "1", ",", "0"}], "}"}]}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.6835037033553762`*^9, {3.683503746396278*^9, 3.683503779224319*^9}, {
+   3.683503883708199*^9, 3.683503910683814*^9}, 3.683504040329504*^9, 
+   3.68350447745061*^9}],
+
+Cell[BoxData["10"], "Output",
+ CellChangeTimes->{
+  3.6835037033553762`*^9, {3.683503746396278*^9, 3.683503779224319*^9}, {
+   3.683503883708199*^9, 3.683503910683814*^9}, 3.683504040329504*^9, 
+   3.683504477451249*^9}],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Part","pkspec1",
+   "\"The expression \\!\\(\\*RowBox[{\\\"j\\\"}]\\) cannot be used as a part \
+specification.\"",2,41,2,17604604240952467164,"Local"},
+  "MessageTemplate"]], "Message", "MSG",
+ CellChangeTimes->{3.6835044774526157`*^9}],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Part","pkspec1",
+   "\"The expression \\!\\(\\*RowBox[{\\\"j\\\"}]\\) cannot be used as a part \
+specification.\"",2,41,3,17604604240952467164,"Local"},
+  "MessageTemplate"]], "Message", "MSG",
+ CellChangeTimes->{3.683504477479414*^9}],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Part","pkspec1",
+   "\"The expression \\!\\(\\*RowBox[{\\\"j\\\"}]\\) cannot be used as a part \
+specification.\"",2,41,4,17604604240952467164,"Local"},
+  "MessageTemplate"]], "Message", "MSG",
+ CellChangeTimes->{3.6835044774834948`*^9}],
+
+Cell[BoxData[
+ TemplateBox[{
+  "General","stop",
+   "\"Further output of \\!\\(\\*StyleBox[RowBox[{\\\"Part\\\", \\\"::\\\", \
+\\\"pkspec1\\\"}], \\\"MessageName\\\"]\\) will be suppressed during this \
+calculation.\"",2,41,5,17604604240952467164,"Local"},
+  "MessageTemplate"]], "Message", "MSG",
+ CellChangeTimes->{3.6835044774869137`*^9}]
+}, Open  ]]
+},
+WindowSize->{1244, 672},
+WindowMargins->{{1293, Automatic}, {23, Automatic}},
+FrontEndVersion->"11.0 for Linux x86 (64-bit) (July 28, 2016)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 8703, 166, 956, "Input"],
+Cell[9286, 190, 185, 3, 24, "Print"],
+Cell[9474, 195, 194, 4, 30, "Output"],
+Cell[9671, 201, 182, 3, 22, "Print"],
+Cell[9856, 206, 156, 3, 30, "Output"],
+Cell[10015, 211, 148, 3, 30, "Output"],
+Cell[10166, 216, 181, 3, 24, "Print"],
+Cell[10350, 221, 182, 4, 30, "Output"],
+Cell[10535, 227, 6802, 119, 231, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[17374, 351, 4789, 97, 640, "Input"],
+Cell[22166, 450, 943, 14, 32, "Output"]
+}, Open  ]],
+Cell[23124, 467, 94, 1, 30, "Input"],
+Cell[CellGroupData[{
+Cell[23243, 472, 1553, 36, 226, "Input"],
+Cell[24799, 510, 1743, 46, 72, "Output"],
+Cell[26545, 558, 220, 4, 30, "Output"],
+Cell[26768, 564, 269, 6, 23, "Message"],
+Cell[27040, 572, 267, 6, 23, "Message"],
+Cell[27310, 580, 269, 6, 23, "Message"],
+Cell[27582, 588, 341, 7, 23, "Message"]
+}, Open  ]]
+}
+]
+*)
+

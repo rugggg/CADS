@@ -1,0 +1,508 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.2' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     20450,        500]
+NotebookOptionsPosition[     19572,        465]
+NotebookOutlinePosition[     19936,        481]
+CellTagsIndexPosition[     19893,        478]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Simulated Annealing", "Section",
+ CellChangeTimes->{{3.651935097687233*^9, 3.6519351024376307`*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"SalesmanSimulatedAnnealing", "[", 
+     RowBox[{"cityLocations_", ",", "nSteps_"}], "]"}], ":=", 
+    "\[IndentingNewLine]", 
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+       "currentPath", ",", "temperature", ",", "neighborPath", ",", 
+        "pathValueDifference"}], "}"}], ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"currentPath", "=", "cityLocations"}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"Do", "[", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"temperature", "=", 
+           RowBox[{"CalculateTemperature", "[", 
+            RowBox[{"step", ",", "nSteps"}], "]"}]}], ";", 
+          "\[IndentingNewLine]", 
+          RowBox[{"neighborPath", "=", 
+           RowBox[{"SalesmanNeighborSwap", "[", "currentPath", "]"}]}], ";", 
+          "\[IndentingNewLine]", 
+          RowBox[{"pathValueDifference", "=", 
+           RowBox[{"CalculateValueDifference", "[", 
+            RowBox[{"neighborPath", ",", "currentPath"}], "]"}]}], ";", 
+          "\[IndentingNewLine]", 
+          RowBox[{"If", "[", 
+           RowBox[{
+            RowBox[{"AcceptNewPathQ", "[", 
+             RowBox[{"pathValueDifference", ",", "temperature"}], "]"}], ",", 
+            "\[IndentingNewLine]", 
+            RowBox[{"currentPath", "=", "neighborPath"}]}], 
+           "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", ",", 
+         RowBox[{"{", 
+          RowBox[{"step", ",", "1", ",", "nSteps"}], "}"}]}], 
+        "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
+       "currentPath"}]}], "\[IndentingNewLine]", "]"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"CalculateTemperature", "[", 
+     RowBox[{"step_", ",", "nSteps_"}], "]"}], ":=", "\[IndentingNewLine]", 
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"initialTemperature", ",", "decayRate"}], "}"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"initialTemperature", "=", "1"}], ";", "\[IndentingNewLine]", 
+       RowBox[{"decayRate", "=", "5.0"}], ";", "\[IndentingNewLine]", 
+       RowBox[{"initialTemperature", "*", 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{"1", "-", 
+           RowBox[{"(", 
+            RowBox[{"decayRate", "/", "nSteps"}], ")"}]}], ")"}], "^", 
+         "step"}]}]}]}], "\[IndentingNewLine]", "]"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"CalculateValueDifference", "[", 
+     RowBox[{"neighborPath_", ",", "currentPath_"}], "]"}], ":=", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"SalesmanTourDistance", "[", "neighborPath", "]"}], "-", 
+     RowBox[{"SalesmanTourDistance", "[", "currentPath", "]"}]}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"AcceptNewPathQ", "[", 
+     RowBox[{"pathValueDifference_", ",", "temperature_"}], "]"}], ":=", 
+    "\[IndentingNewLine]", 
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", "probAccept", "}"}], ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"probAccept", "=", 
+        RowBox[{"E", "^", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"-", "pathValueDifference"}], "/", "temperature"}], 
+          ")"}]}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"RandomReal", "[", "]"}], "<", "probAccept"}]}]}], 
+     "\[IndentingNewLine]", "]"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"SalesmanTourDistance", "[", "cityPath_", "]"}], ":=", 
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", "totalLength", "}"}], ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"totalLength", "=", "0"}], ";", "\[IndentingNewLine]", 
+       RowBox[{"Do", "[", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"totalLength", "=", 
+          RowBox[{"totalLength", "+", 
+           RowBox[{"EuclideanDistance", "[", 
+            RowBox[{
+             RowBox[{"cityPath", "[", 
+              RowBox[{"[", "i", "]"}], "]"}], ",", 
+             RowBox[{"cityPath", "[", 
+              RowBox[{"[", 
+               RowBox[{"i", "+", "1"}], "]"}], "]"}]}], "]"}]}]}], 
+         "\[IndentingNewLine]", ",", 
+         RowBox[{"{", 
+          RowBox[{"i", ",", "1", ",", 
+           RowBox[{
+            RowBox[{"Length", "[", "cityPath", "]"}], "-", "1"}]}], "}"}]}], 
+        "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
+       RowBox[{"totalLength", "=", 
+        RowBox[{"totalLength", "+", 
+         RowBox[{"EuclideanDistance", "[", 
+          RowBox[{
+           RowBox[{"cityPath", "[", 
+            RowBox[{"[", "1", "]"}], "]"}], ",", 
+           RowBox[{"cityPath", "[", 
+            RowBox[{"[", 
+             RowBox[{"-", "1"}], "]"}], "]"}]}], "]"}]}]}], ";", 
+       "\[IndentingNewLine]", "totalLength"}]}], "\[IndentingNewLine]", 
+     "]"}]}], ";"}], "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"SalesmanNeighborSwap", "[", "currentPath_", "]"}], ":=", 
+  "\[IndentingNewLine]", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"newPath", ",", "swapIndices"}], "}"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"newPath", "=", "currentPath"}], ";", "\[IndentingNewLine]", 
+     RowBox[{"swapIndices", "=", 
+      RowBox[{"RandomSample", "[", 
+       RowBox[{
+        RowBox[{"Range", "[", 
+         RowBox[{"Length", "[", "currentPath", "]"}], "]"}], ",", "2"}], 
+       "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"newPath", "[", 
+       RowBox[{"[", "swapIndices", "]"}], "]"}], "=", 
+      RowBox[{"newPath", "[", 
+       RowBox[{"[", 
+        RowBox[{"Reverse", "[", "swapIndices", "]"}], "]"}], "]"}]}], ";", 
+     "\[IndentingNewLine]", "newPath"}]}], "\[IndentingNewLine]", 
+   "]"}]}]}], "Input",
+ CellChangeTimes->{{3.651935127477371*^9, 3.651935144742619*^9}, {
+   3.651935218140827*^9, 3.6519352785107737`*^9}, {3.651935376715995*^9, 
+   3.6519353922695007`*^9}, {3.6519354278767567`*^9, 3.651935710885377*^9}, {
+   3.651935765139135*^9, 3.651935799787404*^9}, {3.651935867595538*^9, 
+   3.6519361845642233`*^9}, {3.6521297011036377`*^9, 3.652130118580984*^9}, {
+   3.652130154949523*^9, 3.652130229686664*^9}, 3.652130279706428*^9, {
+   3.652130317863982*^9, 3.6521303224718733`*^9}, {3.652130402360834*^9, 
+   3.652130426233075*^9}, {3.652130655516593*^9, 3.652130900590665*^9}, {
+   3.652130961136059*^9, 3.652131042320175*^9}, {3.652131543078127*^9, 
+   3.652131619271151*^9}, 3.652132211474251*^9, {3.683985847981511*^9, 
+   3.683985859933958*^9}, {3.683986631347394*^9, 3.683986631734606*^9}, {
+   3.683987030368721*^9, 3.683987160888126*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Watch it run", "Section",
+ CellChangeTimes->{{3.652132383039784*^9, 3.652132397887835*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"SalesmanSimulatedAnnealingStep", "[", 
+    RowBox[{"currentPath_", ",", "temperature_"}], "]"}], ":=", 
+   "\[IndentingNewLine]", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"neighborPath", ",", "pathValueDifference"}], "}"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"neighborPath", "=", 
+       RowBox[{"SalesmanNeighborSwap", "[", "currentPath", "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"pathValueDifference", "=", 
+       RowBox[{"CalculateValueDifference", "[", 
+        RowBox[{"neighborPath", ",", "currentPath"}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"If", "[", 
+       RowBox[{
+        RowBox[{"AcceptNewPathQ", "[", 
+         RowBox[{"pathValueDifference", ",", "temperature"}], "]"}], ",", 
+        "\[IndentingNewLine]", "neighborPath", ",", "\[IndentingNewLine]", 
+        "currentPath"}], "\[IndentingNewLine]", "]"}]}]}], 
+    "\[IndentingNewLine]", "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.6521318298012743`*^9, 3.6521318866981497`*^9}, {
+  3.6840629460785007`*^9, 3.6840629606682673`*^9}, {3.6840630336634283`*^9, 
+  3.684063035426992*^9}, {3.684063135505313*^9, 3.684063136134583*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"nCities", "=", "50"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"cityLocations", "=", 
+   RowBox[{"RandomReal", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"0", ",", "1"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"nCities", ",", "2"}], "}"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"nSteps", "=", "100000"}], ";"}]}], "Input",
+ CellChangeTimes->{{3.652132258541018*^9, 3.652132271479574*^9}, {
+  3.6521330558653193`*^9, 3.652133056105142*^9}, {3.6839840849095297`*^9, 
+  3.6839840870067797`*^9}, {3.6839858692228403`*^9, 3.68398589937593*^9}, {
+  3.683987401698941*^9, 3.68398741462006*^9}, {3.68398747775596*^9, 
+  3.683987478267967*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"Dynamic", "[", "outputGraph", "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"currentPath", "=", "cityLocations"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Do", "[", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"temperature", "=", 
+      RowBox[{"CalculateTemperature", "[", 
+       RowBox[{"step", ",", "nSteps"}], "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"currentPath", "=", 
+      RowBox[{"SalesmanSimulatedAnnealingStep", "[", 
+       RowBox[{"currentPath", ",", "temperature"}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"If", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"Mod", "[", 
+         RowBox[{"step", ",", "100"}], "]"}], "\[Equal]", "0"}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"outputGraph", "=", 
+        RowBox[{"ListLinePlot", "[", "\[IndentingNewLine]", 
+         RowBox[{"currentPath", ",", "\[IndentingNewLine]", 
+          RowBox[{"Mesh", "\[Rule]", "Full"}], ",", "\[IndentingNewLine]", 
+          RowBox[{"MeshStyle", "\[Rule]", 
+           RowBox[{"Opacity", "[", "0.2", "]"}]}], ",", "\[IndentingNewLine]", 
+          RowBox[{"PlotLabel", "\[Rule]", 
+           RowBox[{"\"\<Iteration: \>\"", "<>", 
+            RowBox[{"ToString", "[", "step", "]"}], "<>", 
+            "\[IndentingNewLine]", "\"\<\\nTotal Distance: \>\"", "<>", 
+            RowBox[{"ToString", "[", 
+             RowBox[{"SalesmanTourDistance", "[", "currentPath", "]"}], "]"}],
+             "<>", "\[IndentingNewLine]", "\"\<\\nTemperature: \>\"", "<>", 
+            RowBox[{"ToString", "[", "temperature", "]"}]}]}]}], 
+         "\[IndentingNewLine]", "]"}]}]}], "\[IndentingNewLine]", "]"}], 
+     ";"}], "\[IndentingNewLine]", ",", 
+    RowBox[{"{", 
+     RowBox[{"step", ",", "1", ",", "nSteps"}], "}"}]}], 
+   "\[IndentingNewLine]", "]"}], ";"}]}], "Input",
+ CellChangeTimes->{{3.652131889170127*^9, 3.6521321953096743`*^9}, {
+  3.652132225852462*^9, 3.652132229022702*^9}, {3.65213259342679*^9, 
+  3.6521325956839657`*^9}, {3.652132684499626*^9, 3.652132692276391*^9}, {
+  3.684062458369967*^9, 3.684062467469154*^9}, {3.684062738747204*^9, 
+  3.684062740417821*^9}, {3.684062870482684*^9, 3.684062871053533*^9}, {
+  3.6840629626554193`*^9, 3.684062962813586*^9}}],
+
+Cell[BoxData[
+ DynamicBox[ToBoxes[$CellContext`outputGraph, StandardForm],
+  ImageSizeCache->{720., {268., 280.}}]], "Output",
+ CellChangeTimes->{{3.652132109596406*^9, 3.652132154462311*^9}, {
+   3.652132196052498*^9, 3.652132230486164*^9}, {3.652132266773802*^9, 
+   3.652132275146995*^9}, 3.652132470959234*^9, 3.652132596361245*^9, 
+   3.652132692684881*^9, 3.6521328095835457`*^9, 3.652133068389381*^9, 
+   3.683983841559848*^9, 3.683983933051218*^9, {3.683984076768403*^9, 
+   3.683984088563196*^9}, {3.6839873835529633`*^9, 3.683987415710802*^9}, 
+   3.683987449214533*^9, 3.6839874794438543`*^9, 3.683987567345937*^9, 
+   3.68399499592177*^9, 3.683995054336361*^9, 3.683995117647608*^9, 
+   3.683995171760908*^9, 3.683995227479855*^9, 3.683995307638932*^9, 
+   3.6839953642893887`*^9, 3.68399554594418*^9, 3.684062437642132*^9, 
+   3.684062473897735*^9, 3.684062533666766*^9, 3.684062587486494*^9, 
+   3.6840627409333553`*^9, 3.684062807377033*^9, 3.684062871493524*^9, 
+   3.6840629665530024`*^9, 3.68406303764751*^9}]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"(*", 
+  RowBox[{
+   RowBox[{
+   "Use", " ", "a", " ", "specialized", " ", "algorithm", " ", "built"}], "-", 
+   RowBox[{"in", " ", "with", " ", "Mathematica"}]}], "*)"}]], "Input",
+ CellChangeTimes->{{3.684062336143466*^9, 3.6840623496067867`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"optPathLength", ",", " ", "optPathOrder"}], "}"}], " ", "=", " ", 
+   RowBox[{"FindShortestTour", "[", "cityLocations", "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"ListLinePlot", "[", 
+  RowBox[{
+   RowBox[{"cityLocations", "[", 
+    RowBox[{"[", "optPathOrder", "]"}], "]"}], ",", 
+   RowBox[{"PlotLabel", "\[Rule]", 
+    RowBox[{"\"\<Total Distance: \>\"", "<>", 
+     RowBox[{"ToString", "[", "optPathLength", "]"}]}]}]}], "]"}]}], "Input",
+ CellChangeTimes->{{3.684062361441074*^9, 3.684062372794606*^9}, {
+  3.6840630219941072`*^9, 3.684063024058383*^9}}],
+
+Cell[BoxData[
+ GraphicsBox[{{}, {{}, {}, 
+    {RGBColor[0.368417, 0.506779, 0.709798], PointSize[0.016666666666666666`],
+      AbsoluteThickness[1.6], LineBox[CompressedData["
+1:eJxdk2tMkwcARRFZ1AlqxFRSjemcYoJTOmytYud1aGYL6EoRURmIEh4zQx5V
+VlNUnM1sGIJsPhi4hYA6VECqZcECWuS1dqiftY0fpWCfX59rgU2FCHPsrz9u
+Ts7vk/vR4TxhZmBAQMCGmf3P14d+sdEUXlw8Fk2bV08ixpCT21/lwY5NA+I/
+dCSkT9aq+pZ7EGYvN0qySWwNIgZzJz3YUy+mtL06MDNGOi7rKRgNbeFLE3VY
+fkZdwlntQJkxPl6U9BzEgtvk2FEKROP82OhDj0AlLJkddssK2TLWnLM1BKIt
+ReS+tWZ4nwcyQ28+w0rJ0/bUcTOkCQuirjkNEAwkvRWzjZB9XLv7+GMSObmR
+qV3kEGonFQnTLAKN7Buq3PRhEPtLF9F2yiHWjV5dqX+Gtpiz214d0GBUqi9+
+cq4PtYpvpBVN1zF6LjxzFvEQ6WkbZue0diJgWGMLjq3GhK13ZHujHsx4V8G+
+r+6BsWVb9s4rejRkjqlDKQ2038pKadkmVCXdGWzpeIqyVfkaVYgFKglfbaS3
+ghvxMK2pxwIGnR9+eu91hC3s7BadMUOlPVV9xHYNRVe0cQcL7JgbS+0VulRo
+5k34VzRRaLB+cDzlbj/yrxJvV2x1gFF4RN5yXwPndF2qodMJAV3ekZjYBl5y
+wYm4eDdM1L/JPxyuQyBrnFWx2AumhH3Qb5LjWPCOv8ryfJBNvVNG3uhH+q6J
+GpF5pqNpcblzvxYlP0vWhFR7ETT05m6/2wCuQNgqbvdhUQbjhSbChFNjkz01
+bB96JpTiz1km9KW/S7lQ6YZOdfTL4lkvMMCNKf+x3oHi5gdRg4WDYImkUSFs
+C4Ifd/FFJSP4MLv09FChFc1Tof65683gNYVlNDDsEE8vzJNUWlH06WTlxs0U
+mIX6f4KSbeBu6SwT1M240p7lctjw3W69i8d34fvwB4pl3U5oXjJPcvb4IL0U
+qCkh3ahiyNV+ygcup9v5k9ULWcp94guOH0J1rPzPvz3w3omckt72ICvuUf5v
+Vh/W0/vmkG8cEH6WtS4owoslq/LptJd28KhflQ6tB6rfv27/ZKkVl3vJE+NS
+N6JCzlcr11nQMtCtSOP7ILBwum6eHMb7//gPNAyplg==
+      "]]}}, {}, {}, {{}, {}}},
+  AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+  Axes->{True, True},
+  AxesLabel->{None, None},
+  AxesOrigin->{0, 0},
+  DisplayFunction->Identity,
+  Frame->{{False, False}, {False, False}},
+  FrameLabel->{{None, None}, {None, None}},
+  FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
+  GridLines->{None, None},
+  GridLinesStyle->Directive[
+    GrayLevel[0.5, 0.4]],
+  ImagePadding->All,
+  Method->{"CoordinatesToolOptions" -> {"DisplayFunction" -> ({
+        (Part[{{Identity, Identity}, {Identity, Identity}}, 1, 2][#]& )[
+         Part[#, 1]], 
+        (Part[{{Identity, Identity}, {Identity, Identity}}, 2, 2][#]& )[
+         Part[#, 2]]}& ), "CopiedValueFunction" -> ({
+        (Part[{{Identity, Identity}, {Identity, Identity}}, 1, 2][#]& )[
+         Part[#, 1]], 
+        (Part[{{Identity, Identity}, {Identity, Identity}}, 2, 2][#]& )[
+         Part[#, 2]]}& )}},
+  PlotLabel->FormBox["\"Total Distance: 5.58972\"", TraditionalForm],
+  PlotRange->{{0, 0.9652898027728554}, {0, 0.9754976345674189}},
+  PlotRangeClipping->True,
+  PlotRangePadding->{{
+     Scaled[0.02], 
+     Scaled[0.02]}, {
+     Scaled[0.02], 
+     Scaled[0.05]}},
+  Ticks->{Automatic, Automatic}]], "Output",
+ CellChangeTimes->{3.68406302472441*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.683984020529409*^9, 3.683984057465369*^9}, {
+   3.6840623536967278`*^9, 3.684062425302733*^9}, 3.6840630207613583`*^9}],
+
+Cell[BoxData[
+ GraphicsBox[{{}, {{}, {}, 
+    {RGBColor[0.368417, 0.506779, 0.709798], PointSize[0.016666666666666666`],
+      AbsoluteThickness[1.6], LineBox[CompressedData["
+1:eJxdk2tMkwcARRFZ1AlqxFRSjemcYoJTOmytYud1aGYL6EoRURmIEh4zQx5V
+VlNUnM1sGIJsPhi4hYA6VECqZcECWuS1dqiftY0fpWCfX59rgU2FCHPsrz9u
+Ts7vk/vR4TxhZmBAQMCGmf3P14d+sdEUXlw8Fk2bV08ixpCT21/lwY5NA+I/
+dCSkT9aq+pZ7EGYvN0qySWwNIgZzJz3YUy+mtL06MDNGOi7rKRgNbeFLE3VY
+fkZdwlntQJkxPl6U9BzEgtvk2FEKROP82OhDj0AlLJkddssK2TLWnLM1BKIt
+ReS+tWZ4nwcyQ28+w0rJ0/bUcTOkCQuirjkNEAwkvRWzjZB9XLv7+GMSObmR
+qV3kEGonFQnTLAKN7Buq3PRhEPtLF9F2yiHWjV5dqX+Gtpiz214d0GBUqi9+
+cq4PtYpvpBVN1zF6LjxzFvEQ6WkbZue0diJgWGMLjq3GhK13ZHujHsx4V8G+
+r+6BsWVb9s4rejRkjqlDKQ2038pKadkmVCXdGWzpeIqyVfkaVYgFKglfbaS3
+ghvxMK2pxwIGnR9+eu91hC3s7BadMUOlPVV9xHYNRVe0cQcL7JgbS+0VulRo
+5k34VzRRaLB+cDzlbj/yrxJvV2x1gFF4RN5yXwPndF2qodMJAV3ekZjYBl5y
+wYm4eDdM1L/JPxyuQyBrnFWx2AumhH3Qb5LjWPCOv8ryfJBNvVNG3uhH+q6J
+GpF5pqNpcblzvxYlP0vWhFR7ETT05m6/2wCuQNgqbvdhUQbjhSbChFNjkz01
+bB96JpTiz1km9KW/S7lQ6YZOdfTL4lkvMMCNKf+x3oHi5gdRg4WDYImkUSFs
+C4Ifd/FFJSP4MLv09FChFc1Tof65683gNYVlNDDsEE8vzJNUWlH06WTlxs0U
+mIX6f4KSbeBu6SwT1M240p7lctjw3W69i8d34fvwB4pl3U5oXjJPcvb4IL0U
+qCkh3ahiyNV+ygcup9v5k9ULWcp94guOH0J1rPzPvz3w3omckt72ICvuUf5v
+Vh/W0/vmkG8cEH6WtS4owoslq/LptJd28KhflQ6tB6rfv27/ZKkVl3vJE+NS
+N6JCzlcr11nQMtCtSOP7ILBwum6eHMb7//gPNAyplg==
+      "]]}}, {}, {}, {{}, {}}},
+  AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+  Axes->{True, True},
+  AxesLabel->{None, None},
+  AxesOrigin->{0, 0},
+  DisplayFunction->Identity,
+  Frame->{{False, False}, {False, False}},
+  FrameLabel->{{None, None}, {None, None}},
+  FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
+  GridLines->{None, None},
+  GridLinesStyle->Directive[
+    GrayLevel[0.5, 0.4]],
+  ImagePadding->All,
+  Method->{"CoordinatesToolOptions" -> {"DisplayFunction" -> ({
+        (Part[{{Identity, Identity}, {Identity, Identity}}, 1, 2][#]& )[
+         Part[#, 1]], 
+        (Part[{{Identity, Identity}, {Identity, Identity}}, 2, 2][#]& )[
+         Part[#, 2]]}& ), "CopiedValueFunction" -> ({
+        (Part[{{Identity, Identity}, {Identity, Identity}}, 1, 2][#]& )[
+         Part[#, 1]], 
+        (Part[{{Identity, Identity}, {Identity, Identity}}, 2, 2][#]& )[
+         Part[#, 2]]}& )}},
+  PlotLabel->FormBox["\"Total Distance: 5.58972\"", TraditionalForm],
+  PlotRange->{{0, 0.9652898027728554}, {0, 0.9754976345674189}},
+  PlotRangeClipping->True,
+  PlotRangePadding->{{
+     Scaled[0.02], 
+     Scaled[0.02]}, {
+     Scaled[0.02], 
+     Scaled[0.05]}},
+  Ticks->{Automatic, Automatic}]], "Output",
+ CellChangeTimes->{{3.683984029209957*^9, 3.683984058348669*^9}, 
+   3.683984115275202*^9, 3.683994972884317*^9, 3.684062526864292*^9, {
+   3.684062791747528*^9, 3.68406280468748*^9}, 3.684063016433955*^9}]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1918, 1053},
+WindowMargins->{{1, Automatic}, {26, Automatic}},
+Magnification:>2. Inherited,
+FrontEndVersion->"11.0 for Linux x86 (64-bit) (July 28, 2016)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 106, 1, 129, "Section"],
+Cell[689, 25, 6879, 165, 1902, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[7605, 195, 97, 1, 129, "Section"],
+Cell[7705, 198, 1249, 28, 371, "Input"],
+Cell[8957, 228, 725, 18, 167, "Input"],
+Cell[CellGroupData[{
+Cell[9707, 250, 2273, 45, 708, "Input"],
+Cell[11983, 297, 1027, 15, 606, "Output"]
+}, Open  ]],
+Cell[13025, 315, 272, 6, 62, "Input"],
+Cell[CellGroupData[{
+Cell[13322, 325, 635, 15, 129, "Input"],
+Cell[13960, 342, 2605, 54, 536, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[16602, 401, 168, 2, 60, "Input"],
+Cell[16773, 405, 2771, 56, 536, "Output"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+

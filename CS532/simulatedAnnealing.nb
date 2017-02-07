@@ -1,0 +1,243 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      7891,        235]
+NotebookOptionsPosition[      7206,        207]
+NotebookOutlinePosition[      7533,        222]
+CellTagsIndexPosition[      7490,        219]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.6835533224140882`*^9, 3.68355332493952*^9}}],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.683553388244952*^9, 3.6835533923754997`*^9}, {
+  3.683556905437141*^9, 3.6835569192132187`*^9}, {3.683557021708331*^9, 
+  3.683557023851457*^9}},
+ FontWeight->"Plain"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"SimulatedAnnealing", "[", 
+     RowBox[{"nSteps_", ",", "initialGuess_"}], "]"}], ":=", 
+    "\[IndentingNewLine]", 
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"neighbor", ",", "currentGuess", ",", "currentTemperature"}], 
+       "}"}], ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"currentGuess", " ", "=", " ", "initialGuess"}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"Table", "[", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"neighbor", " ", "=", " ", 
+           RowBox[{"GenerateNeighbor", "[", "currentGuess", "]"}]}], ";", 
+          "\[IndentingNewLine]", 
+          RowBox[{"currentTemperature", " ", "=", " ", 
+           RowBox[{"CalcuateTemperature", "[", 
+            RowBox[{"step", ",", "nSteps"}], "]"}]}], ";", 
+          "\[IndentingNewLine]", 
+          RowBox[{"If", "[", 
+           RowBox[{
+            RowBox[{"AcceptNeighbor", "[", 
+             RowBox[{
+             "currentGuess", ",", "neighbor", ",", "currentTemperature"}], 
+             "]"}], ",", 
+            RowBox[{"currentGuess", " ", "=", " ", "neighbor"}]}], 
+           "\[IndentingNewLine]", "]"}], ";"}], "\[IndentingNewLine]", ",", 
+         RowBox[{"{", 
+          RowBox[{"step", ",", "1", ",", "nSteps"}], "}"}]}], 
+        "\[IndentingNewLine]", "]"}]}]}], "\[IndentingNewLine]", "]"}]}], 
+   ";"}], "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"AcceptNeighbor", "[", 
+     RowBox[{"currentGuess_", ",", "neighbor_", ",", "currentTemperature_"}], 
+     "]"}], ":=", "\[IndentingNewLine]", 
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", "probAccept", "}"}], ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"probAccept", " ", "=", " ", 
+        RowBox[{"Min", "[", 
+         RowBox[{
+          RowBox[{"Exp", "[", 
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"Sinc", "[", "neighbor", "]"}], "-", 
+              RowBox[{"Sinc", "[", "currentGuess", "]"}]}], ")"}], "/", 
+            "currentTemperature"}], "]"}], ",", "1"}], "]"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"RandomReal", "[", 
+         RowBox[{"{", 
+          RowBox[{"0", ",", "1"}], "}"}], "]"}], "<", "probAccept"}]}]}], 
+     "\[IndentingNewLine]", "]"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"CalculateTemperature", "[", 
+     RowBox[{"step_", ",", "nSteps_"}], "]"}], ":=", "\[IndentingNewLine]", 
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", "initialTemp", "}"}], ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"initialTemp", " ", "=", " ", "1"}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"\[Gamma]", "=", "5.0"}], ";", "\[IndentingNewLine]", 
+       RowBox[{"initialTemp", " ", "*", 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{"1", "-", 
+           RowBox[{"\[Gamma]", "/", "nSteps"}]}], ")"}], "^", "step"}]}]}]}], 
+     "\[IndentingNewLine]", "]"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"GenerateNeighbor", "[", "currentGuess_", "]"}], ":=", 
+   RowBox[{"Clip", "[", 
+    RowBox[{
+     RowBox[{"currentGuess", "+", 
+      RowBox[{"RandomReal", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"-", "5"}], ",", "5"}], "}"}], "]"}]}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"-", "50"}], ",", "50"}], "}"}]}], "]"}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.683556122545763*^9, 3.683556548888734*^9}, {
+  3.6835567934279957`*^9, 3.6835569937261753`*^9}, {3.683557059229488*^9, 
+  3.683557089009776*^9}, {3.6835571677436447`*^9, 3.683557168787179*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Counts", "[", 
+  RowBox[{"Table", "[", 
+   RowBox[{
+    RowBox[{"AcceptNeighbor", "[", 
+     RowBox[{"0", ",", "1", ",", ".0090"}], "]"}], ",", 
+    RowBox[{"{", "100", "}"}]}], "]"}], "]"}]], "Input",
+ CellChangeTimes->{{3.68355659583142*^9, 3.6835566158830843`*^9}, {
+  3.683556680599622*^9, 3.683556761781383*^9}}],
+
+Cell[BoxData[
+ RowBox[{"\[LeftAssociation]", 
+  RowBox[{"False", "\[Rule]", "100"}], "\[RightAssociation]"}]], "Output",
+ CellChangeTimes->{
+  3.683556616929769*^9, {3.6835566851415377`*^9, 3.683556762394026*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"ListLinePlot", "[", 
+  RowBox[{
+   RowBox[{"SimulatedAnnealing", "[", 
+    RowBox[{"100", ",", 
+     RowBox[{"-", "20"}]}], "]"}], ",", 
+   RowBox[{"PlotRange", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"-", "50"}], ",", "50"}], "}"}]}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.68355703810635*^9, 3.683557069568351*^9}, {
+  3.6835571023595943`*^9, 3.683557152523511*^9}}],
+
+Cell[BoxData[
+ GraphicsBox[{{}, {}, {}, {}, {{}, {}}},
+  AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+  Axes->{True, True},
+  AxesLabel->{None, None},
+  AxesOrigin->{0., 0},
+  DisplayFunction->Identity,
+  Frame->{{False, False}, {False, False}},
+  FrameLabel->{{None, None}, {None, None}},
+  FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
+  GridLines->{None, None},
+  GridLinesStyle->Directive[
+    GrayLevel[0.5, 0.4]],
+  ImagePadding->All,
+  Method->{"CoordinatesToolOptions" -> {"DisplayFunction" -> ({
+        (Part[{{Identity, Identity}, {Identity, Identity}}, 1, 2][#]& )[
+         Part[#, 1]], 
+        (Part[{{Identity, Identity}, {Identity, Identity}}, 2, 2][#]& )[
+         Part[#, 2]]}& ), "CopiedValueFunction" -> ({
+        (Part[{{Identity, Identity}, {Identity, Identity}}, 1, 2][#]& )[
+         Part[#, 1]], 
+        (Part[{{Identity, Identity}, {Identity, Identity}}, 2, 2][#]& )[
+         Part[#, 2]]}& )}},
+  PlotRange->{{0., 1}, {0, 1}},
+  PlotRangeClipping->True,
+  PlotRangePadding->{{
+     Scaled[0.02], 
+     Scaled[0.02]}, {0, 0}},
+  Ticks->{Automatic, Automatic}]], "Output",
+ CellChangeTimes->{3.683557182190929*^9}]
+}, Open  ]],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.683557172271174*^9, 3.683557176427051*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData["20"], "Input",
+ CellChangeTimes->{3.683557065442829*^9}],
+
+Cell[BoxData["20"], "Output",
+ CellChangeTimes->{3.6835570655015793`*^9}]
+}, Open  ]]
+},
+WindowSize->{662, 717},
+WindowMargins->{{13, Automatic}, {13, 38}},
+FrontEndVersion->"11.0 for Linux x86 (64-bit) (July 28, 2016)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 93, 1, 30, "Input"],
+Cell[654, 23, 216, 4, 30, "Input"],
+Cell[873, 29, 3833, 98, 615, "Input"],
+Cell[CellGroupData[{
+Cell[4731, 131, 341, 8, 32, "Input"],
+Cell[5075, 141, 213, 4, 30, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[5325, 150, 412, 11, 32, "Input"],
+Cell[5740, 163, 1172, 29, 281, "Output"]
+}, Open  ]],
+Cell[6927, 195, 92, 1, 30, InheritFromParent],
+Cell[CellGroupData[{
+Cell[7044, 200, 70, 1, 30, InheritFromParent],
+Cell[7117, 203, 73, 1, 30, "Output"]
+}, Open  ]]
+}
+]
+*)
+

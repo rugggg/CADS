@@ -14,10 +14,10 @@ PotatoShell::PotatoShell(){};
 PotatoShell::~PotatoShell(){}
 
 std::string PotatoShell::prompt(){
-    cout << "\u2653\u2653 \u077A ";
+    cout << "\u2653\u2653\u077A ";
     std::string cmd;
     getline(cin,cmd);
-    if(cmd == "exit"){
+    if(cmd == "exit"|| cmd == "Exit"){
             setDone();
     }
     return cmd;

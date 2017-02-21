@@ -1,0 +1,3 @@
+[submodule "CS520/MarsModel"]
+	path = CS520/MarsModel
+	url = git@github.com:rugggg/MarsModel.git

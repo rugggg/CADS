@@ -44,17 +44,16 @@ pid_t PotatoShell::spawn(const std::string& cmd){
                         }
                 }
             }
+        //hold parent until child finishes
+        int status;
+        while (-1 == waitpid(pid, &status, 0));
+        if (!WIFEXITED(status) || WEXITSTATUS(status) != 0) {
+            //cerr << "Process  (pid " << pid << ") failed" << endl;
+        }
         //parent 
     }
     else{
         cout << "failed" << std::endl;
-    }
-    int status;
-    while (-1 == waitpid(pid, &status, 0));
-    if (!WIFEXITED(status) || WEXITSTATUS(status) != 0) {
-        //cerr << "Process  (pid " << pid << ") failed" << endl;
-    }
-    else{
     }
     return pid;
 };

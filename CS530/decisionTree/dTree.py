@@ -27,7 +27,7 @@ def selectSplitAttribute(_data):
 
 #    for a in _data[:-1]:
     g = np.apply_along_axis(calcIG,1,_data[:-1],_data[-1])
-    print(g)
+    print(np.max(g))
 
 #function to take an Attribute and the decision col
 #and calc the info gain

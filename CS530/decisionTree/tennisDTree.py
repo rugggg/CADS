@@ -41,6 +41,17 @@ def readCsvForDTree(fileName):
         f.close()
     return attr
 
+def getDataSize(fileName):
+    f = open(fileName,'rt')
+    rowCount = 0
+    try:
+        reader = csv.reader(f)
+        for row in reader:
+            rowCount += 1
+    finally:
+        f.close()
+    return rowCount
+
 #assumes the last item in the data is the 
 #result state set
 def getStartingS(fileName):
@@ -84,26 +95,50 @@ def H(S):
         if s > 0:
             s = s/sTotal
             e += -s*math.log2(s)
-    #print("Entropy of ",S, " is, ",e)
     return e
 
 #gets the weighted entropy
-def M(A): 
+def M(A,setSize): 
     #A is the total number of items covered by the attribute
     #a is the total number of results 
     wE = 0
-    print(A)
     for a in A:
-        print("a:   ",a)
-        wE +=(abs(len(a))/abs(len(A)) * H(a))
+        a_size = getTotal(a)
+        wE +=(abs(a_size)/setSize) * H(a)
     return wE
 
 def IG(S,A):
-    return H(S) -  M(A)
+    return H(S) -  M(A,rowCount)
 
+
+
+#setup from csv file
 A = readCsvForDTree("tennis.csv")
+rowCount = getDataSize("tennis.csv")
 S = getStartingS("tennis.csv")
 A_list = convertAToList(A)
+A_list = A_list[:-1]
+
+#iterate and find each inormation gain
 for a in A_list:
-    IG(S,a)
+    print(a)
+    print(IG(S,a))
+
+#we need an attribute to check
+#in this attribute, we have states
+#for each state, we can calculate entropy using H - which works
+#to get the total - M - for the whole attribute - we need 
+#the total number of values for the entire set
+#and also the total number of values for each state
+
+
+
+
+
+
+
+
+
+
+
 

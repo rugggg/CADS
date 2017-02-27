@@ -117,19 +117,30 @@ A = readCsvForDTree("tennis.csv")
 rowCount = getDataSize("tennis.csv")
 S = getStartingS("tennis.csv")
 A_list = convertAToList(A)
+#ignore the result column
 A_list = A_list[:-1]
 
-#iterate and find each inormation gain
-for a in A_list:
-    print(a)
-    print(IG(S,a))
 
-#we need an attribute to check
-#in this attribute, we have states
-#for each state, we can calculate entropy using H - which works
-#to get the total - M - for the whole attribute - we need 
-#the total number of values for the entire set
-#and also the total number of values for each state
+print(A)
+print(A_list)
+
+#iterate and find each information gain
+#find the best node to split on
+
+for i in range(2):
+    hiIG = 0
+    hiIG_index = -1
+    for idx,a in enumerate(A_list):
+        _ig = IG(S,a)
+        if _ig > hiIG:
+            hiIG = _ig
+            hiIG_index = idx
+#    print(A[hiIG_index])        
+    #remove A from the list and do it again
+    A_list.pop(hiIG_index)
+    print(A_list)
+    
+
 
 
 

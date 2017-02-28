@@ -7,29 +7,26 @@ import math
     Main recursion function
 
 '''
-def createDTree(dataSet,dTags):
-    print("-------------------------------------------------------")
-    print("-------------------------------------------------------")
-    print("----------------Starting Data Set: --------------------")
-    print(dataSet)
+def createDTree(dataSet,dTags,indent):
+    #print("-------------------------------------------------------")
+    #print("-------------------------------------------------------")
+    #print("----------------Starting Data Set: --------------------")
+    #print(dataSet)
     splitAttr = selectSplitAttribute(dataSet)
-    print("Split On: ",dTags[splitAttr])
+    indent = indent + indent
+    print(indent,"Split On: ",dTags[splitAttr])
     nodes = splitOnAttribute(dataSet,splitAttr)
     for node in nodes:
         nodeName = node[0,splitAttr]
-        print()
-        print("     ",nodeName,"    ")
+        print(indent,"  Condition: ",nodeName)
         if isPureNode(node):
-            print("****** PURE: ",node)
-#            assignDecision(node)
+            print(indent,"    --Play--> ",node[0,-1])
         elif node.shape[1] < 3:
-            print(">>>>>> Done")
+            print(indent,">>>>>> Done")
         else:
-            print("....new tree...")
             newNodeStart = np.delete(node,splitAttr,1)
             newDTags = np.delete(dTags,splitAttr,0)
-            createDTree(newNodeStart,newDTags)
-
+            createDTree(newNodeStart,newDTags,indent)
 
 def selectSplitAttribute(_data):
     #for each attr(a) compute and compare IG
@@ -100,7 +97,6 @@ def isPureNode(node):
 def splitOnAttribute(data,attribute):
     n = [data[data[:,attribute]==k] for k in np.unique(data[:,attribute])]
     return n; 
-#    print(data[data[:,attribute].argsort()])
         
 def getValues(node):
     S = [0,0]
@@ -121,7 +117,7 @@ data = np.genfromtxt('tennis.csv',delimiter=",",dtype="str")
 
 dataTags = ["Outlook","Temp","Humidity","Wind"]
 def main():
-    createDTree(data,dataTags)
+    createDTree(data,dataTags,"   ")
 
 if __name__ == "__main__":
     main()

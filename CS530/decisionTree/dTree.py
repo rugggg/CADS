@@ -6,28 +6,43 @@ import math
 
 data = np.genfromtxt('tennis.csv',delimiter=",",dtype="str")
 
+dataTags = ["Outlook","Temp","Humidity","Wind"]
 
 '''
     Main recursion function
 
 '''
-def createDTree(dataSet):
+def createDTree(dataSet,dTags):
+    print("-------------------------------------------------------")
+    print("-------------------------------------------------------")
+    print("----------------Starting Data Set: --------------------")
+    print(dataSet)
     splitAttr = selectSplitAttribute(dataSet)
-    nodes = splitOnAttr(splitAttr)
+    print("Split On: ",dTags[splitAttr])
+    nodes = splitOnAttribute(dataSet,splitAttr)
     for node in nodes:
+        nodeName = node[0,splitAttr]
+        print()
+        print("     ",nodeName,"    ")
         if isPureNode(node):
-            assignDecision(node)
+            print("****** PURE: ",node)
+#            assignDecision(node)
+        elif node.shape[1] < 3:
+            print(">>>>>> Done")
         else:
-            createDTree(node)
+            print("....new tree...")
+            newNodeStart = np.delete(node,splitAttr,1)
+            newDTags = np.delete(dTags,splitAttr,0)
+            createDTree(newNodeStart,newDTags)
+
 
 def selectSplitAttribute(_data):
     #for each attr(a) compute and compare IG
     _data = np.transpose(_data)
 
-
 #    for a in _data[:-1]:
     g = np.apply_along_axis(calcIG,1,_data[:-1],_data[-1])
-    print(np.max(g))
+    return np.argmax(g)
 
 #function to take an Attribute and the decision col
 #and calc the info gain
@@ -54,9 +69,7 @@ def H(S):
 #gets the weighted entropy
 def M(A,setSize): 
     wE = 0
-    print(A)
     for a in A:
-        print(A[a])
         wE +=(abs(np.sum(A[a]))/setSize) * H(A[a])
     return wE
 
@@ -81,8 +94,46 @@ def constructNode(_A,_R):
             else:
                 node[a] = [0,1]
     return node
-            
-selectSplitAttribute(data)
+        
+def isPureNode(node):
+    n = getValues(node)
+    if np.count_nonzero(n) <= 1:
+        return True
+    else:
+        return False
+    
+def splitOnAttribute(data,attribute):
+    n = [data[data[:,attribute]==k] for k in np.unique(data[:,attribute])]
+    return n; 
+#    print(data[data[:,attribute].argsort()])
+        
+def getValues(node):
+    S = [0,0]
+    for i in node:
+        if i[-1] == "Yes":
+            S[0] += 1
+        else:
+            S[1] += 1
+    return S
+
+'''
+splits = splitOnAttribute(data,splitAttr)
+for split in splits:
+#    print(split)
+
+    nodeValues = getValues(split)
+    #remove the whole column 
+    #if not pure node:
+    if(isPureNode(nodeValues)):
+        print("Pure ",nodeValues)
+    else:
+        split = np.delete(split,splitAttr,1)
+
+        print("SPLIT:\n ",split)
+    print(splitOnAttribute(split,selectSplitAttribute(split)))
+
+'''
+createDTree(data,dataTags)
 
 
 

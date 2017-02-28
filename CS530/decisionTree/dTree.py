@@ -3,11 +3,6 @@
 import numpy as np
 import math
 
-
-data = np.genfromtxt('tennis.csv',delimiter=",",dtype="str")
-
-dataTags = ["Outlook","Temp","Humidity","Wind"]
-
 '''
     Main recursion function
 
@@ -116,28 +111,19 @@ def getValues(node):
             S[1] += 1
     return S
 
-'''
-splits = splitOnAttribute(data,splitAttr)
-for split in splits:
-#    print(split)
-
-    nodeValues = getValues(split)
-    #remove the whole column 
-    #if not pure node:
-    if(isPureNode(nodeValues)):
-        print("Pure ",nodeValues)
-    else:
-        split = np.delete(split,splitAttr,1)
-
-        print("SPLIT:\n ",split)
-    print(splitOnAttribute(split,selectSplitAttribute(split)))
-
-'''
-createDTree(data,dataTags)
-
 
 
     
 
+
+
+data = np.genfromtxt('tennis.csv',delimiter=",",dtype="str")
+
+dataTags = ["Outlook","Temp","Humidity","Wind"]
+def main():
+    createDTree(data,dataTags)
+
+if __name__ == "__main__":
+    main()
 
 

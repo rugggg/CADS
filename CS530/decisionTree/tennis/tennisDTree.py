@@ -41,17 +41,6 @@ def readCsvForDTree(fileName):
         f.close()
     return attr
 
-def getDataSize(fileName):
-    f = open(fileName,'rt')
-    rowCount = 0
-    try:
-        reader = csv.reader(f)
-        for row in reader:
-            rowCount += 1
-    finally:
-        f.close()
-    return rowCount
-
 #assumes the last item in the data is the 
 #result state set
 def getStartingS(fileName):
@@ -95,61 +84,26 @@ def H(S):
         if s > 0:
             s = s/sTotal
             e += -s*math.log2(s)
+    #print("Entropy of ",S, " is, ",e)
     return e
 
 #gets the weighted entropy
-def M(A,setSize): 
+def M(A): 
     #A is the total number of items covered by the attribute
     #a is the total number of results 
     wE = 0
+    print(A)
     for a in A:
-        a_size = getTotal(a)
-        wE +=(abs(a_size)/setSize) * H(a)
+        print("a:   ",a)
+        wE +=(abs(len(a))/abs(len(A)) * H(a))
     return wE
 
 def IG(S,A):
-    return H(S) -  M(A,rowCount)
+    return H(S) -  M(A)
 
-
-
-#setup from csv file
 A = readCsvForDTree("tennis.csv")
-rowCount = getDataSize("tennis.csv")
 S = getStartingS("tennis.csv")
 A_list = convertAToList(A)
-#ignore the result column
-A_list = A_list[:-1]
-
-
-print(A)
-print(A_list)
-
-#iterate and find each information gain
-#find the best node to split on
-
-for i in range(2):
-    hiIG = 0
-    hiIG_index = -1
-    for idx,a in enumerate(A_list):
-        _ig = IG(S,a)
-        if _ig > hiIG:
-            hiIG = _ig
-            hiIG_index = idx
-#    print(A[hiIG_index])        
-    #remove A from the list and do it again
-    A_list.pop(hiIG_index)
-    print(A_list)
-    
-
-
-
-
-
-
-
-
-
-
-
-
+for a in A_list:
+    IG(S,a)
 

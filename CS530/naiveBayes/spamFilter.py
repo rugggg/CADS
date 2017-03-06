@@ -9,13 +9,18 @@ def main():
     spamLabels = np.loadtxt("spamlabels.txt")
     
     trainedData = train(spamData,spamLabels)
-    print("spam")
-    classify(spamData[4000],trainedData)
-    classify(spamData[4001],trainedData)
-    print("notSpam")
-    classify(spamData[0],trainedData)
-    classify(spamData[1],trainedData)
-    
+    print(spamLabels[4000])
+    print(classify(spamData[4000],trainedData))
+    print()
+    print(spamLabels[4001])
+    print(classify(spamData[4001],trainedData))
+    print()
+    print(spamLabels[0])
+    print(classify(spamData[0],trainedData))
+    print() 
+    print(spamLabels[1])
+    print(classify(spamData[1],trainedData))
+    print()
 
 def kFold(data,label,numFolds):
     #find number of folds in set
@@ -34,18 +39,14 @@ def classify(newEmail, trained):
         if word:
             pWordSpam *= likelyhoods[idx][0]
             pWordNotSpam *= likelyhoods[idx][1]
-    pSpam = math.log10(pWordSpam) * math.log10(priors[0]/sum(priors))
-    pNotSpam = math.log10(pWordNotSpam)* math.log10(priors[1]/sum(priors))     
+    pSpam = math.log10(pWordSpam) + math.log10(priors[0]/sum(priors))
+    pNotSpam = math.log10(pWordNotSpam) + math.log10(priors[1]/sum(priors))     
 
-    print(pSpam)
-    print(pNotSpam)
-    
-        
-def isSpam(pSpam,pNotSpam):
-    if(pSpam >= pNotSpam):
-        return True
+    if pSpam >= pNotSpam:
+        return 1
     else:
-        return False
+        return 0
+        
 
 #our training set will be some slice of our total set
 #we will compute pSpam and pNotSpams from this
@@ -79,13 +80,6 @@ def train(dataSet,labelSet):
     priors = [numSpams,numNotSpams]
     return [priors,pSpamNotSpam]
 
-def likelyhoodTerm(data,email,spam):
-    lTerm = 1
-    for idx,attr in enumerate(email):
-        if(spam):
-            lTerm *= pWordSpam(data,idx)
-        else:
-            lTerm *= pWordNotSpam(data,idx)
 
 def determinePrior(dataLabelSet):
     return np.sum(dataLabelSet)/dataLabelSet.size

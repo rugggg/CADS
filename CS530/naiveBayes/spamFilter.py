@@ -8,6 +8,8 @@ def main():
     spamData = np.loadtxt("spamdata_binary.txt")
     spamLabels = np.loadtxt("spamlabels.txt")
     
+    kFold(spamData,spamLabels,10)    
+
     trainedData = train(spamData,spamLabels)
     print(spamLabels[4000])
     print(classify(spamData[4000],trainedData))
@@ -23,12 +25,16 @@ def main():
     print()
 
 def kFold(data,label,numFolds):
+    #combine and shuffle and the split again
+    labeledText = np.column_stack((data,label)) 
+    np.random.shuffle(labeledText)
+    shufLabels = labeledText[:,-1]
+    shufData = labeledText[:,:-1]
+    
+
     #find number of folds in set
     f = len(data)/numFolds
     fRest = len(data)%numFolds
-    
-    print(f)
-    print(fRest)
 
 def classify(newEmail, trained):
     priors = trained[0]

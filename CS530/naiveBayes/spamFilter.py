@@ -1,15 +1,46 @@
 #!/usr/bin/env python
 
 import numpy as np
+import math
 
 
 def main():
     spamData = np.loadtxt("spamdata_binary.txt")
     spamLabels = np.loadtxt("spamlabels.txt")
-     
+    
+    trainedData = train(spamData,spamLabels)
+    print("spam")
+    classify(spamData[4000],trainedData)
+    classify(spamData[4001],trainedData)
+    print("notSpam")
+    classify(spamData[0],trainedData)
+    classify(spamData[1],trainedData)
+    
 
+def kFold(data,label,numFolds):
+    #find number of folds in set
+    f = len(data)/numFolds
+    fRest = len(data)%numFolds
+    
+    print(f)
+    print(fRest)
 
-    train(spamData,spamLabels)
+def classify(newEmail, trained):
+    priors = trained[0]
+    likelyhoods = trained[1]
+    pWordSpam = 1
+    pWordNotSpam = 1
+    for idx,word in enumerate(newEmail):
+        if word:
+            pWordSpam *= likelyhoods[idx][0]
+            pWordNotSpam *= likelyhoods[idx][1]
+    pSpam = math.log10(pWordSpam) * math.log10(priors[0]/sum(priors))
+    pNotSpam = math.log10(pWordNotSpam)* math.log10(priors[1]/sum(priors))     
+
+    print(pSpam)
+    print(pNotSpam)
+    
+        
 def isSpam(pSpam,pNotSpam):
     if(pSpam >= pNotSpam):
         return True
@@ -39,30 +70,15 @@ def train(dataSet,labelSet):
                 attrNotSpamCounts[i] += 1
     numNotSpams = len(labelSet) - numSpams 
     np.set_printoptions(suppress=True)
-    
-    print(numSpams)
-    print(numNotSpams)
-    print(attrSpamCounts)
-    print(attrNotSpamCounts)
-    
+
     pSpamNotSpam = []
     for idx,word in enumerate(attrSpamCounts): 
         probSpam = word/numSpams
         probNotSpam = attrNotSpamCounts[idx]/numNotSpams
         pSpamNotSpam.append([probSpam,probNotSpam])
-    print(pSpamNotSpam)
+    priors = [numSpams,numNotSpams]
+    return [priors,pSpamNotSpam]
 
-
-
-
-def pSpam(email,prior):
-    #p(spam|data) = p(data|spam)p(data) 
-    return likelyhoodTerm("",email,True)*prior
-        
-def pNotSpam(email,prior):
-    #p(notSpam|data) = p(data|notSpam)p(data) 
-    return likelyhoodTerm("",email,False)*prior
-    
 def likelyhoodTerm(data,email,spam):
     lTerm = 1
     for idx,attr in enumerate(email):
@@ -70,28 +86,6 @@ def likelyhoodTerm(data,email,spam):
             lTerm *= pWordSpam(data,idx)
         else:
             lTerm *= pWordNotSpam(data,idx)
-
-#
-def pWordSpam(data,wordIndex):
-    k = 0
-    spamCount = 1
-    for idx,row in enumerate(data):
-        if row[wordIndex] and spamLabels[idx]:
-            k += 1
-        if spamLabels[wordIndex]:
-            spamCount += 1
-    return k/spamCount
-
-def pWordNotSpam(data,wordIndex):
-    k = 0
-    notSpamCount = 1
-    for idx,row in enumerate(data):
-        if row[wordIndex] and not spamLabels[idx]:
-            k += 1
-        if not spamLabels[wordIndex]:
-            notSpamCount += 1
-    return k/notSpamCount
-
 
 def determinePrior(dataLabelSet):
     return np.sum(dataLabelSet)/dataLabelSet.size

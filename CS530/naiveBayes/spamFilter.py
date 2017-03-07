@@ -10,7 +10,8 @@ def main():
     numFolds = 10
     print(len(spamData))
     folds = kFold(spamData,spamLabels,numFolds)
-    
+    count = 0
+    accuracy = 0
     for i in range(numFolds):
         #seperate the nth chunk out
         holdoutData = folds[0,i]
@@ -21,7 +22,14 @@ def main():
             
         trainedData = train(trainingData,trainingLabels)
         for idx,data in enumerate(holdoutData):
+            real = holdoutLabels[idx]
+            pred = classify(data,trainedData)
+            count += 1
+            if real == pred:
+                accuracy += 1
             print("Expect::",holdoutLabels[idx],"    Predict::",classify(data,trainedData))
+        
+    print(accuracy/count)
     '''
         trainedData = train(spamData,spamLabels)
         print(spamLabels[4000])
@@ -55,14 +63,16 @@ def kFold(data,label,numFolds):
 def classify(newEmail, trained):
     priors = trained[0]
     likelyhoods = trained[1]
-    pWordSpam = 1
+    pWordSpam = 1 
     pWordNotSpam = 1
     for idx,word in enumerate(newEmail):
         if word:
-            pWordSpam *= likelyhoods[idx][0]
-            pWordNotSpam *= likelyhoods[idx][1]
-    pSpam = math.log10(pWordSpam) + math.log10(priors[0]/sum(priors))
-    pNotSpam = math.log10(pWordNotSpam) + math.log10(priors[1]/sum(priors))     
+            if likelyhoods[idx][0] != 0:
+                pWordSpam += math.log10(likelyhoods[idx][0])
+            if likelyhoods[idx][1] != 0:
+                pWordNotSpam +=+math.log10(likelyhoods[idx][1])
+    pSpam = pWordSpam + priors[0]/sum(priors)
+    pNotSpam = pWordNotSpam + priors[1]/sum(priors)     
 
     if pSpam >= pNotSpam:
         return 1

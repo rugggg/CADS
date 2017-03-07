@@ -8,14 +8,12 @@ def main():
     spamData = np.loadtxt("spamdata_binary.txt")
     spamLabels = np.loadtxt("spamlabels.txt")
     numFolds = 10
-    print(len(spamData))
     folds = kFold(spamData,spamLabels,numFolds)
     count = 0
     accuracy = 0
     for i in range(numFolds):
         #seperate the nth chunk out
         holdoutData = folds[0,i]
-        print(":::::",i)
         holdoutLabels = folds[1,i]
         trainingData = np.concatenate(np.delete(folds[0],i))
         trainingLabels = np.concatenate(np.delete(folds[1],i))
@@ -30,21 +28,7 @@ def main():
             print("Expect::",holdoutLabels[idx],"    Predict::",classify(data,trainedData))
         
     print(accuracy/count)
-    '''
-        trainedData = train(spamData,spamLabels)
-        print(spamLabels[4000])
-        print(classify(spamData[4000],trainedData))
-        print()
-        print(spamLabels[4001])
-        print(classify(spamData[4001],trainedData))
-        print()
-        print(spamLabels[0])
-        print(classify(spamData[0],trainedData))
-        print() 
-        print(spamLabels[1])
-        print(classify(spamData[1],trainedData))
-        print()
-'''
+
 def kFold(data,label,numFolds):
     #combine and shuffle and the split again
     labeledText = np.column_stack((data,label)) 

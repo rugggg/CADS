@@ -6,15 +6,19 @@
 
 Octree::Octree(NodePoint center, const double size){
     m_center = center;
-    m_size = size;    
+    m_size = size;
+    m_depth = 0;
     setBounds();
 }
 
 Octree::Octree(NodePoint center, const double size, Octree *parent){
     m_center = center;
     m_size = size;    
+    m_depth = parent->getDepth()+1;
     m_parent = parent;
 }
+
+Octree::~Octree(){}
 
 void Octree::setBounds(){
     //use our size and center to compute and store boundaries
@@ -35,12 +39,38 @@ NodePoint Octree::getCenter(){
     return m_center;
 }
 
+int Octree::getDepth(){
+    return m_depth;
+}
+
 NodeBounds Octree::getBounds(){
     return m_nodeBounds;
 }
 
-Octree::~Octree(){}
-
+void Octree::split(int maxDepth,std::vector<NodePoint> points){
+    //1 check if we have less than the minimum number of points in us
+    //also check if we are past max depth
+    //if either of those are true we are a leaf
+    if(m_depth >= maxDepth || points.size() <= 1){
+        for(int i = 0; i<points.size(); ++i){
+            //we take the node pointer and place it here  
+        }
+    }
+    //else: we take split into a child octree and pass the points forward
+    //into that tree and place the current octree into the new children
+    //to split we should start from one corner of the cube, so the lower x,y,z
+    //the size is 1/8 the last size
+    
+    double childSize = m_size/8;
+    //we now have the size, now we need the four centers
+    childDistance = cbrt(childSize)/2
+    NodePoint nwf_childCenter,swf_childCenter; 
+    nwf_childCenter.x = m_center.x+childDistance;
+    nwf_childCenter.y = m_center.y+childDistance;
+    nwf_childCenter.z = m_center.z+childDistance;
+    
+    
+}
 
 int main(){
     std::cout<<"Main"<<std::endl;

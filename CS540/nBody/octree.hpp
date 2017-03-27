@@ -43,16 +43,18 @@ class Octree
     
         double getSize();
         NodePoint getCenter();
+        int getDepth();
         NodeBounds getBounds();
-            
-    
+        
+        void split(int maxDepth,std::vector<NodePoint> points);
+         
     private:
 	    NodePoint m_center;
         double m_size;
         NodeBounds m_nodeBounds;
         std::vector<Octree> m_children;
         Octree* m_parent;
-
+        int m_depth;
         void setBounds();
 };
 

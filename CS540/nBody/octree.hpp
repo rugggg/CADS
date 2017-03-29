@@ -50,7 +50,9 @@ class Octree
         void insertPoint(NodePoint np);
         void printBounds();
         bool inBounds(NodePoint pointToCheck); 
-
+        int id;
+        
+        
         static int instance_count;
     private:
 	    NodePoint m_center;

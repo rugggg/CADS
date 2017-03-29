@@ -51,6 +51,7 @@ class Octree
         void printBounds();
         bool inBounds(NodePoint pointToCheck); 
 
+        static int instance_count;
     private:
 	    NodePoint m_center;
         double m_size;

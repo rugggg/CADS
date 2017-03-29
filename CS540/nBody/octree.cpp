@@ -5,6 +5,8 @@
 #include <math.h>
 
 Octree::Octree(NodePoint center, const double size, int maxDepth, std::vector<NodePoint> points){
+    instance_count++;
+    std::cout<<"   Instance: "<<instance_count<<std::endl;
     m_center = center;
     m_size = size;
     m_maxDepth = maxDepth;
@@ -12,22 +14,26 @@ Octree::Octree(NodePoint center, const double size, int maxDepth, std::vector<No
     m_depth = 0;
     std::cout<<points.size()<<std::endl;
     setBounds();
+//    printBounds();
 }
 
 Octree::Octree(NodePoint center, const double size, Octree *parent, int maxDepth, std::vector<NodePoint> points){
+    instance_count++;
+    std::cout<<"   Instance: "<<instance_count<<std::endl;
     m_center = center;
     m_size = size;    
     m_depth = parent->getDepth()+1;
     m_parent = parent;
     m_maxDepth = maxDepth;
     setBounds();
-    //printBounds();
-    std::cout<<points.size()<<std::endl;
+//    printBounds();
+    std::cout<<"++ Point Size = "<<points.size()<<std::endl;
     split(maxDepth,points);
 }
 
 Octree::~Octree(){}
 
+int Octree::instance_count = 0;
 void Octree::setBounds(){
     //use our size and center to compute and store boundaries
     double distance = cbrt(m_size)/2;
@@ -60,6 +66,7 @@ std::vector<NodePoint> Octree::getPoints(){
 }
 
 void Octree::insertPoint(NodePoint np){
+    std::cout<<"    insert:" <<np.x<<std::endl;
     m_points.push_back(np);
 }
 void Octree::printBounds(){
@@ -84,16 +91,14 @@ void Octree::split(int maxDepth,std::vector<NodePoint> points){
     //1 check if we have less than the minimum number of points in us
     //also check if we are past max depth
     //if either of those are true we are a leaf
-    std::cout<<"===================splitting=============="<<std::endl;
-    if(m_depth >= maxDepth){// || points.size() <= 1){
+    std::cout<<"  split -> my depth: "<<m_depth<<" max: "<<maxDepth<<std::endl;
+    if(m_depth >= maxDepth || points.size() <= 2){
         std::cout<<"I am a leaf"<<std::endl; 
-        std::cout<<points.size()<<std::endl;
-        for(unsigned int i = 0; i<points.size(); ++i){
-            std::cout<<"   placing"<<std::endl;
-            insertPoint(points[i]);
-            //we take the node pointer and place it here 
-            m_points.erase(m_points.begin() + i);
-        }
+        std::vector<NodePoint>::iterator _it;  // declare an iterator to a vector of strings
+         for(_it=points.begin(); _it < points.end(); _it++){
+            insertPoint(points.back());
+            points.pop_back();
+         }
     }
     else{
             //else: we take split into a child octree and pass the points forward
@@ -141,6 +146,7 @@ void Octree::split(int maxDepth,std::vector<NodePoint> points){
             bdl_childCenter.y = m_center.y-childDistance;
             bdl_childCenter.z = m_center.z-childDistance;
             
+            std::cout<<"  potato: "<<m_points.size()<<std::endl; 
             Octree fur = Octree(fur_childCenter,childSize,this,m_maxDepth,m_points);
             Octree ful = Octree(ful_childCenter,childSize,this,m_maxDepth,m_points);
             Octree fdr = Octree(fdr_childCenter,childSize,this,m_maxDepth,m_points);
@@ -162,24 +168,21 @@ void Octree::split(int maxDepth,std::vector<NodePoint> points){
             // and keep iterating over the element till you find
             // nth element...or reach the end of vector.
 
-            std::vector<Octree>::iterator it;  // declare an iterator to a vector of strings
-
+            std::vector<Octree>::iterator it; 
             for(it=m_children.begin() ; it < m_children.end(); it++) {
-                // found nth element..print and break.
                 std::vector<NodePoint>::iterator node_it;
                 for(node_it=m_points.begin(); node_it < m_points.end(); node_it++){
-                    //std::cout<<inBounds(*node_it)<<std::endl;
                     if(inBounds(*node_it)) {
                         it->insertPoint(m_points.back());
                         m_points.pop_back();
-                        std::cout<< "IN BOUNDS" << std::endl;  // prints d.
-                    }
-                    else{
-                        std::cout<< "OUT OF BOUNDS" << std::endl;  // prints d.
                     }
                 }
             }
             std::cout<<"I should be ZERO: "<<m_points.size()<<std::endl;
+            if(m_points.size() != 0){
+                std::cout<<" BAIL "<<std::endl;
+                exit(0);
+            }
     }
 }
 
@@ -192,7 +195,7 @@ int main(){
     
     std::vector<NodePoint> initialPoints;
     NodePoint np1,np2,np3,np4,np5,np6,np7,np8;
-    np1.x = 1000;
+    np1.x = 4;
     np1.y = 1;
     np1.z = 1;
 

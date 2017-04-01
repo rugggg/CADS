@@ -35,8 +35,8 @@ struct OctreeNode
 class Octree
 {
     public:
-        Octree(NodePoint center,const double size, int maxDepth, std::vector<NodePoint> points);
-        Octree(NodePoint center,const double size, Octree* parent, int maxDepth, std::vector<NodePoint> points);
+        Octree(NodePoint center,const double size, std::vector<NodePoint> points);
+        Octree(NodePoint center,const double size, Octree* parent, std::vector<NodePoint> points);
        // Octree(const Octree& copy);
        // Octree& operator=(const Octree& copy);
         ~Octree();
@@ -46,14 +46,14 @@ class Octree
         int getDepth();
         NodeBounds getBounds();
         std::vector<NodePoint> getPoints();
-        void split(int maxDepth,std::vector<NodePoint> points);
+        void split(std::vector<NodePoint> points);
         void insertPoint(NodePoint np);
         void printBounds();
         bool inBounds(NodePoint pointToCheck); 
         int id;
-        
-        
+        static int maxDepth;
         static int instance_count;
+
     private:
 	    NodePoint m_center;
         double m_size;
@@ -62,7 +62,6 @@ class Octree
         std::vector<NodePoint> m_points;
         Octree* m_parent;
         int m_depth;
-        int m_maxDepth;
         void setBounds();
 };
 

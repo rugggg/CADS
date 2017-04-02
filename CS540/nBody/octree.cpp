@@ -2,9 +2,10 @@
 
 #include "octree.hpp"
 #include <iostream>
+#include <random>
 #include <math.h>
 
-Octree::Octree(NodePoint center, const double size, std::vector<NodePoint> points){
+Octree::Octree(NodePoint center, const double size, std::list<NodePoint> points){
     instance_count++;
     id = instance_count;
     m_center = center;
@@ -12,11 +13,10 @@ Octree::Octree(NodePoint center, const double size, std::vector<NodePoint> point
     //maxDepth = mDepth;
     m_points = points;
     m_depth = 0;
-    std::cout<<points.size()<<std::endl;
     setBounds();
 }
 
-Octree::Octree(NodePoint center, const double size, Octree *parent, std::vector<NodePoint> points){
+Octree::Octree(NodePoint center, const double size, Octree *parent, std::list<NodePoint> points){
     instance_count++;
     id = instance_count;
     m_center = center;
@@ -59,12 +59,12 @@ NodeBounds Octree::getBounds(){
     return m_nodeBounds;
 }
 
-std::vector<NodePoint> Octree::getPoints(){
+std::list<NodePoint> Octree::getPoints(){
     return m_points;
 }
 
 void Octree::insertPoint(NodePoint np){
-    std::cout<<"    insert:" <<std::endl<<np.x<<std::endl<<np.y<<std::endl<<np.z<<std::endl;
+   // std::cout<<"    insert:" <<std::endl<<np.x<<std::endl<<np.y<<std::endl<<np.z<<std::endl;
 
     m_points.push_back(np);
 }
@@ -74,39 +74,35 @@ void Octree::printBounds(){
 }
 
 bool Octree::inBounds(NodePoint pointToCheck){
-    std::cout<<"   Checking in Bounds: "<<pointToCheck.x<<","<<pointToCheck.y<<","<<pointToCheck.z<<std::endl;
-    std::cout<<" against: "<<std::endl;
-    printBounds();
-    bool ret = true;
-    if(pointToCheck.x >= m_nodeBounds.xBound.upper || pointToCheck.x <= m_nodeBounds.xBound.lower){
-        
-            ret = false;
+    std::cout<<"                    Checking in Bounds: "<<pointToCheck.x<<","<<pointToCheck.y<<","<<pointToCheck.z<<std::endl;
+    if((pointToCheck.x <= m_nodeBounds.xBound.upper && pointToCheck.x >= m_nodeBounds.xBound.lower) &&
+      (pointToCheck.y <= m_nodeBounds.yBound.upper && pointToCheck.y >= m_nodeBounds.yBound.lower) &&
+      (pointToCheck.z <= m_nodeBounds.zBound.upper && pointToCheck.z >= m_nodeBounds.zBound.lower)){
+            std::cout<<"                      IN BOUNDS"<<std::endl;
+            return true;
     }
-   if(pointToCheck.y >= m_nodeBounds.yBound.upper || pointToCheck.y <= m_nodeBounds.yBound.lower){
-            ret = false;
-    }
-    if(pointToCheck.z >= m_nodeBounds.zBound.upper || pointToCheck.z <= m_nodeBounds.zBound.lower){
-            ret = false;
-    }
-    std::cout<<" in bounds: "<<ret<<std::endl;
-    return ret;
+    else
+            std::cout<<"                      OUT BOUNDS"<<std::endl;
+        return false;
 }
 
-void Octree::split(std::vector<NodePoint> points){
+void Octree::split(std::list<NodePoint> points){
     std::cout<<std::endl;
     //1 check if we have less than the minimum number of points in us
     //also check if we are past max depth
     //if either of those are true we are a leaf
     std::cout<<" I am node "<<id<<std::endl;
-    printBounds();
     std::cout<<"  I have "<<points.size()<<" points"<<std::endl;
-    if(m_depth >= maxDepth || points.size() <= 2){
+    if(m_depth >= maxDepth || points.size() <= 1){
         std::cout<<"   i am a leaf"<<std::endl;
-        std::vector<NodePoint>::iterator _it;  // declare an iterator to a vector of strings
-         for(_it=points.begin(); _it < points.end(); _it++){
+        std::list<NodePoint>::const_iterator _it = points.begin();
+        //while (_it != points.end()){
+        std::cout<<"    size:"<<points.size()<<std::endl;
+        for(_it=points.begin(); _it != points.end(); _it++){
+            std::cout<<"potato"<<std::endl;
             insertPoint(points.back());
-            points.pop_back();
          }
+    
         return;
     }
     else{
@@ -180,20 +176,51 @@ void Octree::split(std::vector<NodePoint> points){
 
             std::vector<Octree>::iterator it; 
             for(it=m_children.begin() ; it < m_children.end(); it++) {
-                std::vector<NodePoint>::iterator node_it;
-                for(node_it=m_points.begin(); node_it < m_points.end(); node_it++){
+                std::cout<<std::endl;
+                std::cout<<"-------------------------------"<<std::endl;
+                std::cout<<"-------------------------------"<<std::endl;
+                std::cout<<"   checking node with bounds: "<<std::endl;
+                it->printBounds(); 
+
+                std::list<NodePoint>::const_iterator node_it = m_points.begin();
+                while (node_it != m_points.end()){
+                //for(node_it=m_points.begin(); node_it != m_points.end();){
                     if(it->inBounds(*node_it)) {
-                        int idx = node_it - m_points.begin();
-                        it->insertPoint(m_points[idx]);
-                        m_points.erase(m_points.begin()+idx);
+                        //int idx = node_it - m_points.begin();
+                        it->insertPoint(*node_it);
+                        //std::cout<<"              deleting: "<<idx<<std::endl;
+                        node_it = m_points.erase(node_it);
+                    }
+                    else{
+                        node_it++;
                     }
                 }
             }
+            std::cout<<"after cghecking all childs, theses are left:"<<std::endl;
+            std::cout<<"  size: "<<m_points.size()<<std::endl;
+            std::cout<<m_points.size()<<std::endl;
+            std::list<NodePoint>::const_iterator node_it;
+            for(node_it=m_points.begin(); node_it != m_points.end(); node_it++){
+                std::cout<<"   "<<node_it->x<<std::endl;
+                std::cout<<"   "<<node_it->y<<std::endl;
+                std::cout<<"   "<<node_it->z<<std::endl;
+            }
             if(m_points.size() != 0){
+                std::cout<<std::endl;
+                std::cout<<m_points.size()<<std::endl;
+                std::cout<<std::endl;
+                std::cout<<m_points.back().x<<std::endl;
+                std::cout<<m_points.back().y<<std::endl;
+                std::cout<<m_points.back().z<<std::endl;
+                std::vector<Octree>::iterator it; 
+                std::cout<<" COULD NOT PLACE: "<<std::endl;
+                for(it=m_children.begin() ; it < m_children.end(); it++) {
+                    std::cout<<std::endl;
+                    it->printBounds();
+                }
                 std::cout<<" BAIL "<<std::endl;
                 exit(0);
             }
-            
             
             for(it=m_children.begin() ; it < m_children.end(); it++) {
                 it->split(it->m_points);
@@ -201,15 +228,35 @@ void Octree::split(std::vector<NodePoint> points){
     }
 }
 
-int Octree::maxDepth = 2;
+int Octree::maxDepth = 4;
 
+int numPoints = 10;
+std::random_device rd;     // only used once to initialise (seed) engine
+int randInt(int min, int max){
+    //std::random_device rd;     // only used once to initialise (seed) engine
+    std::mt19937 rng(rd());    // random-number engine used (Mersenne-Twister in this case)
+    std::uniform_int_distribution<int> uni(min,max); // guaranteed unbiased
+
+    auto random_integer = uni(rng);
+    return random_integer;
+}
 int main(){
+    int sim_size = 1000;
+    double max_bound = cbrt(sim_size)/2;   
     NodePoint center;
     center.x = 0;
     center.y = 0;
     center.z = 0;
     
-    std::vector<NodePoint> initialPoints;
+    std::list<NodePoint> initialPoints;
+    for(int i; i<numPoints; ++i){
+        NodePoint np;
+        np.x = randInt(-max_bound,max_bound); 
+        np.y = randInt(-max_bound,max_bound); 
+        np.z = randInt(-max_bound,max_bound); 
+        initialPoints.push_back(np);
+    }
+    /*
     NodePoint np1,np2,np3,np4,np5,np6,np7,np8;
     np1.x = 4;
     np1.y = 4;
@@ -251,7 +298,7 @@ int main(){
     initialPoints.push_back(np6);
     initialPoints.push_back(np7);
     initialPoints.push_back(np8);
-
+    */
 
     Octree init_octree = Octree(center,1000,initialPoints);
     init_octree.split(initialPoints);

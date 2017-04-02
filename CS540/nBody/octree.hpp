@@ -5,6 +5,7 @@
 
 #include <string>
 #include <vector>
+#include <list>
 
 struct NodePoint
 {
@@ -35,8 +36,8 @@ struct OctreeNode
 class Octree
 {
     public:
-        Octree(NodePoint center,const double size, std::vector<NodePoint> points);
-        Octree(NodePoint center,const double size, Octree* parent, std::vector<NodePoint> points);
+        Octree(NodePoint center,const double size, std::list<NodePoint> points);
+        Octree(NodePoint center,const double size, Octree* parent, std::list<NodePoint> points);
        // Octree(const Octree& copy);
        // Octree& operator=(const Octree& copy);
         ~Octree();
@@ -45,8 +46,8 @@ class Octree
         NodePoint getCenter();
         int getDepth();
         NodeBounds getBounds();
-        std::vector<NodePoint> getPoints();
-        void split(std::vector<NodePoint> points);
+        std::list<NodePoint> getPoints();
+        void split(std::list<NodePoint> points);
         void insertPoint(NodePoint np);
         void printBounds();
         bool inBounds(NodePoint pointToCheck); 
@@ -59,7 +60,7 @@ class Octree
         double m_size;
         NodeBounds m_nodeBounds;
         std::vector<Octree> m_children;
-        std::vector<NodePoint> m_points;
+        std::list<NodePoint> m_points;
         Octree* m_parent;
         int m_depth;
         void setBounds();

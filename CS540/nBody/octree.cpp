@@ -60,6 +60,7 @@ std::list<NodePoint> Octree::getPoints(){
 }
 
 void Octree::insertPoint(NodePoint np){
+    std::cout<<" INsert Point: "<<np.x<<","<<np.y<<","<<np.z<<std::endl;
     m_points.push_back(np);
 }
 void Octree::printBounds(){
@@ -93,10 +94,11 @@ void Octree::split(std::list<NodePoint> points){
     //also check if we are past max depth
     //if either of those are true we are a leaf
     if(m_depth >= maxDepth || points.size() <= 1){
-        std::list<NodePoint>::const_iterator _it = points.begin();
-        for(_it=points.begin(); _it != points.end(); _it++){
-            insertPoint(points.back());
-         }
+         std::list<NodePoint>::const_iterator node_it = points.begin();
+         while (node_it != points.end()){
+            insertPoint(*node_it);
+            node_it = m_points.erase(node_it);
+        }
         return;
     }
     else{
@@ -165,7 +167,8 @@ void Octree::split(std::list<NodePoint> points){
         // and keep iterating over the element till you find
         // nth element...or reach the end of vector.
 
-        std::vector<Octree>::iterator it; 
+        std::vector<Octree>::iterator it;
+ 
         for(it=m_children.begin() ; it < m_children.end(); it++) {
             std::list<NodePoint>::const_iterator node_it = m_points.begin();
             while (node_it != m_points.end()){
@@ -211,7 +214,7 @@ void Octree::traverse(){
     printBounds();
     printSpaces();
     if(m_points.size() > 0){
-        std::cout<<"Node Points: "<<std::endl;
+        std::cout<<"Node Points: "<<m_points.size()<<std::endl;
     }
     for (std::list<NodePoint>::const_iterator it = m_points.begin(), end = m_points.end(); it != end; ++it) {
         printSpaces();

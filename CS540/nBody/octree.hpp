@@ -48,6 +48,8 @@ class Octree
         NodeBounds getBounds();
         std::list<NodePoint> getPoints();
         void split(std::list<NodePoint> points);
+        void traverse();
+        void printSpaces();
         void insertPoint(NodePoint np);
         void printBounds();
         bool inBounds(NodePoint pointToCheck); 

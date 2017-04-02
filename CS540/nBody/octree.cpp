@@ -10,7 +10,6 @@ Octree::Octree(NodePoint center, const double size, std::list<NodePoint> points)
     id = instance_count;
     m_center = center;
     m_size = size;
-    //maxDepth = mDepth;
     m_points = points;
     m_depth = 0;
     setBounds();
@@ -24,9 +23,6 @@ Octree::Octree(NodePoint center, const double size, Octree *parent, std::list<No
     m_depth = parent->getDepth()+1;
     m_parent = parent;
     setBounds();
-//    printBounds();
-//    split(maxDepth,points);
-
 }
 
 Octree::~Octree(){}
@@ -68,17 +64,28 @@ void Octree::insertPoint(NodePoint np){
 }
 void Octree::printBounds(){
     NodeBounds nb = this->getBounds();
-    std::cout<<nb.xBound.upper<<":"<<nb.xBound.lower<<std::endl<<nb.yBound.upper<<":"<<nb.yBound.lower<<std::endl<<nb.zBound.upper<<":"<<nb.zBound.lower<<std::endl;
+    printSpaces();
+    std::cout<<nb.xBound.upper<<":"<<nb.xBound.lower<<std::endl;
+    printSpaces();
+    std::cout<<nb.yBound.upper<<":"<<nb.yBound.lower<<std::endl;
+    printSpaces();
+    std::cout<<nb.zBound.upper<<":"<<nb.zBound.lower<<std::endl;
 }
 
 bool Octree::inBounds(NodePoint pointToCheck){
+    //std::cout<<" checking bounds of node: "<<pointToCheck.x <<","<<pointToCheck.y<<","<<pointToCheck.z<<std::endl;
+    //std::cout<<"    tree bounds:"<<std::endl;
+    printBounds();
     if((pointToCheck.x <= m_nodeBounds.xBound.upper && pointToCheck.x >= m_nodeBounds.xBound.lower) &&
       (pointToCheck.y <= m_nodeBounds.yBound.upper && pointToCheck.y >= m_nodeBounds.yBound.lower) &&
       (pointToCheck.z <= m_nodeBounds.zBound.upper && pointToCheck.z >= m_nodeBounds.zBound.lower)){
+        //std::cout<<"   IN BOUNDS"<<std::endl;
         return true;
     }
-    else
+    else{
+        //std::cout<<"   OUT BOUNDS"<<std::endl;
         return false;
+    }
 }
 
 void Octree::split(std::list<NodePoint> points){
@@ -187,20 +194,56 @@ void Octree::split(std::list<NodePoint> points){
     }
 }
 
-int Octree::maxDepth = 4;
+void Octree::traverse(){
+    //starting from the initial node
+    //print self, then children
+    //for each child, traversee them
+    printSpaces();
+    std::cout<<"Node Id: "<<id<<std::endl;
+    printSpaces();
+    std::cout<<"Node Center: ";
+    printSpaces();
+    std::cout<<"  "<<m_center.x<<","<<m_center.y<<","<<m_center.z<<std::endl;
+    printSpaces();
+    std::cout<<"Node Size: "<<m_size<<std::endl;
+    printSpaces();
+    std::cout<<"Node Bounds: "<<std::endl;
+    printBounds();
+    printSpaces();
+    if(m_points.size() > 0){
+        std::cout<<"Node Points: "<<std::endl;
+    }
+    for (std::list<NodePoint>::const_iterator it = m_points.begin(), end = m_points.end(); it != end; ++it) {
+        printSpaces();
+        std::cout<<"Point: "<<std::endl;
+        printSpaces();
+        std::cout<<"  "<<it->x<<","<<it->y<<","<<it->z<<std::endl;
+    }
 
-int numPoints = 10;
-std::random_device rd;     // only used once to initialise (seed) engine
-int randInt(int min, int max){
-    //std::random_device rd;     // only used once to initialise (seed) engine
-    std::mt19937 rng(rd());    // random-number engine used (Mersenne-Twister in this case)
-    std::uniform_int_distribution<int> uni(min,max); // guaranteed unbiased
-
-    auto random_integer = uni(rng);
-    return random_integer;
+    for (std::vector<Octree>::iterator it=m_children.begin(); it < m_children.end(); ++it){
+        it->traverse();
+    }
+    
+    std::cout<<std::endl;
 }
+
+void Octree::printSpaces(){
+    for(int i = 0;i < m_depth;++i){
+        std::cout<<"  ";
+    }
+}
+
+int Octree::maxDepth = 2;
+
+int numPoints = 1000;
+double fRand(double fMin, double fMax)
+{
+    double f = (double)rand() / RAND_MAX;
+    return fMin + f * (fMax - fMin);
+}
+
 int main(){
-    int sim_size = 1000;
+    double sim_size = 1000000;
     double max_bound = cbrt(sim_size)/2;   
     NodePoint center;
     center.x = 0;
@@ -210,57 +253,14 @@ int main(){
     std::list<NodePoint> initialPoints;
     for(int i; i<numPoints; ++i){
         NodePoint np;
-        np.x = randInt(-max_bound,max_bound); 
-        np.y = randInt(-max_bound,max_bound); 
-        np.z = randInt(-max_bound,max_bound); 
+        np.x = fRand(-max_bound,max_bound); 
+        np.y = fRand(-max_bound,max_bound); 
+        np.z = fRand(-max_bound,max_bound); 
         initialPoints.push_back(np);
     }
-    /*
-    NodePoint np1,np2,np3,np4,np5,np6,np7,np8;
-    np1.x = 4;
-    np1.y = 4;
-    np1.z = 4;
 
-    np2.x = -2;
-    np2.y = 2;
-    np2.z = 1;
-
-    np3.x = 1;
-    np3.y = -1;
-    np3.z = 1;
-  
-    np4.x = 1;
-    np4.y = 1;
-    np4.z = -1;
-  
-    np5.x = -1;
-    np5.y = -1;
-    np5.z = 1;
-
-    np6.x = 1;
-    np6.y = -1;
-    np6.z = -1;
-  
-    np7.x = -1;
-    np7.y = 1;
-    np7.z = -1;
-
-    np8.x = -1;
-    np8.y = -1;
-    np8.z = -1;
-
-    initialPoints.push_back(np1);
-    initialPoints.push_back(np2);
-    initialPoints.push_back(np3);
-    initialPoints.push_back(np4);
-    initialPoints.push_back(np5);
-    initialPoints.push_back(np6);
-    initialPoints.push_back(np7);
-    initialPoints.push_back(np8);
-    */
-
-    Octree init_octree = Octree(center,1000,initialPoints);
+    Octree init_octree = Octree(center,sim_size,initialPoints);
     init_octree.split(initialPoints);
-
+    init_octree.traverse();
 }
 

@@ -2,33 +2,28 @@
 
 #include "octree.hpp"
 #include <iostream>
+#include <random>
 #include <math.h>
 
-Octree::Octree(NodePoint center, const double size, int maxDepth, std::vector<NodePoint> points){
+Octree::Octree(NodePoint center, const double size, std::list<NodePoint> points){
     instance_count++;
-    std::cout<<"   Instance: "<<instance_count<<std::endl;
+    id = instance_count;
     m_center = center;
     m_size = size;
-    m_maxDepth = maxDepth;
     m_points = points;
     m_depth = 0;
-    std::cout<<points.size()<<std::endl;
     setBounds();
-//    printBounds();
 }
 
-Octree::Octree(NodePoint center, const double size, Octree *parent, int maxDepth, std::vector<NodePoint> points){
+Octree::Octree(NodePoint center, const double size, Octree *parent, std::list<NodePoint> points){
     instance_count++;
-    std::cout<<"   Instance: "<<instance_count<<std::endl;
+    id = instance_count;
     m_center = center;
-    m_size = size;    
+    m_size = size;   
+    maxDepth = parent->getDepth()+1; 
     m_depth = parent->getDepth()+1;
     m_parent = parent;
-    m_maxDepth = maxDepth;
     setBounds();
-//    printBounds();
-    std::cout<<"++ Point Size = "<<points.size()<<std::endl;
-    split(maxDepth,points);
 }
 
 Octree::~Octree(){}
@@ -61,186 +56,202 @@ NodeBounds Octree::getBounds(){
     return m_nodeBounds;
 }
 
-std::vector<NodePoint> Octree::getPoints(){
+std::list<NodePoint> Octree::getPoints(){
     return m_points;
 }
 
 void Octree::insertPoint(NodePoint np){
-    std::cout<<"    insert:" <<np.x<<std::endl;
     m_points.push_back(np);
 }
 void Octree::printBounds(){
     NodeBounds nb = this->getBounds();
-    std::cout<<nb.xBound.upper<<":"<<nb.xBound.lower<<std::endl<<nb.yBound.upper<<":"<<nb.yBound.lower<<std::endl<<nb.zBound.upper<<":"<<nb.zBound.lower<<std::endl;
+    printSpaces();
+    std::cout<<nb.xBound.upper<<":"<<nb.xBound.lower<<std::endl;
+    printSpaces();
+    std::cout<<nb.yBound.upper<<":"<<nb.yBound.lower<<std::endl;
+    printSpaces();
+    std::cout<<nb.zBound.upper<<":"<<nb.zBound.lower<<std::endl;
 }
 
 bool Octree::inBounds(NodePoint pointToCheck){
-    if(pointToCheck.x >= m_nodeBounds.xBound.upper || pointToCheck.x <= m_nodeBounds.xBound.lower){
-            return false;
-    }
-   if(pointToCheck.y >= m_nodeBounds.yBound.upper || pointToCheck.y <= m_nodeBounds.yBound.lower){
-            return false;
-    }
-    if(pointToCheck.z >= m_nodeBounds.zBound.upper || pointToCheck.z <= m_nodeBounds.zBound.lower){
-            return false;
-    }
-    return true;
-}
-
-void Octree::split(int maxDepth,std::vector<NodePoint> points){
-    //1 check if we have less than the minimum number of points in us
-    //also check if we are past max depth
-    //if either of those are true we are a leaf
-    std::cout<<"  split -> my depth: "<<m_depth<<" max: "<<maxDepth<<std::endl;
-    if(m_depth >= maxDepth || points.size() <= 2){
-        std::cout<<"I am a leaf"<<std::endl; 
-        std::vector<NodePoint>::iterator _it;  // declare an iterator to a vector of strings
-         for(_it=points.begin(); _it < points.end(); _it++){
-            insertPoint(points.back());
-            points.pop_back();
-         }
+    if((pointToCheck.x <= m_nodeBounds.xBound.upper && pointToCheck.x >= m_nodeBounds.xBound.lower) &&
+      (pointToCheck.y <= m_nodeBounds.yBound.upper && pointToCheck.y >= m_nodeBounds.yBound.lower) &&
+      (pointToCheck.z <= m_nodeBounds.zBound.upper && pointToCheck.z >= m_nodeBounds.zBound.lower)){
+        return true;
     }
     else{
-            //else: we take split into a child octree and pass the points forward
-            //into that tree and place the current octree into the new children
-            //to split we should start from one corner of the cube, so the lower x,y,z
-            //the size is 1/8 the last size
-            
-            double childSize = m_size/8;
-            //we now have the size, now we need the eight centers
-            double childDistance = cbrt(childSize)/2;
-            NodePoint fur_childCenter,ful_childCenter,
-                      fdr_childCenter,fdl_childCenter,
-                      bur_childCenter,bul_childCenter,
-                      bdr_childCenter,bdl_childCenter;
-
-            fur_childCenter.x = m_center.x+childDistance;
-            fur_childCenter.y = m_center.y+childDistance;
-            fur_childCenter.z = m_center.z+childDistance;
-            
-            ful_childCenter.x = m_center.x-childDistance;
-            ful_childCenter.y = m_center.y+childDistance;
-            ful_childCenter.z = m_center.z+childDistance;
-
-            fdr_childCenter.x = m_center.x+childDistance;
-            fdr_childCenter.y = m_center.y-childDistance;
-            fdr_childCenter.z = m_center.z+childDistance;
-            
-            fdl_childCenter.x = m_center.x-childDistance;
-            fdl_childCenter.y = m_center.y-childDistance;
-            fdl_childCenter.z = m_center.z+childDistance;
-             
-            bur_childCenter.x = m_center.x+childDistance;
-            bur_childCenter.y = m_center.y+childDistance;
-            bur_childCenter.z = m_center.z-childDistance;
-              
-            bul_childCenter.x = m_center.x-childDistance;
-            bul_childCenter.y = m_center.y+childDistance;
-            bul_childCenter.z = m_center.z-childDistance;
-              
-            bdr_childCenter.x = m_center.x+childDistance;
-            bdr_childCenter.y = m_center.y-childDistance;
-            bdr_childCenter.z = m_center.z-childDistance;
-              
-            bdl_childCenter.x = m_center.x-childDistance;
-            bdl_childCenter.y = m_center.y-childDistance;
-            bdl_childCenter.z = m_center.z-childDistance;
-            
-            std::cout<<"  potato: "<<m_points.size()<<std::endl; 
-            Octree fur = Octree(fur_childCenter,childSize,this,m_maxDepth,m_points);
-            Octree ful = Octree(ful_childCenter,childSize,this,m_maxDepth,m_points);
-            Octree fdr = Octree(fdr_childCenter,childSize,this,m_maxDepth,m_points);
-            Octree fdl = Octree(fdl_childCenter,childSize,this,m_maxDepth,m_points);
-            Octree bur = Octree(bur_childCenter,childSize,this,m_maxDepth,m_points);
-            Octree bul = Octree(bul_childCenter,childSize,this,m_maxDepth,m_points);
-            Octree bdr = Octree(bdr_childCenter,childSize,this,m_maxDepth,m_points);
-            Octree bdl = Octree(bdl_childCenter,childSize,this,m_maxDepth,m_points);
-            m_children.push_back(fur);
-            m_children.push_back(ful);
-            m_children.push_back(fdr);
-            m_children.push_back(fdl);
-            m_children.push_back(bur);
-            m_children.push_back(bul);
-            m_children.push_back(bdr);
-            m_children.push_back(bdl);
-
-            // now start at from the beginning
-            // and keep iterating over the element till you find
-            // nth element...or reach the end of vector.
-
-            std::vector<Octree>::iterator it; 
-            for(it=m_children.begin() ; it < m_children.end(); it++) {
-                std::vector<NodePoint>::iterator node_it;
-                for(node_it=m_points.begin(); node_it < m_points.end(); node_it++){
-                    if(inBounds(*node_it)) {
-                        it->insertPoint(m_points.back());
-                        m_points.pop_back();
-                    }
-                }
-            }
-            std::cout<<"I should be ZERO: "<<m_points.size()<<std::endl;
-            if(m_points.size() != 0){
-                std::cout<<" BAIL "<<std::endl;
-                exit(0);
-            }
+        return false;
     }
 }
 
+void Octree::split(std::list<NodePoint> points){
+    //check if we have less than the minimum number of points in us
+    //also check if we are past max depth
+    //if either of those are true we are a leaf
+    //if(m_depth >= maxDepth || points.size() <= 1){
+    if(points.size() <= 1){
+         std::list<NodePoint>::const_iterator node_it = points.begin();
+         while (node_it != points.end()){
+            insertPoint(*node_it);
+            node_it = m_points.erase(node_it);
+        }
+        return;
+    }
+    else{
+        //else: we take split into a child octree and pass the points forward
+        //into that tree and place the current octree into the new children
+        //to split we should start from one corner of the cube, so the lower x,y,z
+        //the size is 1/8 the last size
+            
+        double childSize = m_size/8;
+        //we now have the size, now we need the eight centers
+        double childDistance = cbrt(childSize)/2;
+        NodePoint fur_childCenter,ful_childCenter,
+                  fdr_childCenter,fdl_childCenter,
+                  bur_childCenter,bul_childCenter,
+                  bdr_childCenter,bdl_childCenter;
+
+        fur_childCenter.x = m_center.x+childDistance;
+        fur_childCenter.y = m_center.y+childDistance;
+        fur_childCenter.z = m_center.z+childDistance;
+            
+        ful_childCenter.x = m_center.x-childDistance;
+        ful_childCenter.y = m_center.y+childDistance;
+        ful_childCenter.z = m_center.z+childDistance;
+
+        fdr_childCenter.x = m_center.x+childDistance;
+        fdr_childCenter.y = m_center.y-childDistance;
+        fdr_childCenter.z = m_center.z+childDistance;
+            
+        fdl_childCenter.x = m_center.x-childDistance;
+        fdl_childCenter.y = m_center.y-childDistance;
+        fdl_childCenter.z = m_center.z+childDistance;
+             
+        bur_childCenter.x = m_center.x+childDistance;
+        bur_childCenter.y = m_center.y+childDistance;
+        bur_childCenter.z = m_center.z-childDistance;
+              
+        bul_childCenter.x = m_center.x-childDistance;
+        bul_childCenter.y = m_center.y+childDistance;
+        bul_childCenter.z = m_center.z-childDistance;
+              
+        bdr_childCenter.x = m_center.x+childDistance;
+        bdr_childCenter.y = m_center.y-childDistance;
+        bdr_childCenter.z = m_center.z-childDistance;
+              
+        bdl_childCenter.x = m_center.x-childDistance;
+        bdl_childCenter.y = m_center.y-childDistance;
+        bdl_childCenter.z = m_center.z-childDistance;
+            
+        Octree fur = Octree(fur_childCenter,childSize,this,m_points);
+        Octree ful = Octree(ful_childCenter,childSize,this,m_points);
+        Octree fdr = Octree(fdr_childCenter,childSize,this,m_points);
+        Octree fdl = Octree(fdl_childCenter,childSize,this,m_points);
+        Octree bur = Octree(bur_childCenter,childSize,this,m_points);
+        Octree bul = Octree(bul_childCenter,childSize,this,m_points);
+        Octree bdr = Octree(bdr_childCenter,childSize,this,m_points);
+        Octree bdl = Octree(bdl_childCenter,childSize,this,m_points);
+        m_children.push_back(fur);
+        m_children.push_back(ful);
+        m_children.push_back(fdr);
+        m_children.push_back(fdl);
+        m_children.push_back(bur);
+        m_children.push_back(bul);
+        m_children.push_back(bdr);
+        m_children.push_back(bdl);
+        // now start at from the beginning
+        // and keep iterating over the element till you find
+        // nth element...or reach the end of vector.
+
+        std::vector<Octree>::iterator it;
+        for(it=m_children.begin() ; it < m_children.end(); it++) {
+            std::list<NodePoint>::const_iterator node_it = m_points.begin();
+            while (node_it != m_points.end()){
+                if(it->inBounds(*node_it)) {
+                    it->insertPoint(*node_it);
+                    node_it = m_points.erase(node_it);
+                }
+                else{
+                    node_it++;
+                }
+            }
+        }
+            
+        for(it=m_children.begin() ; it < m_children.end(); it++) {
+            it->split(it->m_points);
+        }
+    }
+}
+
+void Octree::traverse(){
+    //starting from the initial node
+    //print self, then children
+    //for each child, traversee them
+    printSpaces();
+    std::cout<<"Node Id: "<<id<<std::endl;
+    printSpaces();
+    std::cout<<"Node Center: ";
+    printSpaces();
+    std::cout<<"  "<<m_center.x<<","<<m_center.y<<","<<m_center.z<<std::endl;
+    printSpaces();
+    std::cout<<"Node Size: "<<m_size<<std::endl;
+    printSpaces();
+    std::cout<<"Node Bounds: "<<std::endl;
+    printBounds();
+    printSpaces();
+    if(m_points.size() > 0){
+        std::cout<<"Node Points: "<<m_points.size()<<std::endl;
+    }
+    for (std::list<NodePoint>::const_iterator it = m_points.begin(), end = m_points.end(); it != end; ++it) {
+        printSpaces();
+        std::cout<<"Point: "<<std::endl;
+        printSpaces();
+        std::cout<<"  "<<it->x<<","<<it->y<<","<<it->z<<std::endl;
+    }
+    for (std::vector<Octree>::iterator it=m_children.begin(); it < m_children.end(); ++it){
+        it->traverse();
+    }
+    
+    std::cout<<std::endl;
+}
+
+void Octree::printSpaces(){
+    for(int i = 0;i < m_depth;++i){
+        std::cout<<"  ";
+    }
+}
+
+int Octree::maxDepth = 7;
+
+double fRand(double fMin, double fMax)
+{
+    double f = (double)rand() / RAND_MAX;
+    return fMin + f * (fMax - fMin);
+}
+
+//int numPoints = 8+178+3463+732181;
+int numPoints = 735830;
 int main(){
-    std::cout<<"Main"<<std::endl;
+    double sim_size = pow(1.46059,30);
+    double max_bound = cbrt(sim_size)/2;   
     NodePoint center;
     center.x = 0;
     center.y = 0;
     center.z = 0;
     
-    std::vector<NodePoint> initialPoints;
-    NodePoint np1,np2,np3,np4,np5,np6,np7,np8;
-    np1.x = 4;
-    np1.y = 1;
-    np1.z = 1;
+    std::list<NodePoint> initialPoints;
+    for(int i; i<numPoints; ++i){
+        NodePoint np;
+        np.x = fRand(-max_bound,max_bound); 
+        np.y = fRand(-max_bound,max_bound); 
+        np.z = fRand(-max_bound,max_bound); 
+        initialPoints.push_back(np);
+    }
 
-    np2.x = -1;
-    np2.y = 1;
-    np2.z = 1;
-
-    np3.x = 1;
-    np3.y = -1;
-    np3.z = 1;
-  
-    np4.x = 1;
-    np4.y = 1;
-    np4.z = -1;
-  
-    np5.x = -1;
-    np5.y = -1;
-    np5.z = 1;
-
-    np6.x = 1;
-    np6.y = -1;
-    np6.z = -1;
-  
-    np7.x = -1;
-    np7.y = 1;
-    np7.z = -1;
-
-    np8.x = -1;
-    np8.y = -1;
-    np8.z = -1;
-
-    initialPoints.push_back(np1);
-    initialPoints.push_back(np2);
-    initialPoints.push_back(np3);
-    initialPoints.push_back(np4);
-    initialPoints.push_back(np5);
-    initialPoints.push_back(np6);
-    initialPoints.push_back(np7);
-    initialPoints.push_back(np8);
-
-
-    int maxDepth = 2;
-
-    Octree init_octree = Octree(center,1000,maxDepth,initialPoints);
-    init_octree.split(maxDepth,initialPoints);
-
+    Octree init_octree = Octree(center,sim_size,initialPoints);
+    init_octree.split(initialPoints);
+//    init_octree.traverse();
+    std::cout<<Octree::instance_count <<std::endl;
+    std::cout<<Octree::maxDepth <<std::endl;
 }
 

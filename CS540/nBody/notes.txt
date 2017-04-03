@@ -1,0 +1,22 @@
+OpenMP and Octrees
+
+So I implemented an octree algorithm from scratch.
+An Octree is used to parition space in a 3D system, usually for 
+graphics or scientific modeling. In my case, the inspiration came 
+from solving the n-body problem for a given system in space, for
+example our solar system.
+
+The program takes three main parameters, system size, maximum depth of tree, and the number of bodies to randomly generate.
+
+Initially, the program was written without parallelization in mind.The motivation behind this was to understand the algorithm first, and then see how OpenMP could be applied to yield greater performance. 
+
+Taking the size of the solar system to be roughly equal to 1.46059e30 cubic miles, and the number of objects in the system to be 735,830(https://ssd.jpl.nasa.gov/?body_count), the performance of the algorithm can be investigated.
+
+
+Starting with a max depth of 100, we obtain a time of ~9.17s. 
+A max depth of 1000 produces no noticeable deviation from this time, in some cases providing better performance. Something to note here is that random points are generated each time - however, there is no true statistical deviation caused by this as it can be shown that the performance of the algorithm stays within the same range of time over many executions with random points. Indeed, it appears that even increasing the max depth to 1,000,000 causes no signifigant difference. 
+
+The reason for this is clear - the max depth corresponds to 8^n+1 number of cubic zones in the octree, and with a max depth of 8, a total of 16,777,217 individual zones, it is clear that the octree need not be very deep at all due to the 8^n width it carries.
+
+Knowing this, it can be found that with the 735,830 objects in the system, the ideal depth for the tree will be 7, as 8^6 is maximum 262,144 cubes, and 8^7 is maximum 2,097,152 individual cubes. Using a maximum depth of 7 yields an execution time near 8.04s - a clear improvement from building a much deeper tree. This does not however, gurantee equal accuracy - as the points could be clustered closely at a leaf node. To this end, the algorithm was run so as to 
+On that note, using a max depth of 8 produces an execution time of about 8.96s. 

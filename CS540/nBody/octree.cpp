@@ -2,6 +2,7 @@
 
 #include "octree.hpp"
 #include <iostream>
+#include <algorithm>
 #include <random>
 #include <math.h>
 
@@ -61,8 +62,9 @@ std::list<NodePoint> Octree::getPoints(){
 }
 
 void Octree::insertPoint(NodePoint np){
-    std::cout<<" INsert Point: "<<np.x<<","<<np.y<<","<<np.z<<std::endl;
-    m_points.push_back(np);
+    if((std::find(m_points.begin(), m_points.end(), np) == m_points.end())){
+        m_points.push_back(np);
+    }
 }
 void Octree::printBounds(){
     NodeBounds nb = this->getBounds();
@@ -90,23 +92,15 @@ void Octree::split(std::list<NodePoint> points){
     //also check if we are past max depth
     //if either of those are true we are a leaf
     //if(m_depth >= maxDepth || points.size() <= 1){
-   /* if(points.size() <= 1){
-        for(NodePoint const& node_it : points){
-            // while (node_it != points.end()){
-            insertPoint(node_it);
-            // node_it = m_points.erase(node_it);
+    if(points.size() <= 1){
+        std::list<NodePoint>::const_iterator node_it = points.begin();
+        while (node_it != points.end()){
+            insertPoint(*node_it);
+            node_it = m_points.erase(node_it);
         }
         return;
-    }*/
-    if(points.size() <= 1){
-          std::list<NodePoint>::const_iterator node_it = points.begin();
-          while (node_it != points.end()){
-             insertPoint(*node_it);
-             node_it = m_points.erase(node_it);
-               }
-          return;
-        }
-         else{
+    }
+    else{
         //else: we take split into a child octree and pass the points forward
         //into that tree and place the current octree into the new children
         //to split we should start from one corner of the cube, so the lower x,y,z
@@ -173,7 +167,6 @@ void Octree::split(std::list<NodePoint> points){
         // nth element...or reach the end of vector.
 
         std::vector<Octree>::iterator it;
-            std::cout<<"child splitting"<<std::endl;
             for(it=m_children.begin() ; it < m_children.end(); it++) {
                 std::list<NodePoint>::const_iterator node_it = m_points.begin();
                 while (node_it != m_points.end()){
@@ -196,7 +189,6 @@ void Octree::split(std::list<NodePoint> points){
              exit(0);
          }
             for(it=m_children.begin() ; it < m_children.end(); it++) {
-                //#pragma omp task
                 it->split(it->m_points);
             }
             
@@ -219,10 +211,14 @@ void Octree::traverse(){
     std::cout<<"Node Bounds: "<<std::endl;
     printBounds();
     printSpaces();
-   // if(m_points.size() > 0){
+    if(m_points.size() > 0){
         std::cout<<"Node Points: "<<m_points.size()<<std::endl;
-   // }
-   
+        std::cout<<"  "<<m_points.front().x<<","<<m_points.front().y<<","<<m_points.front().z<<std::endl;
+        std::list<NodePoint>::iterator ptr2 = std::next(m_points.begin());
+
+        std::cout<<"  "<<ptr2->x<<","<<ptr2->y<<","<<ptr2->z<<std::endl;
+    }
+     
     for (std::list<NodePoint>::const_iterator it = m_points.begin(), end = m_points.end(); it != end; ++it) {
         printSpaces();
         std::cout<<"Point: "<<std::endl;
@@ -251,10 +247,10 @@ double fRand(double fMin, double fMax)
 }
 
 int main(){
-//    double sim_size = pow(1.46059,30);
+    //double sim_size = pow(1.46059,30);
     double sim_size = 100000; 
-    int numPoints = 10;
-//    int numPoints = 8+178+3463+732181;
+    int numPoints = 1000;
+    //int numPoints = 8+178+3463+732181;
 
     double max_bound = cbrt(sim_size)/2;   
     NodePoint center;
@@ -263,6 +259,8 @@ int main(){
     center.z = 0;
     
     std::list<NodePoint> initialPoints;
+    srand (time(NULL));
+
     for(int i; i<numPoints; ++i){
         NodePoint np;
         np.x = fRand(-max_bound,max_bound); 
@@ -274,8 +272,8 @@ int main(){
     Octree init_octree = Octree(center,sim_size,initialPoints);
     init_octree.split(initialPoints);
     init_octree.traverse();
-//    std::cout<<Octree::instance_count <<std::endl;
+    std::cout<<Octree::instance_count <<std::endl;
 
-//    std::cout<<Octree::maxDepth <<std::endl;
+    std::cout<<Octree::maxDepth <<std::endl;
 }
 

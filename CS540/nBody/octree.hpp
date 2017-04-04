@@ -10,6 +10,9 @@
 struct NodePoint
 {
     float x,y,z;
+    bool operator==(const NodePoint& lhs){
+        return (lhs.x == x && lhs.y == y && lhs.z == z);
+    }
 };
 
 struct Node

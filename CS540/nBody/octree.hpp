@@ -38,8 +38,6 @@ class Octree
     public:
         Octree(NodePoint center,const double size, std::list<NodePoint> points);
         Octree(NodePoint center,const double size, Octree* parent, std::list<NodePoint> points);
-       // Octree(const Octree& copy);
-       // Octree& operator=(const Octree& copy);
         ~Octree();
   
         double getSize();

@@ -295,7 +295,6 @@ void octree_traverse_p(Octree *o){
                 #pragma omp task
                 octree_traverse_p(&(*it));
     }
-    #pragma omp taskwait
     Process(o);
 
 }
@@ -308,8 +307,8 @@ void octree_traverse(Octree *o){
 }
 
 int main(){
-    double sim_size = 100000; 
-    int numPoints   = 10000;
+    double sim_size = 1000000; 
+    int numPoints   = 100000;
 
     double max_bound = cbrt(sim_size)/2;   
     NodePoint center;
@@ -364,5 +363,6 @@ int main(){
               endp.tv_usec - startp.tv_usec) / 1.e6;
 
     std::cout<<"parallel exec time: "<<deltap<<std::endl;
+
 }
 

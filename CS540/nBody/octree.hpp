@@ -58,6 +58,7 @@ class Octree
         static int maxDepth;
         static int instance_count;
 
+
     private:
 	    NodePoint m_center;
         double m_size;

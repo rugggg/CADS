@@ -58,12 +58,14 @@ class Octree
         static int maxDepth;
         static int instance_count;
 
+        std::vector<Octree> m_children;
 
     private:
 	    NodePoint m_center;
         double m_size;
         NodeBounds m_nodeBounds;
-        std::vector<Octree> m_children;
+        //std::vector<Octree> m_children;
+
         std::list<NodePoint> m_points;
         Octree* m_parent;
         int m_depth;

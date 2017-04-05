@@ -5,6 +5,10 @@
 #include <algorithm>
 #include <random>
 #include <math.h>
+#include <omp.h>
+#include <sys/time.h>
+#include <ctime>
+
 
 Octree::Octree(NodePoint center, const double size, std::list<NodePoint> points){
     instance_count++;
@@ -21,7 +25,7 @@ Octree::Octree(NodePoint center, const double size, Octree *parent, std::list<No
     id = instance_count;
     m_center = center;
     m_size = size;   
-    maxDepth = parent->getDepth()+1; 
+    //maxDepth = parent->getDepth()+1; 
     m_depth = parent->getDepth()+1;
     m_parent = parent;
     setBounds();
@@ -92,8 +96,8 @@ void Octree::split(std::list<NodePoint> points){
     //check if we have less than the minimum number of points in us
     //also check if we are past max depth
     //if either of those are true we are a leaf
-    //if(m_depth >= maxDepth || points.size() <= 1){
-    if(points.size() <= 1){
+    if(m_depth >= maxDepth || points.size() <= 1){
+    //if(points.size() <= 1){
         std::list<NodePoint>::const_iterator node_it = points.begin();
         while (node_it != points.end()){
             insertPoint(*node_it);
@@ -106,7 +110,6 @@ void Octree::split(std::list<NodePoint> points){
         //into that tree and place the current octree into the new children
         //to split we should start from one corner of the cube, so the lower x,y,z
         //the size is 1/8 the last size
-        std::cout<<"     --->> Splitting" <<std::endl;
         double childSize = m_size/8;
         //we now have the size, now we need the eight centers
         double childDistance = cbrt(childSize)/2;
@@ -254,17 +257,18 @@ void Octree::traverse(){
     printBounds();
     printSpaces();
     std::cout<<"Node Points: "<<m_points.size()<<std::endl;
-     
+    {
     for (std::list<NodePoint>::const_iterator it = m_points.begin(), end = m_points.end(); it != end; ++it) {
         printSpaces();
         std::cout<<"Point: "<<std::endl;
         printSpaces();
         std::cout<<"  "<<it->x<<","<<it->y<<","<<it->z<<std::endl;
-    }
+    }}
+    {
     for (std::vector<Octree>::iterator it=m_children.begin(); it < m_children.end(); ++it){
         it->traverse();
     }
-    
+    }
     std::cout<<std::endl;
 }
 
@@ -282,11 +286,30 @@ double fRand(double fMin, double fMax)
     return fMin + f * (fMax - fMin);
 }
 
+void Process(Octree* o){
+    int temp_id = o->id;
+//    std::cout<<o->id<<std::endl;
+}
+void octree_traverse_p(Octree *o){  
+    for (std::vector<Octree>::iterator it=o->m_children.begin(); it < o->m_children.end(); ++it){
+                #pragma omp task
+                octree_traverse_p(&(*it));
+    }
+    #pragma omp taskwait
+    Process(o);
+
+}
+void octree_traverse(Octree *o){  
+    for (std::vector<Octree>::iterator it=o->m_children.begin(); it < o->m_children.end(); ++it){
+                octree_traverse(&(*it));
+    }
+    Process(o);
+
+}
+
 int main(){
-    //double sim_size = pow(1.46059,30);
     double sim_size = 100000; 
-    int numPoints = 1000;
-    //int numPoints = 8+178+3463+732181;
+    int numPoints   = 10000;
 
     double max_bound = cbrt(sim_size)/2;   
     NodePoint center;
@@ -307,9 +330,39 @@ int main(){
 
     Octree init_octree = Octree(center,sim_size,initialPoints);
     init_octree.split(initialPoints);
-    init_octree.traverse();
-    std::cout<<Octree::instance_count <<std::endl;
+    //init_octree.traverse();
+    //
+    std::cout<<"octree nodes:"<<Octree::instance_count <<std::endl;
+    std::cout<<"maximum depth: "<<Octree::maxDepth <<std::endl;
 
-    std::cout<<Octree::maxDepth <<std::endl;
+    std::cout<<" Serial Execution "<<std::endl;
+
+    struct timeval start, end;
+    gettimeofday(&start, NULL);
+
+    octree_traverse(&init_octree);
+
+    gettimeofday(&end, NULL);
+
+    double delta = ((end.tv_sec  - start.tv_sec) * 1000000u + 
+              end.tv_usec - start.tv_usec) / 1.e6;
+    std::cout<<"serial exec time: "<<delta<<std::endl;
+    
+    struct timeval startp, endp;
+    gettimeofday(&startp, NULL);
+
+
+    #pragma omp parallel
+    {
+    #pragma omp single
+    {
+    octree_traverse_p(&init_octree);
+    #pragma omp taskwait
+    }}
+    gettimeofday(&endp, NULL);
+    double deltap = ((endp.tv_sec  - startp.tv_sec) * 1000000u + 
+              endp.tv_usec - startp.tv_usec) / 1.e6;
+
+    std::cout<<"parallel exec time: "<<deltap<<std::endl;
 }
 

@@ -25,7 +25,6 @@ Octree::Octree(NodePoint center, const double size, Octree *parent, std::list<No
     id = instance_count;
     m_center = center;
     m_size = size;   
-    //maxDepth = parent->getDepth()+1; 
     m_depth = parent->getDepth()+1;
     m_parent = parent;
     setBounds();
@@ -120,9 +119,9 @@ void Octree::split(std::list<NodePoint> points){
         
         #pragma omp parallel
         {
-        #pragma omp single nowait
+        #pragma omp sections
         {
-        #pragma omp task shared(fur_childCenter)
+        #pragma omp section// shared(fur_childCenter)
         {
         fur_childCenter.x = m_center.x+childDistance;
         fur_childCenter.y = m_center.y+childDistance;
@@ -130,7 +129,7 @@ void Octree::split(std::list<NodePoint> points){
 //        Octree fur = Octree(fur_childCenter,childSize,this,m_points);
 //        m_children.push_back(fur);
         }
-        #pragma omp task shared(ful_childCenter)
+        #pragma omp section// shared(ful_childCenter)
         {   
         ful_childCenter.x = m_center.x-childDistance;
         ful_childCenter.y = m_center.y+childDistance;
@@ -138,7 +137,7 @@ void Octree::split(std::list<NodePoint> points){
 //        Octree ful = Octree(ful_childCenter,childSize,this,m_points);
 //        m_children.push_back(ful);
         }
-        #pragma omp task shared(fdr_childCenter)
+        #pragma omp section// shared(fdr_childCenter)
         {
         fdr_childCenter.x = m_center.x+childDistance;
         fdr_childCenter.y = m_center.y-childDistance;
@@ -146,7 +145,7 @@ void Octree::split(std::list<NodePoint> points){
 //        Octree fdr = Octree(fdr_childCenter,childSize,this,m_points);
 //        m_children.push_back(fdr);
         }
-        #pragma omp task shared(fdl_childCenter)
+        #pragma omp section //shared(fdl_childCenter)
         {
         fdl_childCenter.x = m_center.x-childDistance;
         fdl_childCenter.y = m_center.y-childDistance;
@@ -154,7 +153,7 @@ void Octree::split(std::list<NodePoint> points){
 //        Octree fdl = Octree(fdl_childCenter,childSize,this,m_points);
 //        m_children.push_back(fdl);
         }
-        #pragma omp task shared(bur_childCenter)
+        #pragma omp section// shared(bur_childCenter)
         {
         bur_childCenter.x = m_center.x+childDistance;
         bur_childCenter.y = m_center.y+childDistance;
@@ -162,7 +161,7 @@ void Octree::split(std::list<NodePoint> points){
 //        Octree bur = Octree(bur_childCenter,childSize,this,m_points);
 //        m_children.push_back(bur);
         }
-        #pragma omp task shared(bul_childCenter)
+        #pragma omp section// shared(bul_childCenter)
         {
         bul_childCenter.x = m_center.x-childDistance;
         bul_childCenter.y = m_center.y+childDistance;
@@ -170,7 +169,7 @@ void Octree::split(std::list<NodePoint> points){
 //        Octree bul = Octree(bul_childCenter,childSize,this,m_points);
 //        m_children.push_back(bul);
         }
-        #pragma omp task shared(bdr_childCenter)
+        #pragma omp section// shared(bdr_childCenter)
         {
         bdr_childCenter.x = m_center.x+childDistance;
         bdr_childCenter.y = m_center.y-childDistance;
@@ -178,7 +177,7 @@ void Octree::split(std::list<NodePoint> points){
 //        Octree bdr = Octree(bdr_childCenter,childSize,this,m_points);
 //        m_children.push_back(bdr);
         }
-        #pragma omp task shared(bdl_childCenter)
+        #pragma omp section// shared(bdl_childCenter)
         {
         bdl_childCenter.x = m_center.x-childDistance;
         bdl_childCenter.y = m_center.y-childDistance;
@@ -186,7 +185,6 @@ void Octree::split(std::list<NodePoint> points){
 //        Octree bdl = Octree(bdl_childCenter,childSize,this,m_points);
 //        m_children.push_back(bdl);
         }
-        #pragma omp taskwait
         }
         }
 
@@ -198,6 +196,7 @@ void Octree::split(std::list<NodePoint> points){
         Octree bul = Octree(bul_childCenter,childSize,this,m_points);
         Octree bdr = Octree(bdr_childCenter,childSize,this,m_points);
         Octree bdl = Octree(bdl_childCenter,childSize,this,m_points);
+
 
         m_children.push_back(fur);
         m_children.push_back(ful);
@@ -233,9 +232,9 @@ void Octree::split(std::list<NodePoint> points){
              std::cout<<" BAIL "<<std::endl;
              exit(0);
          }
-            for(it=m_children.begin() ; it < m_children.end(); it++) {
-                it->split(it->m_points);
-            }
+        for(it=m_children.begin() ; it < m_children.end(); it++) {
+            it->split(it->m_points);
+        }
             
     }
 }
@@ -307,8 +306,10 @@ void octree_traverse(Octree *o){
 }
 
 int main(){
-    double sim_size = 1000000; 
+//    double sim_size = 1000000; 
     int numPoints   = 100000;
+    double sim_size = pow(1.46059,30);
+//    int numPoints = 8+178+3463+732181;    
 
     double max_bound = cbrt(sim_size)/2;   
     NodePoint center;
@@ -330,7 +331,6 @@ int main(){
     Octree init_octree = Octree(center,sim_size,initialPoints);
     init_octree.split(initialPoints);
     //init_octree.traverse();
-    //
     std::cout<<"octree nodes:"<<Octree::instance_count <<std::endl;
     std::cout<<"maximum depth: "<<Octree::maxDepth <<std::endl;
 
@@ -357,12 +357,18 @@ int main(){
     {
     octree_traverse_p(&init_octree);
     #pragma omp taskwait
-    }}
+    }
+    }
     gettimeofday(&endp, NULL);
     double deltap = ((endp.tv_sec  - startp.tv_sec) * 1000000u + 
               endp.tv_usec - startp.tv_usec) / 1.e6;
 
     std::cout<<"parallel exec time: "<<deltap<<std::endl;
+    
+    double speedup = delta/deltap;
+
+    std::cout<<"speedup: "<<speedup<<std::endl;
+
 
 }
 

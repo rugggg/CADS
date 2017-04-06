@@ -2,6 +2,7 @@
 \usepackage{graphicx}
 \usepackage[margin=1in]{geometry}
 \usepackage{mathtools}
+\usepackage{hyperref}
 \linespread{1.5}
 \title{\textbf{Octrees \& OpenMP}}
 \author{Doug Woodward}
@@ -82,6 +83,9 @@ Amdahl's law was not employed here because the only section that was parallelize
 \section{Conclusion}
 Parallelization is a powerful technique and one that can yield great gains --- however, not all applications are well suited for it. A generalization can be drawn here that sections of code that require writing to an object or memory are ill-suited for parallelization. However, searching some data structure and only accessing memory for reads presents an excellent potential area for the use of parallelization. 
 
+\section{Code}
+
+Code can be found at \texttt{\href{https://github.com/rugggg/CADS/tree/master/CS540/nBody}{https://github.com/rugggg/CADS/tree/master/CS540/nBody}}
 
 \begin{thebibliography}{9}
 \bibitem{nasa} 

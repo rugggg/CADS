@@ -1,1 +1,5 @@
 *.tgz
+CS540/hadoop/num_sorter/rand_ints.txt
+CS540/hadoop/num_sorter/output_sorted/part-00000
+CS540/hadoop/hadoop_word_count/_SUCCESS
+CS540/hadoop/hadoop_word_count/console_out.txt

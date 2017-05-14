@@ -16,14 +16,14 @@ const int constNumCellsDown      = 10;
 const int     constSizeOfInputVector   = 3;
 
 //the number of epochs desired for the training
-const int    constNumIterations       = 10;
+const int    constNumIterations       = 10000;
 
 //the value of the learning rate at the start of training
-const double constStartLearningRate   = 0.9;
+const double constStartLearningRate   = 100;
 
 /*   uncomment the following if you'd like the SOM to classify randomly created training sets  */
 
-#define RANDOM_TRAINING_SETS
+//#define RANDOM_TRAINING_SETS
 
 #ifdef RANDOM_TRAINING_SETS
 

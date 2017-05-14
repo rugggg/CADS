@@ -11,7 +11,7 @@ void keyboard(unsigned char key, int x, int y);
 void init();
 void idle(void);
 
-
+bool simDone = false;
 
 Som* som;
 
@@ -58,24 +58,22 @@ void reshape(int width, int height)
 
 bool Train()
 {
-  if (!som->finishedTraining())
-  {
-    if (!som->epoch(m_TrainingSet))
-    {
-      return false;
-    }
-  }
-
-  return true;
+  if(!som->finishedTraining())
+      som->epoch(m_TrainingSet);
+  return som->finishedTraining();
 }
 
 
 void idle(void)
 {
-    if(Train())
+    if(!Train()){
         glutPostRedisplay();
-    else
-        std::cout<<"Training Over"<<std::endl;
+    }
+    else{
+        if(!simDone)
+            std::cout<<"done"<<std::endl;
+        simDone = true;
+    }
 }
 
 void keyboard(unsigned char key, int mouseX, int mouseY)
@@ -88,7 +86,7 @@ void keyboard(unsigned char key, int mouseX, int mouseY)
     case 'r':
         som = new Som();
         som->finishedTraining();
-        som->create(10, 10, 2);
+        som->create(100, 100, constNumIterations);
         std::cout << "Map reset" << std::endl;
         glutPostRedisplay();
         break;
@@ -172,7 +170,7 @@ main(int argc, char **argv){
     createDataSet();
     som = new Som();
     som->finishedTraining();
-    som->create(100, 100, 2);
+    som->create(constNumCellsDown, constNumCellsAcross, constNumIterations);
     // set up window
     glutInitWindowSize(400, 400);
     glutInit(&argc, argv);

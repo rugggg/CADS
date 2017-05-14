@@ -17,11 +17,14 @@ void Som::create(int cellsUp,
         }
         m_som.push_back(m_row);
     }
-    m_mapRadius = max(constWindowWidth, constWindowHeight)/2;
+    m_mapRadius = max(constWindowWidth, constWindowHeight);
     m_timeConstant = m_numIterations/log(m_mapRadius);
+    std::cout<<"tc: "<<m_timeConstant<<"  mr: "<<m_mapRadius<<std::endl;
 }
 
 bool Som::epoch(const std::vector<std::vector<double> > &data){
+    //std::cout<<"=============================================="<<std::endl;
+    //std::cout<<"==================== Epoch "<<m_iterationCount<<"==================="<<std::endl;
 
     if(data[0].size() != constSizeOfInputVector) return false;
     if(m_done) return true;
@@ -33,17 +36,16 @@ bool Som::epoch(const std::vector<std::vector<double> > &data){
         m_neighborhoodRadius = m_mapRadius * exp(-(double)m_iterationCount/m_timeConstant);
 
         for(int i=0; i<m_som.size(); ++i){
-            std::vector<Node> row = m_som[i];
-            for(int n=0; n<row.size(); ++n){
-            double distToNode = (m_winningNode->X()-row[n].X())*
-                                (m_winningNode->X()-row[n].X())+
-                                (m_winningNode->Y()-row[n].Y())*
-                                (m_winningNode->Y()-row[n].Y());
+            for(int n=0; n<m_som[i].size(); ++n){
+            double distToNode = (m_winningNode->X()-m_som[i][n].X())*
+                                (m_winningNode->X()-m_som[i][n].X())+
+                                (m_winningNode->Y()-m_som[i][n].Y())*
+                                (m_winningNode->Y()-m_som[i][n].Y());
 
             double widthSq = m_neighborhoodRadius * m_neighborhoodRadius;
             if(distToNode < (m_neighborhoodRadius * m_neighborhoodRadius)){
-                m_influence = exp(-distToNode)/(2*widthSq);
-                row[n].adjustWeights(data[curVector], m_lambda, m_influence);
+                m_influence = exp(-distToNode)/(2*widthSq)*10;
+                m_som[i][n].adjustWeights(data[curVector], m_lambda, m_influence);
             }
         }
         }
@@ -60,12 +62,11 @@ Node* Som::findBestMatch(const std::vector<double> &vec){
     Node* winner = NULL;
     double lowestDistance = 999999;
     for(int i=0; i<m_som.size(); ++i){
-        std::vector<Node> row = m_som[i];
-        for(int n=0; n<row.size(); ++n){
-            double dist = row[n].calcDistance(vec);
+        for(int n=0; n<m_som[i].size(); ++n){
+            double dist = m_som[i][n].calcDistance(vec);
             if(dist < lowestDistance){
                 lowestDistance = dist;
-                winner = &row[n];
+                winner = &m_som[i][n];
             }
         }
     }
@@ -74,11 +75,10 @@ Node* Som::findBestMatch(const std::vector<double> &vec){
 
 void Som::render(){
 //    print();
+    
     for (int j=0; j<m_som.size(); ++j){
-        std::vector<Node> row = m_som[j];
-        for (int i=0; i<row.size(); ++i){
-            std::cout<<"render: "<<j<<","<<i<<std::endl;
-            glColor3f(row[i].getR(), row[i].getG(), row[i].getB());
+        for (int i=0; i<m_som[j].size(); ++i){
+            glColor3f(m_som[j][i].getR(), m_som[j][i].getG(), m_som[j][i].getB());
             glBegin(GL_QUADS);
             glVertex3f(j, i, 0);            // upper left
             glVertex3f(j, i-1, 0);            // lower left

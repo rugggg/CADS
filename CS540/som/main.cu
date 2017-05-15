@@ -56,8 +56,8 @@ void reshape(int width, int height)
 
 bool Train()
 {
+    std::cout<<"\r Epoch: "<<som->getIteration()<<" / "<<constNumIterations;
     if(!som->finishedTraining()){
-        std::cout<<"\r Epoch: "<<som->getIteration()<<" / "<<constNumIterations;
         som->epoch(m_TrainingSet);
     }
     return som->finishedTraining();
@@ -72,10 +72,10 @@ void idle(void)
 }
 
 
-void createDataSet()
+void createDataSet(bool randomData)
 {
 
-#ifndef RANDOM_TRAINING_SETS
+if(!randomData){
 
   //create a data set
   std::vector<double> red, green, blue, yellow, orange, purple, dk_green, dk_blue;
@@ -121,9 +121,8 @@ void createDataSet()
   m_TrainingSet.push_back(dk_green);
   m_TrainingSet.push_back(dk_blue);
 
-
-#else
-
+}
+else{
   //choose a random number of training sets
   int NumSets = RandInt(constMinNumTrainingSets, constMaxNumTrainingSets);
 
@@ -138,14 +137,37 @@ void createDataSet()
 
     m_TrainingSet.push_back(set);
   }
+ }
+    
+}
 
-#endif
-
+void usage(){
+    std::cout<<"                 Color Organizing SOM"<<std::endl;
+    std::cout<<"Uses a self organizing map to cluster 3 dimensional colors(R,G,B) in 2D space(X,Y)"<<std::endl;
+    std::cout<<"   Usage:"<<std::endl;
+    std::cout<<"        ./som [-r]"<<std::endl;
+    std::cout<<"        -r   :   use random colors to train"<<std::endl;
+        
+    
 }
 
 main(int argc, char **argv){
     srand((unsigned) time(NULL));
-    createDataSet();
+    bool randomTrainingData = false;
+    if(argc > 1){
+        std::cout<<argv[1]<<std::endl;
+        if((string)argv[1] == "-r"){
+            randomTrainingData = true;
+            std::cout<<"Creating random training data"<<std::endl;
+        }
+        else if((string)argv[1] == "-h"){
+            usage();
+            exit(1);
+        }
+        else
+            std::cout<<"Not a valid arg: "<<argv[1]<<std::endl;
+    }
+    createDataSet(randomTrainingData);
     som = new Som();
     som->finishedTraining();
     som->create(constNumCellsDown, constNumCellsAcross, constNumIterations);

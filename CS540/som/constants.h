@@ -21,15 +21,7 @@ const int    constNumIterations       = 5000;
 //the value of the learning rate at the start of training
 const double constStartLearningRate   = .1;
 
-/*   uncomment the following if you'd like the SOM to classify randomly created training sets  */
-
-#define RANDOM_TRAINING_SETS
-
-#ifdef RANDOM_TRAINING_SETS
-
 const int    constMaxNumTrainingSets  = 20;
 const int    constMinNumTrainingSets  = 5;
-
-#endif
 
 #endif

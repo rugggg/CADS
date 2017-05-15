@@ -4,6 +4,8 @@
 #include <vector>
 #include "node.cuh"
 #include "constants.h"
+#include <thrust/host_vector.h>
+#include <thrust/device_vector.h>
 
 class Som{
     private:
@@ -18,8 +20,9 @@ class Som{
         int m_iterationCount;
         bool m_done;
 
-        Node* findBestMatch(const std::vector<double> &vec);
-        double Gaussian(const double dist, const double sigma);
+        __host__ Node* findBestMatch(const std::vector<double> &vec);
+        __device__ Node* findBestMatchCuda(const thrust::device_vector<double> &vec);
+        __host__ double Gaussian(const double dist, const double sigma);
 
     public:
         Som(): m_winningNode(NULL),
@@ -41,8 +44,9 @@ class Som{
         void print();
         void flipDone();
         int getIteration(){return m_iterationCount;}
-        bool epoch(const std::vector<std::vector<double> > &data);
-        bool finishedTraining()const{return m_done;}
+        __host__ bool epoch(const std::vector<std::vector<double> > &data);
+        __device__ bool cudaEpoch(const thrust::device_vector<thrust::device_vector<double> > &data, int dataSize);
+        __host__ bool finishedTraining()const{return m_done;}
 };
 
         

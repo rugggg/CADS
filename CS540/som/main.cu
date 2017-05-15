@@ -53,7 +53,6 @@ void reshape(int width, int height)
 }
 
 
-
 bool Train()
 {
     std::cout<<"\r Epoch: "<<som->getIteration()<<" / "<<constNumIterations;

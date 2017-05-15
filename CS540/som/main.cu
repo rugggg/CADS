@@ -11,8 +11,6 @@ void keyboard(unsigned char key, int x, int y);
 void init();
 void idle(void);
 
-bool simDone = false;
-
 Som* som;
 
 std::vector<std::vector<double> >m_TrainingSet;
@@ -58,9 +56,11 @@ void reshape(int width, int height)
 
 bool Train()
 {
-  if(!som->finishedTraining())
-      som->epoch(m_TrainingSet);
-  return som->finishedTraining();
+    if(!som->finishedTraining()){
+        std::cout<<"\r Epoch: "<<som->getIteration()<<" / "<<constNumIterations;
+        som->epoch(m_TrainingSet);
+    }
+    return som->finishedTraining();
 }
 
 
@@ -68,28 +68,6 @@ void idle(void)
 {
     if(!Train()){
         glutPostRedisplay();
-    }
-    else{
-        if(!simDone)
-            std::cout<<"done"<<std::endl;
-        simDone = true;
-    }
-}
-
-void keyboard(unsigned char key, int mouseX, int mouseY)
-{
-    switch (key)
-    {
-    case 't':
-        som->flipDone();
-        break;
-    case 'r':
-        som = new Som();
-        som->finishedTraining();
-        som->create(100, 100, constNumIterations);
-        std::cout << "Map reset" << std::endl;
-        glutPostRedisplay();
-        break;
     }
 }
 
@@ -179,7 +157,6 @@ main(int argc, char **argv){
     // register callback functions
     glutDisplayFunc(display);
     glutReshapeFunc(reshape);
-    glutKeyboardFunc(keyboard);
     glutIdleFunc(idle);
     
     // initalize opengl parameters

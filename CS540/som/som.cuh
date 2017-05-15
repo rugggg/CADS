@@ -40,6 +40,7 @@ class Som{
         void render();
         void print();
         void flipDone();
+        int getIteration(){return m_iterationCount;}
         bool epoch(const std::vector<std::vector<double> > &data);
         bool finishedTraining()const{return m_done;}
 };

@@ -23,9 +23,6 @@ void Som::create(int cellsUp,
 }
 
 bool Som::epoch(const std::vector<std::vector<double> > &data){
-    //std::cout<<"=============================================="<<std::endl;
-    std::cout<<"==================== Epoch "<<m_iterationCount<<"==================="<<std::endl;
-
     if(data[0].size() != constSizeOfInputVector) return false;
     if(m_done) return true;
     if(--m_numIterations > 0){

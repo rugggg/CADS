@@ -6,8 +6,8 @@
 const int constWindowWidth       = 100;
 const int constWindowHeight      = 100;
 
-const int constNumCellsAcross    = 10;
-const int constNumCellsDown      = 10;
+const int constNumCellsAcross    = 100;
+const int constNumCellsDown      = 100;
 
 
 //number of weights each node must contain. One for each element of 
@@ -19,7 +19,7 @@ const int     constSizeOfInputVector   = 3;
 const int    constNumIterations       = 10000;
 
 //the value of the learning rate at the start of training
-const double constStartLearningRate   = 100;
+const double constStartLearningRate   = .1;
 
 /*   uncomment the following if you'd like the SOM to classify randomly created training sets  */
 

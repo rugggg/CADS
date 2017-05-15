@@ -24,7 +24,7 @@ void Som::create(int cellsUp,
 
 bool Som::epoch(const std::vector<std::vector<double> > &data){
     //std::cout<<"=============================================="<<std::endl;
-    //std::cout<<"==================== Epoch "<<m_iterationCount<<"==================="<<std::endl;
+    std::cout<<"==================== Epoch "<<m_iterationCount<<"==================="<<std::endl;
 
     if(data[0].size() != constSizeOfInputVector) return false;
     if(m_done) return true;
@@ -37,14 +37,15 @@ bool Som::epoch(const std::vector<std::vector<double> > &data){
 
         for(int i=0; i<m_som.size(); ++i){
             for(int n=0; n<m_som[i].size(); ++n){
-            double distToNode = (m_winningNode->X()-m_som[i][n].X())*
+            double distToNodeSq = (m_winningNode->X()-m_som[i][n].X())*
                                 (m_winningNode->X()-m_som[i][n].X())+
                                 (m_winningNode->Y()-m_som[i][n].Y())*
                                 (m_winningNode->Y()-m_som[i][n].Y());
 
             double widthSq = m_neighborhoodRadius * m_neighborhoodRadius;
-            if(distToNode < (m_neighborhoodRadius * m_neighborhoodRadius)){
-                m_influence = exp(-distToNode)/(2*widthSq)*10;
+            if(distToNodeSq < (widthSq)){
+                m_influence = exp(-(distToNodeSq)/(2*widthSq));
+                
                 m_som[i][n].adjustWeights(data[curVector], m_lambda, m_influence);
             }
         }

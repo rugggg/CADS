@@ -29,8 +29,8 @@ std::vector<double> Node::adjustWeights(const std::vector<double> &target,
                          const double lambda, 
                          const double influence){
     for(int i=0; i < target.size(); ++i){
-       //m_weights[i] += target[i] - m_weights[i];
        m_weights[i] += lambda * influence * (target[i] - m_weights[i]);
+       //m_weights[i] += lambda * (target[i] - m_weights[i]);
     }
     return m_weights;
 }

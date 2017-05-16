@@ -16,7 +16,7 @@ const int constNumCellsDown      = 100;
 const int     constSizeOfInputVector   = 3;
 
 //the number of epochs desired for the training
-const int    constNumIterations       = 5000;
+const int    constNumIterations       = 1000;
 
 //the value of the learning rate at the start of training
 const double constStartLearningRate   = .1;

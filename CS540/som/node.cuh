@@ -9,18 +9,17 @@ class Node
 {
     private:
         std::vector<double>  m_weights;
-        thrust::device_vector<double>  m_weightsCuda;
+        thrust::host_vector<double>  m_weightsCuda;
         double m_x, m_y;
     
     public:
         Node(int x, int y, int numWeights);
         double calcDistance(const std::vector<double> &compareVector);
-        double calcDistanceCuda(thrust::device_vector<double> &compareVector);
         __host__ void adjustWeights(const std::vector<double> &target,
                            const double lambda,
                            const double influence);
 
-        __host__ void adjustWeightsCuda(thrust::device_vector<double> target,
+        __host__ void adjustWeightsCuda(thrust::host_vector<double> target,
                            const double lambda,
                            const double influence,
                            const int targetSize);

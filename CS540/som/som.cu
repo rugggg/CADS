@@ -43,7 +43,8 @@ __host__ bool Som::epoch(const std::vector<std::vector<double> > &data){
             if(distToNodeSq < (widthSq)){
                 m_influence = exp(-(distToNodeSq)/(2*widthSq));
                 
-                m_som[i][n].adjustWeights(data[curVector], m_lambda, m_influence);
+                //m_som[i][n].adjustWeights(data[curVector], m_lambda, m_influence);
+                m_som[i][n].adjustWeightsCuda(thrust::host_vector<double>(data[curVector]), m_lambda, m_influence,data[curVector].size());
             }
         }
         }
@@ -56,60 +57,12 @@ __host__ bool Som::epoch(const std::vector<std::vector<double> > &data){
     return true;
 }
 
-__device__ bool Som::cudaEpoch(const thrust::device_vector<thrust::device_vector<double> > &data, int dataSize){
-    if(dataSize != constSizeOfInputVector) return false;
-    if(m_done) return true;
-    if(--m_numIterations > 0){
-        int curVector = RandInt(0, data.size()-1);
-        //std::cout<<"Current Vector:: "<<std::endl;
-        //std::cout<<data[curVector][0]<<" "<<data[curVector][1]<<" "<<data[curVector][2]<<std::endl;
-        m_winningNode = findBestMatchCuda(data[curVector]);
-        m_neighborhoodRadius = m_mapRadius * exp(-(double)m_iterationCount/m_timeConstant);
-
-        for(int i=0; i<m_som.size(); ++i){
-            for(int n=0; n<m_som[i].size(); ++n){
-            double distToNodeSq = (m_winningNode->X()-m_som[i][n].X())*
-                                (m_winningNode->X()-m_som[i][n].X())+
-                                (m_winningNode->Y()-m_som[i][n].Y())*
-                                (m_winningNode->Y()-m_som[i][n].Y());
-
-            double widthSq = m_neighborhoodRadius * m_neighborhoodRadius;
-            if(distToNodeSq < (widthSq)){
-                m_influence = exp(-(distToNodeSq)/(2*widthSq));
-                m_som[i][n].adjustWeightsCuda(data[curVector], m_lambda, m_influence, dataSize);
-            }
-        }
-        }
-        m_lambda = constStartLearningRate * exp(-(double)m_iterationCount/m_numIterations);
-        ++m_iterationCount;
-    }
-    else{
-        m_done = true;
-    } 
-    return true; 
-}
-
 __host__ Node* Som::findBestMatch(const std::vector<double> &vec){
     Node* winner = NULL;
     double lowestDistance = 999999;
     for(int i=0; i<m_som.size(); ++i){
         for(int n=0; n<m_som[i].size(); ++n){
             double dist = m_som[i][n].calcDistance(vec);
-            if(dist < lowestDistance){
-                lowestDistance = dist;
-                winner = &m_som[i][n];
-            }
-        }
-    }
-    return winner;
-}
-
-__device__ Node* Som::findBestMatchCuda(const thrust::device_vector<double> &vec){
-    Node* winner = NULL;
-    double lowestDistance = 999999;
-    for(int i=0; i<m_som.size(); ++i){
-        for(int n=0; n<m_som[i].size(); ++n){
-            double dist = m_som[i][n].calcDistanceCuda(vec);
             if(dist < lowestDistance){
                 lowestDistance = dist;
                 winner = &m_som[i][n];

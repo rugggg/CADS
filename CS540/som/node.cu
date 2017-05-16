@@ -9,14 +9,17 @@
 #include <thrust/device_vector.h>
 #include "utils.h"
 
-__global__ void cudaAdjustWeights(double *weight, double *target, double lambda, double influence){
-    int i = threadIdx.x + blockIdx.x * blockDim.x;
-    weight[i] += lambda * influence * (target[i] - weight[i]);
+__global__ void cudaAdjustWeights(double *weight, double *target, const double lambda, const double influence){
+    int i = (threadIdx.x + blockIdx.x * blockDim.x)-1;
+    weight[i] += lambda* influence * (target[i] - weight[i]);
 }
+
 
 Node::Node(int x, int y, int numWeights){   
     for (int i = 0; i < numWeights; ++i){
-        m_weights.push_back(RandFloat());
+        double r = RandFloat();
+        m_weights.push_back(r);
+        m_weightsCuda.push_back(r);
     }
     m_x = x;
     m_y = y;
@@ -30,15 +33,6 @@ double Node::calcDistance(const std::vector<double> &compareVector){
     return sqrt(dis);
 }
 
-
-__host__ double calcDistanceCuda(thrust::device_vector<double> &compareVector){
-    double dis = 0;
-    for(int i =0; i < 3; ++i){
-        dis += (compareVector[i] - m_weights[i]) * (compareVector[i] - m_weights[i]);
-    }
-    return sqrt(dis);   
-}
-
 __host__ void Node::adjustWeights(const std::vector<double> &target, 
                          const double lambda, 
                          const double influence){
@@ -47,14 +41,17 @@ __host__ void Node::adjustWeights(const std::vector<double> &target,
     }
 }
 
-__host__ void Node::adjustWeightsCuda(thrust::device_vector<double> target, 
+__host__ void Node::adjustWeightsCuda(thrust::host_vector<double> target, 
                          const double lambda, 
                          const double influence,
                          const int targetSize){
-    
-    double *raw_weights = thrust::raw_pointer_cast(&m_weightsCuda[0]);
-    double *raw_target = thrust::raw_pointer_cast(&target[0]);
-    cudaAdjustWeights<<<1,1>>>(raw_weights, raw_target, lambda, influence);
-    thrust::copy(m_weightsCuda.begin(), m_weightsCuda.end(), m_weights.begin());
+  
+    thrust::device_vector<double> target_d = target;
+    thrust::device_vector<double> weights_d = m_weightsCuda; 
+    double *raw_weights = thrust::raw_pointer_cast(&weights_d[0]);
+    double *raw_target = thrust::raw_pointer_cast(&target_d[0]);
+    cudaAdjustWeights<<<3,1>>>(raw_weights, raw_target, lambda, influence);
+    thrust::copy(weights_d.begin(), weights_d.end(), m_weightsCuda.begin());
+    thrust::copy(weights_d.begin(), weights_d.end(), m_weights.begin());
 }
 

@@ -57,7 +57,8 @@ bool Train()
 {
     std::cout<<"\r Epoch: "<<som->getIteration()<<" / "<<constNumIterations;
     if(!som->finishedTraining()){
-        som->epoch(m_TrainingSet);
+        //som->epoch(m_TrainingSet);
+        som->cudaEpoch(m_TrainingSet);
     }
     return som->finishedTraining();
 }

@@ -21,6 +21,7 @@ class Som{
         bool m_done;
 
         __host__ Node* findBestMatch(const std::vector<double> &vec);
+        __device__ Node* findBestMatchCuda(double *vec, int weightSize);
         __host__ double Gaussian(const double dist, const double sigma);
 
     public:
@@ -44,6 +45,7 @@ class Som{
         void flipDone();
         int getIteration(){return m_iterationCount;}
         __host__ bool epoch(const std::vector<std::vector<double> > &data);
+        __host__ bool cudaEpoch(std::vector<std::vector<double> > data);
         __host__ bool finishedTraining()const{return m_done;}
 };
 

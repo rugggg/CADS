@@ -14,10 +14,15 @@ class Node
     
     public:
         Node(int x, int y, int numWeights);
-        double calcDistance(const std::vector<double> &compareVector);
+        __host__ double calcDistance(const std::vector<double> &compareVector);
+        __device__ double calcDistanceCuda(double *compareVector, int weightSize, double *cudaWeights);
         __host__ void adjustWeights(const std::vector<double> &target,
                            const double lambda,
                            const double influence);
+         __host__ void adjustWeights(const thrust::host_vector<double> &target,
+                           const double lambda,
+                           const double influence);
+
 
         __host__ void adjustWeightsCuda(thrust::host_vector<double> target,
                            const double lambda,
@@ -31,6 +36,7 @@ class Node
         double getR(){return m_weights[0];}
         double getG(){return m_weights[1];}
         double getB(){return m_weights[2];}
+        std::vector<double> getWeights(){return m_weights;}
 };
 
 

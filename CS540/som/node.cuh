@@ -16,10 +16,10 @@ class Node
         Node(int x, int y, int numWeights);
         __host__ double calcDistance(const std::vector<double> &compareVector);
         __device__ double calcDistanceCuda(double *compareVector, int weightSize, double *cudaWeights);
-        __host__ void adjustWeights(const std::vector<double> &target,
+        __host__ double adjustWeights(const std::vector<double> &target,
                            const double lambda,
                            const double influence);
-         __host__ void adjustWeights(const thrust::host_vector<double> &target,
+         __host__ double adjustWeights(const thrust::host_vector<double> &target,
                            const double lambda,
                            const double influence);
 

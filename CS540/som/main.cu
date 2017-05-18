@@ -4,6 +4,7 @@
 #include <iostream>
 #include "utils.h"
 #include <time.h>
+#include <sys/time.h>
 
 void display(void);
 void reshape(int width, int height);
@@ -11,9 +12,13 @@ void keyboard(unsigned char key, int x, int y);
 void init();
 void idle(void);
 
+bool CUDA_ENABLED = false;
 Som* som;
 
 std::vector<std::vector<double> >m_TrainingSet;
+
+struct timeval start, end;
+bool timeDone = false;
 
 void init()
 {
@@ -55,19 +60,33 @@ void reshape(int width, int height)
 
 bool Train()
 {
-    std::cout<<"\r Epoch: "<<som->getIteration()<<" / "<<constNumIterations;
     if(!som->finishedTraining()){
-        //som->epoch(m_TrainingSet);
-        som->cudaEpoch(m_TrainingSet);
+        if(CUDA_ENABLED)
+            som->cudaEpoch(m_TrainingSet);
+        else
+            som->epoch(m_TrainingSet);
     }
     return som->finishedTraining();
 }
 
+void clockOut(){
+    if(!timeDone){
+        gettimeofday(&end, NULL);
+        double delta = ((end.tv_sec  - start.tv_sec) * 1000000u +
+        end.tv_usec - start.tv_usec) / 1.e6;
+        std::cout<<std::endl<<"exec time: "<<delta<<std::endl;
+        timeDone = true;
+    }
+}
 
 void idle(void)
 {
     if(!Train()){
+        std::cout<<"\r Epoch: "<<som->getIteration()<<" / "<<constNumIterations;
         glutPostRedisplay();
+    }
+    else{
+        clockOut();
     }
 }
 
@@ -153,19 +172,27 @@ void usage(){
 
 main(int argc, char **argv){
     srand((unsigned) time(NULL));
+    gettimeofday(&start, NULL);
+
     bool randomTrainingData = false;
     if(argc > 1){
-        std::cout<<argv[1]<<std::endl;
-        if((string)argv[1] == "-r"){
-            randomTrainingData = true;
-            std::cout<<"Creating random training data"<<std::endl;
+        for(int i = 1; i < argc; ++i){
+            if((string)argv[i] == "-r"){
+                randomTrainingData = true;
+                std::cout<<"Creating random training data"<<std::endl;
+            }
+            else if((string)argv[i] == "-c"){
+                CUDA_ENABLED = true;
+                std::cout<<"CUDA Parallelization enabled"<<std::endl;
+            }
+
+            else if((string)argv[1] == "-h"){
+                usage();
+                exit(1);
+            }
+            else
+                std::cout<<"Not a valid arg: "<<argv[1]<<std::endl;
         }
-        else if((string)argv[1] == "-h"){
-            usage();
-            exit(1);
-        }
-        else
-            std::cout<<"Not a valid arg: "<<argv[1]<<std::endl;
     }
     createDataSet(randomTrainingData);
     som = new Som();

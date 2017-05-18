@@ -70,7 +70,7 @@ __host__ bool Som::cudaEpoch(std::vector<std::vector <double> > data){
          thrust::device_vector<double> distances_d = distances;
          double *raw_distances = thrust::raw_pointer_cast(&distances_d[0]);
 
-         cudaGetDistance<<<100,100>>>(data_raw, som_raw, raw_distances);
+         cudaGetDistance<<<constNumCellsAcross,constNumCellsDown>>>(data_raw, som_raw, raw_distances);
 
          thrust::copy(distances_d.begin(), distances_d.end(), distances.begin());
 
@@ -82,6 +82,7 @@ __host__ bool Som::cudaEpoch(std::vector<std::vector <double> > data){
          m_winningNode = &m_som[position/constNumCellsAcross][position%constNumCellsAcross];
          m_neighborhoodRadius = m_mapRadius * exp(-(double)m_iterationCount/m_timeConstant);
 
+        double totalChange = 0;
         for(int i=0; i<m_som.size(); ++i){
         for(int n=0; n<m_som[i].size(); ++n){
             double distToNodeSq = (m_winningNode->X()-m_som[i][n].X())*
@@ -92,10 +93,15 @@ __host__ bool Som::cudaEpoch(std::vector<std::vector <double> > data){
             double widthSq = m_neighborhoodRadius * m_neighborhoodRadius;
             if(distToNodeSq < (widthSq)){
                 m_influence = exp(-(distToNodeSq)/(2*widthSq));
-                m_som[i][n].adjustWeights(data[curVector], m_lambda, m_influence);
+                totalChange += m_som[i][n].adjustWeights(data[curVector], m_lambda, m_influence);
                 //m_som[i][n].adjustWeightsCuda(thrust::host_vector<double>(data[curVector]), m_lambda, m_influence,data[curVector].size());
             }
         }
+        }
+        std::cout<<"Total Change: "<<totalChange<<std::endl;
+        if(totalChange < 1){
+            m_iterationCount = 0;
+            m_done = true;
         }
         m_lambda = constStartLearningRate * exp(-(double)m_iterationCount/m_numIterations);
         ++m_iterationCount;
@@ -113,6 +119,7 @@ __host__ bool Som::epoch(const std::vector<std::vector<double> > &data){
         m_winningNode = findBestMatch(data[curVector]);
         m_neighborhoodRadius = m_mapRadius * exp(-(double)m_iterationCount/m_timeConstant);
 
+        double totalChange = 0;
         for(int i=0; i<m_som.size(); ++i){
             for(int n=0; n<m_som[i].size(); ++n){
             double distToNodeSq = (m_winningNode->X()-m_som[i][n].X())*
@@ -124,10 +131,15 @@ __host__ bool Som::epoch(const std::vector<std::vector<double> > &data){
             if(distToNodeSq < (widthSq)){
                 m_influence = exp(-(distToNodeSq)/(2*widthSq));
                 
-                m_som[i][n].adjustWeights(data[curVector], m_lambda, m_influence);
+                totalChange += m_som[i][n].adjustWeights(data[curVector], m_lambda, m_influence);
                 //m_som[i][n].adjustWeightsCuda(thrust::host_vector<double>(data[curVector]), m_lambda, m_influence,data[curVector].size());
             }
         }
+        }
+       std::cout<<"Total Change: "<<totalChange<<std::endl;
+        if(totalChange < 1){
+            m_iterationCount = 0;
+            m_done = true;
         }
         m_lambda = constStartLearningRate * exp(-(double)m_iterationCount/m_numIterations);
         ++m_iterationCount;

@@ -42,19 +42,25 @@ __device__ double Node::calcDistanceCuda(double *compareVector, int weightSize, 
 }
 
 
-__host__ void Node::adjustWeights(const std::vector<double> &target, 
+__host__ double Node::adjustWeights(const std::vector<double> &target, 
                          const double lambda, 
                          const double influence){
+    double change = 0;
     for(int i=0; i < target.size(); ++i){
+       change += abs(lambda * influence * (target[i] - m_weights[i]));
        m_weights[i] += lambda * influence * (target[i] - m_weights[i]);
     }
+    return change;
 }
-__host__ void Node::adjustWeights(const thrust::host_vector<double> &target, 
+__host__ double Node::adjustWeights(const thrust::host_vector<double> &target, 
                          const double lambda, 
                          const double influence){
+    double change = 0;
     for(int i=0; i < target.size(); ++i){
+       change += abs(lambda * influence * (target[i] - m_weights[i]));
        m_weights[i] += lambda * influence * (target[i] - m_weights[i]);
     }
+    return change;
 }
 
 

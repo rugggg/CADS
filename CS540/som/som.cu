@@ -27,15 +27,15 @@ __global__ void cudaGetDistance(double *targetVec, double *som, double *distance
        distances[idx] = sqrt(dis); 
 }
 
-void Som::create(int cellsUp,
-                 int cellsAcross,
+void Som::create(int cellsAcross,
+                 int cellsUp,
                  int numIterations)
 {
     m_numIterations = numIterations;
 
-    for(int row=0; row<cellsUp; ++row){
+    for(int row=0; row<cellsAcross; ++row){
         std::vector<Node> m_row;
-        for(int col=0; col<cellsAcross; ++col){
+        for(int col=0; col<cellsUp; ++col){
             m_row.push_back(Node(row,col,constSizeOfInputVector));
         }
         m_som.push_back(m_row);

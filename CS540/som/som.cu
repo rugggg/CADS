@@ -27,7 +27,6 @@ __global__ void cudaGetDistance(double *targetVec, double *som, double *distance
        distances[idx] = sqrt(dis); 
 }
 
-
 void Som::create(int cellsUp,
                  int cellsAcross,
                  int numIterations)
@@ -41,7 +40,7 @@ void Som::create(int cellsUp,
         }
         m_som.push_back(m_row);
     }
-    m_mapRadius = max(constWindowWidth, constWindowHeight);
+    m_mapRadius = max(constNumCellsAcross, constNumCellsDown);
     m_timeConstant = m_numIterations/log(m_mapRadius);
 }
 
@@ -79,7 +78,7 @@ __host__ bool Som::cudaEpoch(std::vector<std::vector <double> > data){
          double min_val = *iter;
 
         //lookup winner in m_som from position
-         m_winningNode = &m_som[position/constNumCellsAcross][position%constNumCellsAcross];
+         m_winningNode = &m_som[position/constNumCellsAcross][position%constNumCellsDown];
          m_neighborhoodRadius = m_mapRadius * exp(-(double)m_iterationCount/m_timeConstant);
 
         double totalChange = 0;
@@ -99,7 +98,7 @@ __host__ bool Som::cudaEpoch(std::vector<std::vector <double> > data){
         }
         }
         std::cout<<"Total Change: "<<totalChange<<std::endl;
-        if(totalChange < 1){
+        if(totalChange < constMinChange){
             m_iterationCount = 0;
             m_done = true;
         }
@@ -137,7 +136,7 @@ __host__ bool Som::epoch(const std::vector<std::vector<double> > &data){
         }
         }
        std::cout<<"Total Change: "<<totalChange<<std::endl;
-        if(totalChange < 1){
+        if(totalChange < constMinChange){
             m_iterationCount = 0;
             m_done = true;
         }

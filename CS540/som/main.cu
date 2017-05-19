@@ -197,7 +197,7 @@ main(int argc, char **argv){
     createDataSet(randomTrainingData);
     som = new Som();
     som->finishedTraining();
-    som->create(constNumCellsDown, constNumCellsAcross, constNumIterations);
+    som->create(constNumCellsAcross, constNumCellsDown, constNumIterations);
     // set up window
     glutInitWindowSize(400, 400);
     glutInit(&argc, argv);

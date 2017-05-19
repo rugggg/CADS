@@ -1,14 +1,10 @@
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
 
-
-
-const int constWindowWidth       = 100;
-const int constWindowHeight      = 100;
-
-const int constNumCellsAcross    = 100;
+const int constNumCellsAcross    = 10;
 const int constNumCellsDown      = 100;
 
+const double constMinChange      = 0.1;
 
 //number of weights each node must contain. One for each element of 
 //the input vector. In this example it is 3 because a color is

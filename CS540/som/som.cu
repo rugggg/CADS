@@ -82,6 +82,7 @@ __host__ bool Som::cudaEpoch(std::vector<std::vector <double> > data){
          m_neighborhoodRadius = m_mapRadius * exp(-(double)m_iterationCount/m_timeConstant);
 
         double totalChange = 0;
+        
         for(int i=0; i<m_som.size(); ++i){
         for(int n=0; n<m_som[i].size(); ++n){
             double distToNodeSq = (m_winningNode->X()-m_som[i][n].X())*

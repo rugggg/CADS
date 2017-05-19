@@ -1,7 +1,7 @@
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
 
-const int constNumCellsAcross    = 10;
+const int constNumCellsAcross    = 100;
 const int constNumCellsDown      = 100;
 
 const double constMinChange      = 0.1;

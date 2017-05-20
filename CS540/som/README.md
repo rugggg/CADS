@@ -5,3 +5,7 @@ thanks to the authors of those sites for their breakdowns of the algorithm, code
 to use the glut library for use with openGL on linux. - on that note, you will need the glut library installed to run this.
 
 
+Options:
+
+-c for cuda enabled run,
+-r for random training data

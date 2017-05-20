@@ -36,6 +36,11 @@ class Node
         double getR(){return m_weights[0];}
         double getG(){return m_weights[1];}
         double getB(){return m_weights[2];}
+
+        void setR(double r){m_weights[0] = r;}
+        void setG(double g){m_weights[1] = g;}
+        void setB(double b){m_weights[2] = b;}
+
         std::vector<double> getWeights(){return m_weights;}
 };
 

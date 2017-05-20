@@ -7,24 +7,34 @@
 #include <thrust/device_vector.h>
 #include <thrust/extrema.h>
 
-__global__ void cudaEpochKernel(){
-    
-}
-
 //calc distance from a given weight target to all vectors
 __global__ void cudaGetDistance(double *targetVec, double *som, double *distances){
-       //the som is 3x longer than the weights 
+       //the som is 5x longer than the weights 
        //targetVec is fixed at length 3
        //let's say we allocate a thread for each weight entry ->
-       //we need to have a raw pointer to a 2darray 1000*3 for weights - not just 3000 long
+       //we need to have a raw pointer to a 2darray 1000*5 for weights - not just 3000 long
        int idx = (threadIdx.x + blockIdx.x * blockDim.x);
         
 
        double dis = 0;
        for(int i =0; i < 3; ++i){
-            dis += (targetVec[i] - som[idx*3+i]) * (targetVec[i] - som[idx*3+i]);
+            dis += (targetVec[i] - som[idx*5+i]) * (targetVec[i] - som[idx*5+i]);
        }
        distances[idx] = sqrt(dis); 
+}
+
+__global__ void cudaWeightUpdate(double widthSq, int x, int y, double *som, double *target, double lambda){
+
+    int idx = (threadIdx.x + blockIdx.x * blockDim.x);
+    //calc distance from node
+    double distToNodeSq = (x-som[idx+3])*(x-som[idx+3])+
+                          (y-som[idx+4])*(y-som[idx+4]);
+    if(distToNodeSq < widthSq){
+        double m_influence = exp(-(distToNodeSq)/(2*widthSq));
+        for(int i =0; i<3; ++i){
+            som[idx*5+i] += lambda * m_influence * (target[i] - som[idx*5+i]);
+        }
+    }
 }
 
 void Som::create(int cellsAcross,
@@ -59,6 +69,8 @@ __host__ bool Som::cudaEpoch(std::vector<std::vector <double> > data){
               flat_som.push_back(m_som[r][c].getR());
               flat_som.push_back(m_som[r][c].getG());
               flat_som.push_back(m_som[r][c].getB());
+              flat_som.push_back(m_som[r][c].X());
+              flat_som.push_back(m_som[r][c].Y());
             }
          }
          //allocate to device
@@ -82,7 +94,33 @@ __host__ bool Som::cudaEpoch(std::vector<std::vector <double> > data){
          m_neighborhoodRadius = m_mapRadius * exp(-(double)m_iterationCount/m_timeConstant);
 
         double totalChange = 0;
-        
+       
+        //call cuda weight update
+        //double widthSq = m_neighborhoodRadius * m_neighborhoodRadius;
+        /*
+        thrust::host_vector<double> targetColors(3);
+        targetColors[0] = m_winningNode->getR();
+        targetColors[1] = m_winningNode->getG();
+        targetColors[2] = m_winningNode->getB();
+        thrust::device_vector<double> d_targetColors = targetColors;
+        double *rawTargetColors = thrust::raw_pointer_cast(&d_targetColors[0]);
+        int x = m_winningNode->X();
+        int y = m_winningNode->Y();
+ //allocate to device
+        cudaWeightUpdate<<<constNumCellsAcross, constNumCellsDown>>>(widthSq, x, y, som_raw, rawTargetColors, m_lambda);
+        //now we have to copy back the flattened som and display
+        thrust::copy(som_d.begin(), som_d.end(), flat_som.begin());
+
+   
+        for(int i=0; i<m_som.size(); ++i){
+        for(int n=0; n<m_som[i].size(); ++n){
+            int idx = (m_som[i].size()*i)+n;
+            m_som[i][n].setR(flat_som[idx*5]);
+            m_som[i][n].setG(flat_som[idx*5+1]);
+            m_som[i][n].setB(flat_som[idx*5+2]);
+         }}
+            */
+
         for(int i=0; i<m_som.size(); ++i){
         for(int n=0; n<m_som[i].size(); ++n){
             double distToNodeSq = (m_winningNode->X()-m_som[i][n].X())*
@@ -98,7 +136,6 @@ __host__ bool Som::cudaEpoch(std::vector<std::vector <double> > data){
             }
         }
         }
-        std::cout<<"Total Change: "<<totalChange<<std::endl;
         if(totalChange < constMinChange){
             m_iterationCount = 0;
             m_done = true;
@@ -136,7 +173,6 @@ __host__ bool Som::epoch(const std::vector<std::vector<double> > &data){
             }
         }
         }
-       std::cout<<"Total Change: "<<totalChange<<std::endl;
         if(totalChange < constMinChange){
             m_iterationCount = 0;
             m_done = true;

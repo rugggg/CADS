@@ -1,0 +1,102 @@
+Data Set Basic Statistics
+
+
+Imagine you have p variables
+
+x1, x2, x3...,xP
+
+These are continous variables. Say height, weight, etc of a person. 
+You want to study their relationships between variables
+
+bivariate pdfs?? Probability Density Functions
+
+Joint PDF of (x1, x2) = Integral(f(x3,...,xp) dx3...dxp
+            
+            cov(x1,x2) = Expectation(x1 * x2) - E(x2)
+            .....
+            more here but handwiting on board is crap 
+
+In short, if we have a PDF, we can determine covariance
+
+But in real life, we don't get nice things like having a PDF.
+So lets not do this, no integration and stuff, lets just estimate using data
+
+So we start collecting data. And our job is to determine the correlations
+
+  x1   x2   x3   ...xP
+1 x11  x12  x13 ....
+2 x21  x22  x23 ...
+3 .
+4 .
+
+
+Ok - whats Sample Mean of x1?
+
+    Easy: Sum of all xi / n for all i -> n
+    same for all other Xs
+    
+
+Now that we have Sample Means(Hats), we can calculate Sample Variance
+
+SV(x1) = Sum of all (xi1 - x1Hat)^2/n from i -> n
+SV(x2) = Sum of all (xi2 - x2Hat)^2/n from i -> n
+... 
+SV(xp) = Sum of all (xip - xpHat)^2/n from i -> n
+
+Can we estimate covariance between first and second variable?
+x1, x2?
+
+Sample CoVariance(x1, x2) = Sum of all ((xi1-xiHat)(xi2-x2Hat))/n for i->n
+or general: Sample CoVariance(xk, xe) = Sum of all ((xk1-xkHat)(xe2-xeHat))/n for i->n
+
+
+then : 
+
+Sample CoVariances = (Sum of all (xi1-x1hat)(xi2-x2hat) from i -> n)/
+                     (SqRt(Sum of all((xi1 - x1Hat)^2)*Sum of all((xi2 - x2Hat)^2)) 
+
+
+
+Ok - then all the Sample Covariances are put into a P*P matrix (Sample Covariance Matrix)
+
+Can put sample correlations into P*P matrix as well
+
+
+Ok, how are these two matrices related?
+
+You take the Sample Covariance matrix(S) and multiply by its diagonal(V) (correlation matrix) and the 
+
+LOOKUP how to get correlation matrix from covariance matrix
+
+
+Imagine I have a P*P matrix and a P*1 vector (X)
+
+X^T*A*X -> Quadratic Form (1d object, scalar) 
+
+        = (x1, x2...xp) * (a11 a12 ... a1p)
+                          (a21 a22 ....a2p)    = DoubleSum(aij * xi * xj)
+                          ( |   |   |   | )      or sum of for all i->p, i->p 
+                          (ap1 ap2  ...app )
+ 
+
+What uses a quadratic form??
+ Statistical Distance 
+   How do you define distance between points in P dimensional space?
+   So what is distance between x, y?
+   Euclidean Distance
+   SquareRt[(x1 - y1)^2 + (x2 - y2)^2...(xp - yp)^2)]
+   Take A to be Identity Matrix p by p dimensions
+   SquareRt[(x-y)T A (x-y)] 
+   
+
+We can use almost any p*p matrix A, to define statistical distance:
+  d(x, y) = Sqt[(x-y)T A^-1(x-y)]
+
+
+Almost any means "Positive Definite Matrices" - matrices such that no matter what you multiple them by you get a positive value or 0
+
+The first half of notes here is important because it determines what is "far" or "close" for this data and their distances for each variable
+
+
+
+

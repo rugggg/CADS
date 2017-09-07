@@ -1,0 +1,1 @@
+hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-streaming.jar -D mapred.output.key.comparator.class=org.apache.hadoop.mapred.lib.KeyFieldBasedComparator -D mapred.text.key.comparator.options=-n -file mapper.py -mapper "python mapper.py"  -input /user/hadoop/rand_ints.txt -output /user/hadoop/output_sorted

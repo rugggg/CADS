@@ -1,0 +1,17 @@
+
+Start from:
+-----------
+You don't actually care about most of your data. 
+
+
+If you don't care about most of your data how does that change how you store it?
+
+-> selectively stored and organized
+-> non relational
+-> a piece of data is only as useful as it's relationships and connections
+
+-> 
+
+Why are you sinking resources into storing it?
+
+

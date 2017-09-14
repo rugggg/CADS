@@ -14,4 +14,18 @@ If you don't care about most of your data how does that change how you store it?
 
 Why are you sinking resources into storing it?
 
+----
+keeping it simpler
+----
+database abstraction layer using a SOM
+--------> organize your database, optimized for in memory use wherein the data is loaded into the abstraction layer as a map already with existing relations. data can be queired easier? what benefit do you get?
 
+
+-------
+or...use the SOM as a sort of ensemble method:
+    ie: you need to determine parameters for model(weights)
+        but you are unsure how to weight
+        thats fine. run the model on a set of data using random(?psuedo random)
+        params -> then use the "distance" between result sets to topographically        
+        cluster results. In this way, we can actually find better parametric sets
+        for the given problem, then we can reduce the possible ranges of our params and refine once more?

@@ -1,10 +1,6 @@
 # read data from csv
 rm(list=ls())
-rawdata = read.csv("cpi.csv")
-data = rawdata[-1,-1]
-
-data = data[-nrow(data),]
-
+data = read.csv("cpi.csv")
 set.seed(42)
 
 normalize <- function(x) {
@@ -13,19 +9,22 @@ normalize <- function(x) {
 denormalize <- function(x,minval,maxval) {
         return(x*(maxval-minval) + minval)
 }
-minvec <- sapply(data, min)
-maxvec <- sapply(data, max)
+minvec <- sapply(data[,2:(ncol(data)-1)], min)
+maxvec <- sapply(data[,2:(ncol(data)-1)], max)
 
-data = as.data.frame(lapply(data, normalize))
-russia = data[nrow(data),]
-russia = russia[,-ncol(data)]
+#data[,2:(ncol(data)-1)] = apply(data[,2:(ncol(data)-1)],2, normalize)
+russia <- data[nrow(data),]
+data = data[-nrow(data),]
 
-dists = apply(data,1,function(x)sqrt(sum((x-russia)^2)))
-n <- length(unique(dists))
-i1 = which(dists == sort(unique(dists),partial=2)[2])
-i2 = which(dists == sort(unique(dists),partial=3)[3])
-i3 = which(dists == sort(unique(dists),partial=4)[4])
 
-data = as.data.frame(Map(denormalize, data, minvec, maxvec))
-
-mean(data[i1,ncol(data)],data[i2,ncol(data)],data[i3,ncol(data)])
+russia.trim = russia[,2:(ncol(russia)-1)]
+dists = apply(data[2:(ncol(data)-1)],1,function(x)sqrt(sum((x-russia.trim)^2)))
+dists = sort(dists)
+dists
+dist.indexes = names(dists)
+dist.indexes
+#data[,2:(ncol(data)-1)] = as.data.frame(Map(denormalize, data[,2:(ncol(data)-1)], minvec, maxvec))
+data
+mean(data[dist.indexes[1],ncol(data)],
+     data[dist.indexes[2],ncol(data)],
+     data[dist.indexes[3],ncol(data)])

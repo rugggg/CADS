@@ -12,7 +12,7 @@ denormalize <- function(x,minval,maxval) {
 minvec <- sapply(data[,2:(ncol(data)-1)], min)
 maxvec <- sapply(data[,2:(ncol(data)-1)], max)
 
-#data[,2:(ncol(data)-1)] = apply(data[,2:(ncol(data)-1)],2, normalize)
+data[,2:(ncol(data)-1)] = apply(data[,2:(ncol(data)-1)],2, normalize)
 russia <- data[nrow(data),]
 data = data[-nrow(data),]
 
@@ -23,8 +23,12 @@ dists = sort(dists)
 dists
 dist.indexes = names(dists)
 dist.indexes
-#data[,2:(ncol(data)-1)] = as.data.frame(Map(denormalize, data[,2:(ncol(data)-1)], minvec, maxvec))
-data
-mean(data[dist.indexes[1],ncol(data)],
+data[,2:(ncol(data)-1)] = as.data.frame(Map(denormalize, data[,2:(ncol(data)-1)], minvec, maxvec))
+data[dist.indexes[1],]
+data[dist.indexes[2],]
+data[dist.indexes[3],]
+
+mean(c(data[dist.indexes[1],ncol(data)],
      data[dist.indexes[2],ncol(data)],
-     data[dist.indexes[3],ncol(data)])
+     data[dist.indexes[3],ncol(data)]))
+

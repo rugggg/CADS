@@ -1,0 +1,504 @@
+$Indepdendence
+
+	Shapiro-Wilk normality test
+
+data:  newX[, i]
+W = 0.97486, p-value = 0.01617
+
+
+$Support
+
+	Shapiro-Wilk normality test
+
+data:  newX[, i]
+W = 0.97788, p-value = 0.03198
+
+
+$Benevolence
+
+	Shapiro-Wilk normality test
+
+data:  newX[, i]
+W = 0.98387, p-value = 0.1269
+
+
+$Conformity
+
+	Shapiro-Wilk normality test
+
+data:  newX[, i]
+W = 0.98461, p-value = 0.15
+
+
+$Leadership
+
+	Shapiro-Wilk normality test
+
+data:  newX[, i]
+W = 0.96256, p-value = 0.001196
+
+
+$Indepdendence
+
+	One-sample Kolmogorov-Smirnov test
+
+data:  newX[, i]
+D = 0.99865, p-value < 2.2e-16
+alternative hypothesis: two-sided
+
+
+$Support
+
+	One-sample Kolmogorov-Smirnov test
+
+data:  newX[, i]
+D = 1, p-value < 2.2e-16
+alternative hypothesis: two-sided
+
+
+$Benevolence
+
+	One-sample Kolmogorov-Smirnov test
+
+data:  newX[, i]
+D = 0.99231, p-value < 2.2e-16
+alternative hypothesis: two-sided
+
+
+$Conformity
+
+	One-sample Kolmogorov-Smirnov test
+
+data:  newX[, i]
+D = 0.99228, p-value < 2.2e-16
+alternative hypothesis: two-sided
+
+
+$Leadership
+
+	One-sample Kolmogorov-Smirnov test
+
+data:  newX[, i]
+D = 0.99096, p-value < 2.2e-16
+alternative hypothesis: two-sided
+
+
+$Indepdendence
+
+	Anderson-Darling normality test
+
+data:  newX[, i]
+A = 1.0033, p-value = 0.01169
+
+
+$Support
+
+	Anderson-Darling normality test
+
+data:  newX[, i]
+A = 1.2096, p-value = 0.003607
+
+
+$Benevolence
+
+	Anderson-Darling normality test
+
+data:  newX[, i]
+A = 0.53961, p-value = 0.1634
+
+
+$Conformity
+
+	Anderson-Darling normality test
+
+data:  newX[, i]
+A = 0.58713, p-value = 0.1236
+
+
+$Leadership
+
+	Anderson-Darling normality test
+
+data:  newX[, i]
+A = 1.4648, p-value = 0.0008436
+
+
+$Indepdendence
+
+	Cramer-von Mises normality test
+
+data:  newX[, i]
+W = 0.14815, p-value = 0.02478
+
+
+$Support
+
+	Cramer-von Mises normality test
+
+data:  newX[, i]
+W = 0.22345, p-value = 0.002674
+
+
+$Benevolence
+
+	Cramer-von Mises normality test
+
+data:  newX[, i]
+W = 0.093198, p-value = 0.138
+
+
+$Conformity
+
+	Cramer-von Mises normality test
+
+data:  newX[, i]
+W = 0.10585, p-value = 0.0923
+
+
+$Leadership
+
+	Cramer-von Mises normality test
+
+data:  newX[, i]
+W = 0.25588, p-value = 0.001072
+
+
+$Indepdendence
+
+	Pearson chi-square normality test
+
+data:  newX[, i]
+P = 44, p-value = 1.527e-05
+
+
+$Support
+
+	Pearson chi-square normality test
+
+data:  newX[, i]
+P = 38.692, p-value = 0.0001182
+
+
+$Benevolence
+
+	Pearson chi-square normality test
+
+data:  newX[, i]
+P = 9.3846, p-value = 0.6698
+
+
+$Conformity
+
+	Pearson chi-square normality test
+
+data:  newX[, i]
+P = 46.308, p-value = 6.141e-06
+
+
+$Leadership
+
+	Pearson chi-square normality test
+
+data:  newX[, i]
+P = 32.923, p-value = 0.0009951
+
+
+[1] "MULTIVARIATE TESTS"
+  Henze-Zirkler's Multivariate Normality Test 
+--------------------------------------------- 
+  data : d 
+
+  HZ      : 0.9684355 
+  p-value : 0.104286 
+
+  Result  : Data are multivariate normal. 
+--------------------------------------------- 
+
+   Mardia's Multivariate Normality Test 
+--------------------------------------- 
+   data : d 
+
+   g1p            : 1.685395 
+   chi.skew       : 36.51689 
+   p.value.skew   : 0.3981052 
+
+   g2p            : 33.80946 
+   z.kurtosis     : -0.8112191 
+   p.value.kurt   : 0.4172398 
+
+   chi.small.skew : 37.64697 
+   p.value.small  : 0.3489958 
+
+   Result         : Data are multivariate normal. 
+--------------------------------------- 
+
+  Royston's Multivariate Normality Test 
+--------------------------------------------- 
+  data : d 
+
+  H       : 23.20808 
+  p-value : 0.0002160774 
+
+  Result  : Data are not multivariate normal. 
+--------------------------------------------- 
+
+[1] 130   5
+$outlier
+    Observation Mahalanobis Distance Outlier
+1             1               23.001    TRUE
+2             2               15.867    TRUE
+3             3               15.194    TRUE
+4             4               15.011    TRUE
+5             5               14.703    TRUE
+6             6               14.691    TRUE
+7             7               14.383    TRUE
+8             8               12.007   FALSE
+9             9               11.582   FALSE
+10           10               11.020   FALSE
+11           11               10.819   FALSE
+12           12               10.581   FALSE
+13           13               10.164   FALSE
+14           14                9.625   FALSE
+15           15                9.277   FALSE
+16           16                8.672   FALSE
+17           17                8.554   FALSE
+18           18                8.436   FALSE
+19           19                8.335   FALSE
+20           20                7.884   FALSE
+21           21                7.782   FALSE
+22           22                7.707   FALSE
+23           23                7.505   FALSE
+24           24                7.445   FALSE
+25           25                7.414   FALSE
+26           26                7.405   FALSE
+27           27                7.297   FALSE
+28           28                6.916   FALSE
+29           29                6.911   FALSE
+30           30                6.890   FALSE
+31           31                6.881   FALSE
+32           32                6.808   FALSE
+33           33                6.584   FALSE
+34           34                6.564   FALSE
+35           35                6.109   FALSE
+36           36                5.831   FALSE
+37           37                5.695   FALSE
+38           38                5.687   FALSE
+39           39                5.631   FALSE
+40           40                5.527   FALSE
+41           41                5.502   FALSE
+42           42                5.420   FALSE
+43           43                5.359   FALSE
+44           44                5.358   FALSE
+45           45                5.220   FALSE
+46           46                5.104   FALSE
+47           47                5.041   FALSE
+48           48                4.977   FALSE
+49           49                4.931   FALSE
+50           50                4.885   FALSE
+51           51                4.851   FALSE
+52           52                4.850   FALSE
+53           53                4.818   FALSE
+54           54                4.767   FALSE
+55           55                4.719   FALSE
+56           56                4.688   FALSE
+57           57                4.449   FALSE
+58           58                4.440   FALSE
+59           59                4.423   FALSE
+60           60                4.287   FALSE
+61           61                4.277   FALSE
+62           62                4.193   FALSE
+63           63                4.173   FALSE
+64           64                4.169   FALSE
+65           65                4.164   FALSE
+66           66                4.081   FALSE
+67           67                4.050   FALSE
+68           68                4.018   FALSE
+69           69                3.986   FALSE
+70           70                3.978   FALSE
+71           71                3.922   FALSE
+72           72                3.908   FALSE
+73           73                3.887   FALSE
+74           74                3.875   FALSE
+75           75                3.864   FALSE
+76           76                3.802   FALSE
+77           77                3.792   FALSE
+78           78                3.781   FALSE
+79           79                3.758   FALSE
+80           80                3.616   FALSE
+81           81                3.560   FALSE
+82           82                3.451   FALSE
+83           83                3.375   FALSE
+84           84                3.315   FALSE
+85           85                3.307   FALSE
+86           86                3.295   FALSE
+87           87                3.280   FALSE
+88           88                3.274   FALSE
+89           89                3.224   FALSE
+90           90                3.166   FALSE
+91           91                3.097   FALSE
+92           92                3.084   FALSE
+93           93                3.071   FALSE
+94           94                3.018   FALSE
+95           95                3.001   FALSE
+96           96                2.969   FALSE
+97           97                2.940   FALSE
+98           98                2.901   FALSE
+99           99                2.666   FALSE
+100         100                2.467   FALSE
+101         101                2.445   FALSE
+102         102                2.297   FALSE
+103         103                2.296   FALSE
+104         104                2.276   FALSE
+105         105                2.237   FALSE
+106         106                2.184   FALSE
+107         107                2.123   FALSE
+108         108                2.016   FALSE
+109         109                1.973   FALSE
+110         110                1.932   FALSE
+111         111                1.847   FALSE
+112         112                1.815   FALSE
+113         113                1.797   FALSE
+114         114                1.747   FALSE
+115         115                1.609   FALSE
+116         116                1.567   FALSE
+117         117                1.534   FALSE
+118         118                1.530   FALSE
+119         119                1.481   FALSE
+120         120                1.397   FALSE
+121         121                1.374   FALSE
+122         122                1.366   FALSE
+123         123                1.172   FALSE
+124         124                1.154   FALSE
+125         125                1.132   FALSE
+126         126                0.941   FALSE
+127         127                0.886   FALSE
+128         128                0.863   FALSE
+129         129                0.389   FALSE
+130         130                0.272   FALSE
+
+$newData
+    Indepdendence Support Benevolence Conformity Leadership
+10             21      11          17          9         16
+100            21      21          21          5          9
+101            17      19          25         10         14
+102            14      18          12         12         17
+103            16      19          14         12         15
+104            24       9           2         20         23
+105            21      18          18          8          8
+106            11      11          24         27          9
+107            28      23          11          6         10
+108            13      19          24         19          4
+109            17      19          20          8          6
+11             15      16          16         12         19
+110            14      20          21         13          7
+111            31      10           6          7         21
+112            19      20          12          4         18
+113            10      19          22         11         11
+114            10      22          26          9         10
+115            18      15          19         17          9
+116            18      20           8          6         17
+117            13      19          24         17         12
+118            18      24          16         12         10
+119            20      13          18         23          7
+12              9      20          29         14          7
+120            16      21          19         12         13
+121             9      19          19         19         12
+122            10      15          20         22         10
+123            13      22          14         12          9
+124            22      10          17         14         18
+125            16      18          16          8         16
+126            10      11          26         17         10
+127            14      12          14         11         29
+128            19      11          23         18         13
+129            27      19          22          7          9
+13             16      22          24         17          4
+130            10      17          22         22          8
+14             14      19          17         18         15
+15             13      26          23         17          5
+16             13      20          22         18          5
+17             18      17          11         23         14
+18             15      24          15          8         15
+19             18      22          24         11          6
+20             18      18          17         24          7
+21              9      16          27         18          9
+22             25      17          15         14         14
+23              9      21          21         18          4
+24             28      17          19         12          7
+25             18      18          26         14          6
+26             25      13          11         20          6
+27              6      16          22         23         15
+28             25      13          18          9         15
+29              4      23          27         16          8
+30             17       7          19         22         12
+31             13      14          16         20         16
+32             14      16          21         19         10
+33             17      12          22         19         12
+34             14      16          19         18         13
+35             10      19          23         23          3
+36              8      21          16         20         10
+37             15      12          15         23         11
+38              8      22          18         15          9
+39              9      17          29         20         10
+40              9      14          23         21         12
+41             21      16          22         11         11
+42             12      18          19         18          8
+43             18      20          13         13         17
+44             10      14          28         20         10
+45             15      11          22         25          9
+46             20      14          14          9         17
+47              7      14          23         17         23
+48             22      17          11         15         11
+49             18      21          15          8         15
+50              7      14          24         24         14
+51             13      17          19         24          8
+52             15      20          17         19         10
+53             15      19          29         17          2
+54              7      21          21         25          8
+55             29      16           8         12         18
+56             14      16          23         22          9
+57             15      19          12         15         14
+58             19      17          21         18          5
+59              9      14          21         18         17
+60             25       6          19         11         25
+61             10      18          22         18         12
+62             16      18          19         21         10
+63             12      14          21         27          9
+64             12      21          19         17         10
+65             18      22          14          8         23
+66             15      12          15         19         17
+67              8      15          25         17         16
+68              7      23          29         14          8
+69             15      16          14         18         15
+70             10      19          22         15         14
+71             10      11          28         18          9
+72             20      10          14         27         13
+73             27      13          19          4         17
+74             29      21          11          4         13
+75             16      13           9         16         22
+76              3      20          25         20          8
+77             12      17           9         14         21
+78             19      27          12          6          7
+79             22      17          21         11          9
+8              10      19          21         10         16
+80             20      11          23         18          7
+81             15      21          21         14          8
+82             12      12          28         25          5
+83             26      18           9          1         19
+84             26      22          16          5         14
+85             12      17          10         15         20
+86             22      12          18         14         14
+87             19      20          17         15         11
+88             22      24           9         11         10
+89             23      15          14         14         11
+9               8      23          23         19          9
+90              9      19          18         21          6
+91             15      12          12         17         21
+92             15      20          20         10         11
+93             16      19          19         16          7
+94             11      20          22         13         11
+95             14       7          20         14         19
+96             13      11          26          9         22
+97             21      13          18         19         14
+98             12      19          20          7         14
+99             22      22          14         13          4
+

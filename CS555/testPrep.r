@@ -1,13 +1,24 @@
+library(MVN)
 d = read.table("T1-8.DAT")
 
 head(d)
 dim(d)
+
+# you probably want to test for multivariate normality first
+# maybe check some others too?
+hzTest(d)
+
+#t test
+
 # 6 observations on 25 people
 n = 25
 p = 6
 mu = c(0.9, 0.9, 2, 2, 0.8, 0.8)
 xbar = colMeans(d)
 S = var(d)
+
+#t test
+t.test(d[,6],mu=mu[6])
 
 T2 = n*t(xbar-mu)%*%solve(S)%*%(xbar-mu)
 T2

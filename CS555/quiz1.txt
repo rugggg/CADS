@@ -1,0 +1,352 @@
+$Benevolence
+
+	Shapiro-Wilk normality test
+
+data:  newX[, i]
+W = 0.98387, p-value = 0.1269
+
+
+$Conformity
+
+	Shapiro-Wilk normality test
+
+data:  newX[, i]
+W = 0.98461, p-value = 0.15
+
+
+$Benevolence
+
+	Cramer-von Mises normality test
+
+data:  newX[, i]
+W = 0.093198, p-value = 0.138
+
+
+$Conformity
+
+	Cramer-von Mises normality test
+
+data:  newX[, i]
+W = 0.10585, p-value = 0.0923
+
+
+[1] "MULTIVARIATE TESTS"
+  Henze-Zirkler's Multivariate Normality Test 
+--------------------------------------------- 
+  data : d 
+
+  HZ      : 0.5816267 
+  p-value : 0.4762395 
+
+  Result  : Data are multivariate normal. 
+--------------------------------------------- 
+
+  Royston's Multivariate Normality Test 
+--------------------------------------------- 
+  data : d 
+
+  H       : 4.407254 
+  p-value : 0.1106335 
+
+  Result  : Data are multivariate normal. 
+--------------------------------------------- 
+
+$outlier
+    Observation Mahalanobis Distance Outlier
+1             1               13.294    TRUE
+2             2                7.769    TRUE
+3             3                6.998   FALSE
+4             4                5.828   FALSE
+5             5                5.759   FALSE
+6             6                5.246   FALSE
+7             7                4.975   FALSE
+8             8                4.585   FALSE
+9             9                4.581   FALSE
+10           10                4.135   FALSE
+11           11                4.014   FALSE
+12           12                3.954   FALSE
+13           13                3.951   FALSE
+14           14                3.930   FALSE
+15           15                3.930   FALSE
+16           16                3.890   FALSE
+17           17                3.862   FALSE
+18           18                3.805   FALSE
+19           19                3.791   FALSE
+20           20                3.791   FALSE
+21           21                3.777   FALSE
+22           22                3.600   FALSE
+23           23                3.584   FALSE
+24           24                3.468   FALSE
+25           25                3.383   FALSE
+26           26                3.360   FALSE
+27           27                3.317   FALSE
+28           28                3.231   FALSE
+29           29                3.168   FALSE
+30           30                3.083   FALSE
+31           31                2.899   FALSE
+32           32                2.803   FALSE
+33           33                2.743   FALSE
+34           34                2.737   FALSE
+35           35                2.659   FALSE
+36           36                2.569   FALSE
+37           37                2.568   FALSE
+38           38                2.532   FALSE
+39           39                2.344   FALSE
+40           40                2.333   FALSE
+41           41                2.331   FALSE
+42           42                2.268   FALSE
+43           43                2.197   FALSE
+44           44                2.139   FALSE
+45           45                2.121   FALSE
+46           46                2.077   FALSE
+47           47                2.038   FALSE
+48           48                2.015   FALSE
+49           49                1.992   FALSE
+50           50                1.983   FALSE
+51           51                1.975   FALSE
+52           52                1.886   FALSE
+53           53                1.886   FALSE
+54           54                1.864   FALSE
+55           55                1.852   FALSE
+56           56                1.792   FALSE
+57           57                1.772   FALSE
+58           58                1.726   FALSE
+59           59                1.637   FALSE
+60           60                1.585   FALSE
+61           61                1.578   FALSE
+62           62                1.464   FALSE
+63           63                1.456   FALSE
+64           64                1.450   FALSE
+65           65                1.324   FALSE
+66           66                1.308   FALSE
+67           67                1.277   FALSE
+68           68                1.262   FALSE
+69           69                1.248   FALSE
+70           70                1.238   FALSE
+71           71                1.231   FALSE
+72           72                1.203   FALSE
+73           73                1.203   FALSE
+74           74                1.181   FALSE
+75           75                1.154   FALSE
+76           76                1.154   FALSE
+77           77                1.143   FALSE
+78           78                1.143   FALSE
+79           79                1.138   FALSE
+80           80                1.117   FALSE
+81           81                1.084   FALSE
+82           82                1.057   FALSE
+83           83                1.043   FALSE
+84           84                1.020   FALSE
+85           85                0.997   FALSE
+86           86                0.977   FALSE
+87           87                0.896   FALSE
+88           88                0.868   FALSE
+89           89                0.840   FALSE
+90           90                0.828   FALSE
+91           91                0.767   FALSE
+92           92                0.767   FALSE
+93           93                0.744   FALSE
+94           94                0.680   FALSE
+95           95                0.652   FALSE
+96           96                0.633   FALSE
+97           97                0.620   FALSE
+98           98                0.620   FALSE
+99           99                0.614   FALSE
+100         100                0.608   FALSE
+101         101                0.511   FALSE
+102         102                0.511   FALSE
+103         103                0.473   FALSE
+104         104                0.473   FALSE
+105         105                0.467   FALSE
+106         106                0.454   FALSE
+107         107                0.451   FALSE
+108         108                0.425   FALSE
+109         109                0.402   FALSE
+110         110                0.391   FALSE
+111         111                0.391   FALSE
+112         112                0.333   FALSE
+113         113                0.318   FALSE
+114         114                0.318   FALSE
+115         115                0.311   FALSE
+116         116                0.311   FALSE
+117         117                0.242   FALSE
+118         118                0.229   FALSE
+119         119                0.197   FALSE
+120         120                0.186   FALSE
+121         121                0.186   FALSE
+122         122                0.186   FALSE
+123         123                0.166   FALSE
+124         124                0.166   FALSE
+125         125                0.125   FALSE
+126         126                0.118   FALSE
+127         127                0.069   FALSE
+128         128                0.058   FALSE
+129         129                0.058   FALSE
+130         130                0.008   FALSE
+
+$newData
+    Benevolence Conformity
+10           17          9
+100          21          5
+101          25         10
+102          12         12
+103          14         12
+104           2         20
+105          18          8
+106          24         27
+107          11          6
+108          24         19
+109          20          8
+11           16         12
+110          21         13
+111           6          7
+112          12          4
+113          22         11
+114          26          9
+115          19         17
+116           8          6
+117          24         17
+118          16         12
+119          18         23
+12           29         14
+120          19         12
+121          19         19
+122          20         22
+123          14         12
+124          17         14
+125          16          8
+126          26         17
+127          14         11
+128          23         18
+129          22          7
+13           24         17
+130          22         22
+14           17         18
+15           23         17
+16           22         18
+17           11         23
+18           15          8
+19           24         11
+20           17         24
+21           27         18
+22           15         14
+23           21         18
+24           19         12
+25           26         14
+26           11         20
+27           22         23
+28           18          9
+29           27         16
+3            15         16
+30           19         22
+31           16         20
+32           21         19
+33           22         19
+34           19         18
+35           23         23
+36           16         20
+37           15         23
+38           18         15
+39           29         20
+4            17         12
+40           23         21
+41           22         11
+42           19         18
+43           13         13
+44           28         20
+45           22         25
+46           14          9
+47           23         17
+48           11         15
+49           15          8
+5            22         21
+50           24         24
+51           19         24
+52           17         19
+53           29         17
+54           21         25
+55            8         12
+56           23         22
+57           12         15
+58           21         18
+59           21         18
+6            17         25
+60           19         11
+61           22         18
+62           19         21
+63           21         27
+64           19         17
+65           14          8
+66           15         19
+67           25         17
+68           29         14
+69           14         18
+7            29         18
+70           22         15
+71           28         18
+72           14         27
+73           19          4
+74           11          4
+75            9         16
+76           25         20
+77            9         14
+78           12          6
+79           21         11
+8            21         10
+80           23         18
+81           21         14
+82           28         25
+83            9          1
+84           16          5
+85           10         15
+86           18         14
+87           17         15
+88            9         11
+89           14         14
+9            23         19
+90           18         21
+91           12         17
+92           20         10
+93           19         16
+94           22         13
+95           20         14
+96           26          9
+97           18         19
+98           20          7
+99           14         13
+
+
+	One Sample t-test
+
+data:  d[, 1]
+t = 3.7246, df = 129, p-value = 0.0002912
+alternative hypothesis: true mean is not equal to 17
+95 percent confidence interval:
+ 17.83663 19.73260
+sample estimates:
+mean of x 
+ 18.78462 
+
+
+	One Sample t-test
+
+data:  d[, 2]
+t = -12.893, df = 129, p-value < 2.2e-16
+alternative hypothesis: true mean is not equal to 22
+95 percent confidence interval:
+ 14.50251 16.49749
+sample estimates:
+mean of x 
+     15.5 
+
+         [,1]
+[1,] 228.9841
+[1] 6.181825
+Benevolence 
+   17.41614 
+Benevolence 
+    20.1531 
+Conformity 
+  14.13152 
+Conformity 
+  16.86848 

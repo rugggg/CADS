@@ -1,0 +1,28 @@
+[1] 1665477
+[1] 32543554
+[1] 32617312
+19 x 1 sparse Matrix of class "dgCMatrix"
+                        1
+(Intercept) -7.874329e+02
+(Intercept)  .           
+PrivateYes  -6.093633e+02
+Accept       1.228820e+00
+Enroll       .           
+Top10perc    5.035133e+01
+Top25perc   -1.299642e+01
+F.Undergrad  5.099811e-02
+P.Undergrad  3.165198e-03
+Outstate    -5.589079e-02
+Room.Board   2.265919e-01
+Books        1.650927e-03
+Personal     5.598210e-02
+PhD         -4.486963e+00
+Terminal    -5.866285e+00
+S.F.Ratio    9.729152e+00
+perc.alumni -3.827068e+00
+Expend       7.956845e-02
+Grad.Rate    6.453269e+00
+function (save = "default", status = 0, runLast = TRUE) 
+.Internal(quit(save, status, runLast))
+<bytecode: 0x564db08ede58>
+<environment: namespace:base>

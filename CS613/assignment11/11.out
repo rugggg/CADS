@@ -1,0 +1,58 @@
+
+Parameter tuning of ‘svm’:
+
+- sampling method: 10-fold cross validation 
+
+- best parameters:
+ cost
+    1
+
+- best performance: 0.01532051 
+
+- Detailed performance results:
+   cost      error dispersion
+1 1e-02 0.07416667 0.06109023
+2 1e-01 0.05115385 0.05921680
+3 1e+00 0.01532051 0.02474291
+4 5e+00 0.01788462 0.02108456
+5 1e+01 0.02044872 0.02354784
+6 1e+02 0.03326923 0.02974993
+
+
+Parameter tuning of ‘svm’:
+
+- sampling method: 10-fold cross validation 
+
+- best parameters:
+ cost
+    3
+
+- best performance: 0.01019231 
+
+- Detailed performance results:
+   cost      error dispersion
+1  0.01 0.07410256 0.04415504
+2  3.00 0.01019231 0.01315951
+3 15.00 0.02557692 0.02702877
+4 20.00 0.03326923 0.03833365
+
+
+Parameter tuning of ‘svm’:
+
+- sampling method: 10-fold cross validation 
+
+- best parameters:
+ cost
+    1
+
+- best performance: 0.01019231 
+
+- Detailed performance results:
+   cost      error dispersion
+1 1e-02 0.07660256 0.04367058
+2 1e-01 0.04602564 0.03970658
+3 1e+00 0.01019231 0.01786828
+4 5e+00 0.01782051 0.02105932
+5 1e+01 0.02038462 0.02019157
+6 1e+02 0.03576923 0.01801169
+

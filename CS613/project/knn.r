@@ -31,7 +31,7 @@ for (kval in 1:50){
     knn.pred=knn(train.X, test.X, train.Y, k=kval)
     accuracy[kval] <- mean(test.Y == knn.pred)
 }
-plot(errors, type="l")
+plot(accuracy, type="l")
 which.max(accuracy)
 
 knn.pred=knn(train.X, test.X, train.Y, k=which.max(accuracy))

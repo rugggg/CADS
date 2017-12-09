@@ -26,15 +26,15 @@ test.Y <- delayed[-trainIdx]
 # iterate over a number of values of K to get optimal
 # we could use gradient descent here if we wanted to get
 # tricky
-errors <- 0
+accuracy <- 0
 for (kval in 1:50){
     knn.pred=knn(train.X, test.X, train.Y, k=kval)
-    errors[kval] <- mean(test.Y != knn.pred)
+    accuracy[kval] <- mean(test.Y == knn.pred)
 }
 plot(errors, type="l")
-which.min(errors)
+which.max(accuracy)
 
-knn.pred=knn(train.X, test.X, train.Y, k=which.min(errors))
+knn.pred=knn(train.X, test.X, train.Y, k=which.max(accuracy))
 table(knn.pred, test.Y)
-min(errors)
+max(accuracy)
 

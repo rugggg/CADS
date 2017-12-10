@@ -2,7 +2,6 @@ library(e1071)
 set.seed(40)
 # load data
 data = read.csv("FlightPerformance.csv")
-
 clean = data[,c("carrier","dest", "origin", "schedtime", "weather", "distance","delay")]
 
 # let's get a baseline of how many flights are delayes
@@ -39,10 +38,15 @@ test <- clean.data[-trainIdx,]
 # use 0.1
 svmfit = svm(delay~., data=train, kernel="linear", cost=0.1, scale=FALSE)
 
-#summary(svmfit)
-pred = predict(svmfit, test)
-table(predict = pred, truth=test$delay)
-mean(pred == test$delay)
+# training validation
+pred.train = predict(svmfit, train)
+table(predict = pred.train, truth=train$delay)
+mean(pred.train == train$delay)
+
+# test validation
+pred.test = predict(svmfit, test)
+table(predict = pred.test, truth=test$delay)
+mean(pred.test == test$delay)
 
 # try polynomial kernel
 #svmfit.poly = svm(delay~., data=train, kernel="polynomial", cost=0.1,, scale=FALSE)
@@ -56,26 +60,33 @@ mean(pred == test$delay)
 svmfit.poly = svm(delay~., data=train, kernel="polynomial", cost=1, scale=FALSE)
 
 #summary(svmfit.poly)
-pred.poly = predict(svmfit.poly, test)
-table(predict = pred.poly, truth=test$delay)
-mean(pred.poly == test$delay)
+# training validation
+pred.poly.train = predict(svmfit.poly, train)
+table(predict = pred.poly.train, truth=train$delay)
+mean(pred.poly.train == train$delay)
 
-# try polynomial kernel
-#svmfit.poly = svm(delay~., data=train, kernel="polynomial", cost=0.1,, scale=FALSE)
+# test validation
+pred.poly.test = predict(svmfit.poly, test)
+table(predict = pred.poly.test, truth=test$delay)
+mean(pred.poly.test == test$delay)
+
+# try radial kernel
 # use tune to cross validate and get the best cost param and gamma param
-#tune.out.poly = tune(svm, delay~., data=train, kernel="polynomial", scale=FALSE, ranges=list(cost=c(0.001, 0.01, 0.1, 1, 5, 10, 100)))
+# svmfit.poly = svm(delay~., data=train, kernel="radial", cost=1, gamma=, scale=FALSE)
+# tune.out.radial = tune(svm, delay~., data=train, kernel="radial", scale=FALSE,
+#                       ranges=list(cost=c(0.001, 0.01, 0.1, 1, 5, 10, 100),
+#                       gamma=c(0.5,1,2,3,4))
+#                       )
 
-#summary(tune.out.poly)
+# summary(tune.out.radial)
 
-# 1 is the best cost param
+# 1 is best cost and 0.5 is best gamma
+svmfit.radial = svm(delay~., data=train, kernel="radial", cost=1, gamma=0.5, scale=FALSE)
 
-#svmfit.poly = svm(delay~., data=train, kernel="radial", cost=1, gamma=, scale=FALSE)
-tune.out.radial = tune(svm, delay~., data=train, kernel="radial", scale=FALSE,
-                       ranges=list(cost=c(0.001, 0.01, 0.1, 1, 5, 10, 100),
-                       gamma=c(0.5,1,2,3,4))
-                       )
+pred.radial.train = predict(svmfit.radial, train)
+table(predict = pred.radial.train, truth=train$delay)
+mean(pred.radial.train == train$delay)
 
-summary(tune.out.radial)
-#pred.radial = predict(svmfit.radial, test)
-#table(predict = pred.radial, truth=test$delay)
-#mean(pred.radial == test$delay)
+pred.radial.test = predict(svmfit.radial, test)
+table(predict = pred.radial.test, truth=test$delay)
+mean(pred.radial.test == test$delay)

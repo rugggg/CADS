@@ -1,8 +1,9 @@
 library(e1071)
+library(ROCR)
 set.seed(40)
 # load data
 data = read.csv("FlightPerformance.csv")
-clean = data[,c("carrier","dest", "origin", "schedtime", "weather", "distance","delay")]
+clean = data[,c("carrier","dest", "origin", "schedtime", "weather", "date", "delay")]
 
 # let's get a baseline of how many flights are delayes
 mean(clean$delay == "ontime")
@@ -10,6 +11,7 @@ mean(clean$delay == "ontime")
 clean$carrier = as.numeric(data$carrier)
 clean$dest = as.numeric(data$dest)
 clean$origin = as.numeric(data$origin)
+clean$date = as.numeric(data$date)
 
 # normalize all predictor variables
 maxs <- apply(clean[-ncol(clean)], 2, max)
@@ -44,7 +46,7 @@ table(predict = pred.train, truth=train$delay)
 mean(pred.train == train$delay)
 
 # test validation
-pred.test = predict(svmfit, test)
+pred.test = predict(svmfit, test, decision.values=TRUE)
 table(predict = pred.test, truth=test$delay)
 mean(pred.test == test$delay)
 
@@ -66,7 +68,7 @@ table(predict = pred.poly.train, truth=train$delay)
 mean(pred.poly.train == train$delay)
 
 # test validation
-pred.poly.test = predict(svmfit.poly, test)
+pred.poly.test = predict(svmfit.poly, test, decision.values=TRUE)
 table(predict = pred.poly.test, truth=test$delay)
 mean(pred.poly.test == test$delay)
 
@@ -87,6 +89,27 @@ pred.radial.train = predict(svmfit.radial, train)
 table(predict = pred.radial.train, truth=train$delay)
 mean(pred.radial.train == train$delay)
 
-pred.radial.test = predict(svmfit.radial, test)
+pred.radial.test = predict(svmfit.radial, test, decision.values=TRUE)
 table(predict = pred.radial.test, truth=test$delay)
 mean(pred.radial.test == test$delay)
+
+png(file="svm_roc.png")
+#ROC curve
+dvalues = attr(pred.test, 'decision.values')
+truth = as.numeric(test$delay)
+pred_svm <- prediction(dvalues, truth)
+perf.svm <- performance(pred_svm, "tpr", "fpr")
+plot(perf.svm,colorize=TRUE, main="SVM  ROC")
+
+#ROC curve
+dvalues.poly = attr(pred.poly.test, 'decision.values')
+pred.svm.poly <- prediction(dvalues.poly, truth)
+perf.poly.svm <- performance(pred.svm.poly, "tpr", "fpr")
+plot(perf.poly.svm,colorize=TRUE, add=TRUE)
+
+#ROC curve
+dvalues.radial = attr(pred.radial.test, 'decision.values')
+pred.svm.radial <- prediction(dvalues.radial, truth)
+perf.radial.svm <- performance(pred.svm.radial, "tpr", "fpr")
+plot(perf.radial.svm,colorize=TRUE, add=TRUE)
+dev.off()

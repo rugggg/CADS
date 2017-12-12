@@ -1,17 +1,18 @@
 library(ISLR)
+library(ROCR)
 set.seed(40)
 # load data
 data = read.csv("FlightPerformance.csv")
 
 
-clean = data[,c("carrier","dest", "origin", "schedtime", "weather", "distance","delay")]
-
+clean = data[,c("carrier","dest","origin","schedtime", "weather", "date", "delay")]
 # let's get a baseline of how many flights are delayes
 mean(clean$delay == "ontime")
 # replace categorical w/dummy variables
 clean$carrier = as.numeric(data$carrier)
 clean$dest = as.numeric(data$dest)
 clean$origin = as.numeric(data$origin)
+clean$date = as.numeric(data$date)
 
 
 # normalize all predictor variables
@@ -45,6 +46,12 @@ glm.preds.test[glm.probs.test>.5]="ontime"
 table(glm.preds.test,test$delay)
 mean(glm.preds.test == test$delay)
 
+pred_logr <- prediction(glm.probs.test, as.numeric(test$delay))
+pred_logr <- performance(pred_logr, "tpr", "fpr")
+png(file="logr_roc.png")
+plot(pred_logr, avg="threshold", colorize=T, lwd=3, main="Log ROC")
+dev.off()
+summary(glm.fits)
 
 
 

@@ -1,16 +1,17 @@
 library(MASS)
+library(ROCR)
 set.seed(40)
 # load data
 data = read.csv("FlightPerformance.csv")
 
-clean = data[,c("carrier","dest", "origin", "schedtime", "weather", "distance","delay")]
-
+clean = data[,c("carrier","dest","origin","schedtime", "weather", "date", "delay")]
 # let's get a baseline of how many flights are delayes
 mean(clean$delay == "ontime")
 # replace categorical w/dummy variables
 clean$carrier = as.numeric(data$carrier)
 clean$dest = as.numeric(data$dest)
 clean$origin = as.numeric(data$origin)
+clean$date = as.numeric(data$date)
 
 # normalize all predictor variables
 maxs <- apply(clean[,-ncol(clean)], 2, max)
@@ -35,10 +36,15 @@ table(lda.class, train$delay)
 mean(lda.class == train$delay)
 
 # test validation
-lda.pred.test = predict(lda.fit, test)
+lda.pred.test = predict(lda.fit, test, decision.values=TRUE)
 lda.class.test = lda.pred.test$class
 
 table(lda.class.test, test$delay)
 mean(lda.class.test == test$delay)
 
-
+# ROC Curve
+pred <- prediction(lda.pred.test$posterior[,2], test$delay) 
+perf <- performance(pred,"tpr","fpr")
+png(file="lda_roc.png")
+plot(perf, avg="threshold", colorize=T, lwd=3, main="LDA ROC")
+dev.off()

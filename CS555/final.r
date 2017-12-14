@@ -37,5 +37,15 @@ for(col in 1:ncol(pension)){
     }
 }
 
-
+png(file="scatterplot_small.png")
+# some options to create a higher res scatterplot
+#png(file="scatterplot",  height=10, width=10, units="in", res=1000, pointsize=4)
+#par(
+#  mar      = c(5, 5, 2, 2),
+#  xaxs     = "i",
+#  yaxs     = "i",
+#  cex.axis = 2,
+#  cex.lab  = 2
+#)
 scatterplotMatrix(pension)
+dev.off()

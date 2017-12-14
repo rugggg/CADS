@@ -1,34 +1,122 @@
-  pyears prftshr choice female married age educ finc25 finc35 finc50 finc75 finc100 finc101 wealth89 race stckin89 irain89
-1      1       0      1      0       1  64   12      0      0      1      0       0       0   77.900    0        1       1
-2      6       1      1      1       1  56   13      0      0      0      1       0       0  154.900    0        1       1
-3     25       1      1      0       1  56   12      0      0      0      1       0       0  154.900    0        1       1
-4     20       1      0      1       1  63   12      1      0      0      0       0       0  232.500    0        1       1
-5     35       0      1      0       1  67   12      0      1      0      0       0       0  179.000    0        0       1
-6     13       1      0      0       1  64   11      0      0      0      1       0       0  120.025    0        1       0
+  pyears prftshr choice female married age educ finc25 finc35 finc50 finc75 finc100 finc101
+1      1       0      1      0       1  64   12      0      0      1      0       0       0
+2      6       1      1      1       1  56   13      0      0      0      1       0       0
+3     25       1      1      0       1  56   12      0      0      0      1       0       0
+4     20       1      0      1       1  63   12      1      0      0      0       0       0
+5     35       0      1      0       1  67   12      0      1      0      0       0       0
+6     13       1      0      0       1  64   11      0      0      0      1       0       0
+  wealth89 race stckin89 irain89
+1   77.900    0        1       1
+2  154.900    0        1       1
+3  154.900    0        1       1
+4  232.500    0        1       1
+5  179.000    0        0       1
+6  120.025    0        1       0
 [1] 194  17
- [1] "pyears"   "prftshr"  "choice"   "female"   "married"  "age"      "educ"     "finc25"   "finc35"   "finc50"   "finc75"   "finc100" 
-[13] "finc101"  "wealth89" "race"     "stckin89" "irain89" 
-     pyears        prftshr           choice           female          married            age             educ           finc25      
- Min.   : 0.0   Min.   :0.0000   Min.   :0.0000   Min.   :0.0000   Min.   :0.0000   Min.   :54.00   Min.   : 8.00   Min.   :0.0000  
- 1st Qu.: 4.0   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:1.0000   1st Qu.:57.00   1st Qu.:12.00   1st Qu.:0.0000  
- Median : 9.0   Median :0.0000   Median :1.0000   Median :1.0000   Median :1.0000   Median :60.00   Median :12.00   Median :0.0000  
- Mean   :11.3   Mean   :0.2062   Mean   :0.6134   Mean   :0.6031   Mean   :0.7577   Mean   :60.48   Mean   :13.57   Mean   :0.2062  
- 3rd Qu.:16.0   3rd Qu.:0.0000   3rd Qu.:1.0000   3rd Qu.:1.0000   3rd Qu.:1.0000   3rd Qu.:64.00   3rd Qu.:16.00   3rd Qu.:0.0000  
- Max.   :45.0   Max.   :1.0000   Max.   :1.0000   Max.   :1.0000   Max.   :1.0000   Max.   :73.00   Max.   :18.00   Max.   :1.0000  
- NA's   :3                                                                                                                          
-     finc35           finc50           finc75         finc100         finc101           wealth89            race           stckin89     
- Min.   :0.0000   Min.   :0.0000   Min.   :0.000   Min.   :0.000   Min.   :0.00000   Min.   :-580.00   Min.   :0.0000   Min.   :0.0000  
- 1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.000   1st Qu.:0.000   1st Qu.:0.00000   1st Qu.:  65.45   1st Qu.:0.0000   1st Qu.:0.0000  
- Median :0.0000   Median :0.0000   Median :0.000   Median :0.000   Median :0.00000   Median : 140.00   Median :0.0000   Median :0.0000  
- Mean   :0.1753   Mean   :0.2371   Mean   :0.134   Mean   :0.134   Mean   :0.06186   Mean   : 207.37   Mean   :0.1134   Mean   :0.3402  
- 3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.:0.000   3rd Qu.:0.000   3rd Qu.:0.00000   3rd Qu.: 251.00   3rd Qu.:0.0000   3rd Qu.:1.0000  
- Max.   :1.0000   Max.   :1.0000   Max.   :1.000   Max.   :1.000   Max.   :1.00000   Max.   :1485.00   Max.   :1.0000   Max.   :1.0000  
-                                                                                                                                        
-    irain89      
- Min.   :0.0000  
- 1st Qu.:0.0000  
- Median :1.0000  
- Mean   :0.5155  
- 3rd Qu.:1.0000  
- Max.   :1.0000  
-                 
+ [1] "pyears"   "prftshr"  "choice"   "female"   "married"  "age"      "educ"     "finc25"  
+ [9] "finc35"   "finc50"   "finc75"   "finc100"  "finc101"  "wealth89" "race"     "stckin89"
+[17] "irain89" 
+     pyears        prftshr           choice           female          married      
+ Min.   : 0.0   Min.   :0.0000   Min.   :0.0000   Min.   :0.0000   Min.   :0.0000  
+ 1st Qu.: 4.0   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:1.0000  
+ Median : 9.0   Median :0.0000   Median :1.0000   Median :1.0000   Median :1.0000  
+ Mean   :11.3   Mean   :0.2062   Mean   :0.6134   Mean   :0.6031   Mean   :0.7577  
+ 3rd Qu.:16.0   3rd Qu.:0.0000   3rd Qu.:1.0000   3rd Qu.:1.0000   3rd Qu.:1.0000  
+ Max.   :45.0   Max.   :1.0000   Max.   :1.0000   Max.   :1.0000   Max.   :1.0000  
+ NA's   :3                                                                         
+      age             educ           finc25           finc35           finc50      
+ Min.   :54.00   Min.   : 8.00   Min.   :0.0000   Min.   :0.0000   Min.   :0.0000  
+ 1st Qu.:57.00   1st Qu.:12.00   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000  
+ Median :60.00   Median :12.00   Median :0.0000   Median :0.0000   Median :0.0000  
+ Mean   :60.48   Mean   :13.57   Mean   :0.2062   Mean   :0.1753   Mean   :0.2371  
+ 3rd Qu.:64.00   3rd Qu.:16.00   3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.:0.0000  
+ Max.   :73.00   Max.   :18.00   Max.   :1.0000   Max.   :1.0000   Max.   :1.0000  
+                                                                                   
+     finc75         finc100         finc101           wealth89            race       
+ Min.   :0.000   Min.   :0.000   Min.   :0.00000   Min.   :-580.00   Min.   :0.0000  
+ 1st Qu.:0.000   1st Qu.:0.000   1st Qu.:0.00000   1st Qu.:  65.45   1st Qu.:0.0000  
+ Median :0.000   Median :0.000   Median :0.00000   Median : 140.00   Median :0.0000  
+ Mean   :0.134   Mean   :0.134   Mean   :0.06186   Mean   : 207.37   Mean   :0.1134  
+ 3rd Qu.:0.000   3rd Qu.:0.000   3rd Qu.:0.00000   3rd Qu.: 251.00   3rd Qu.:0.0000  
+ Max.   :1.000   Max.   :1.000   Max.   :1.00000   Max.   :1485.00   Max.   :1.0000  
+                                                                                     
+    stckin89         irain89      
+ Min.   :0.0000   Min.   :0.0000  
+ 1st Qu.:0.0000   1st Qu.:0.0000  
+ Median :0.0000   Median :1.0000  
+ Mean   :0.3402   Mean   :0.5155  
+ 3rd Qu.:1.0000   3rd Qu.:1.0000  
+ Max.   :1.0000   Max.   :1.0000  
+                                  
+Stepwise Model Path 
+Analysis of Deviance Table
+
+Initial Model:
+wealth89 ~ pyears + prftshr + choice + female + married + age + 
+    educ + finc25 + finc35 + finc50 + finc75 + finc100 + finc101 + 
+    race + stckin89 + irain89
+
+Final Model:
+wealth89 ~ age + finc50 + finc75 + finc100 + finc101 + stckin89 + 
+    irain89
+
+
+        Step Df   Deviance Resid. Df Resid. Dev      AIC
+1                                174    7887254 2064.041
+2   - finc25  1   603.2244       175    7887857 2062.055
+3  - prftshr  1  7635.5614       176    7895493 2060.240
+4   - female  1 17065.4348       177    7912558 2058.652
+5   - finc35  1 16678.4486       178    7929237 2057.055
+6     - race  1 24227.8331       179    7953464 2055.637
+7   - choice  1 25780.8685       180    7979245 2054.255
+8   - pyears  1 52375.0676       181    8031620 2053.505
+9     - educ  1 52353.1422       182    8083973 2052.746
+10 - married  1 70340.5608       183    8154314 2052.401
+Stepwise Model Path 
+Analysis of Deviance Table
+
+Initial Model:
+wealth89 ~ pyears + prftshr + choice + female + married + age + 
+    educ + finc25 + finc35 + finc50 + finc75 + finc100 + finc101 + 
+    race + stckin89 + irain89
+
+Final Model:
+wealth89 ~ pyears + prftshr + choice + female + married + age + 
+    educ + finc50 + finc75 + finc100 + finc101 + race + stckin89 + 
+    irain89 + married:finc75 + age:finc101 + female:finc101 + 
+    pyears:finc50 + finc101:irain89 + female:irain89 + prftshr:finc100 + 
+    female:finc100 + female:age + pyears:age + choice:finc50 + 
+    prftshr:finc75 + prftshr:finc101 + educ:finc101 + pyears:finc101 + 
+    choice:finc101 + finc101:stckin89 + married:stckin89 + age:finc100 + 
+    educ:finc50 + race:irain89
+
+
+                 Step Df    Deviance Resid. Df Resid. Dev      AIC
+1                                          174    7887254 2064.041
+2    + married:finc75  1 682092.8826       173    7205161 2048.765
+3       + age:finc101  1 680633.2340       172    6524528 2031.812
+4    + female:finc101  1 217110.5875       171    6307417 2027.348
+5     + pyears:finc50  1 192372.7008       170    6115044 2023.432
+6   + finc101:irain89  1 165214.5480       169    5949830 2020.201
+7    + female:irain89  1 177354.1872       168    5772476 2016.421
+8   + prftshr:finc100  1 169299.4394       167    5603176 2012.735
+9    + female:finc100  1 124103.8779       166    5479072 2010.457
+10  + finc25:stckin89  1 119879.8634       165    5359193 2008.232
+11           - finc35  1  11579.3336       166    5370772 2006.644
+12       + female:age  1  90718.5811       165    5280053 2005.390
+13       + pyears:age  1 107506.1432       164    5172547 2003.461
+14    + choice:finc50  1 100505.5096       163    5072042 2001.713
+15     + married:race  1  93352.9869       162    4978689 2000.165
+16   + prftshr:finc75  1  81023.7857       161    4897665 1999.031
+17  + prftshr:finc101  1  67101.8420       160    4830563 1998.396
+18     + educ:finc101  1 119761.2339       159    4710802 1995.601
+19   + pyears:finc101  1 115194.1986       158    4595608 1992.873
+20   + choice:finc101  1 250213.9384       157    4345394 1984.180
+21 + finc101:stckin89  1 187021.0505       156    4158373 1977.777
+22 + married:stckin89  1  57052.1233       155    4101321 1977.138
+23  - finc25:stckin89  1  22043.2767       156    4123364 1976.162
+24           - finc25  1    631.1075       157    4123995 1974.191
+25      + age:finc100  1  64938.6330       156    4059056 1973.160
+26      + educ:finc50  1  66615.7725       155    3992440 1971.999
+27     - married:race  1  39158.8547       156    4031599 1971.863
+28     + race:irain89  1  44542.2414       155    3987057 1971.741

@@ -1,53 +1,95 @@
-  pyears prftshr choice female married age educ finc25 finc35 finc50 finc75 finc100 finc101
-1      1       0      1      0       1  64   12      0      0      1      0       0       0
-2      6       1      1      1       1  56   13      0      0      0      1       0       0
-3     25       1      1      0       1  56   12      0      0      0      1       0       0
-4     20       1      0      1       1  63   12      1      0      0      0       0       0
-5     35       0      1      0       1  67   12      0      1      0      0       0       0
-6     13       1      0      0       1  64   11      0      0      0      1       0       0
-  wealth89 race stckin89 irain89
-1   77.900    0        1       1
-2  154.900    0        1       1
-3  154.900    0        1       1
-4  232.500    0        1       1
-5  179.000    0        0       1
-6  120.025    0        1       0
+  pyears prftshr choice female married age educ finc25 finc35 finc50 finc75
+1      1       0      1      0       1  64   12      0      0      1      0
+2      6       1      1      1       1  56   13      0      0      0      1
+3     25       1      1      0       1  56   12      0      0      0      1
+4     20       1      0      1       1  63   12      1      0      0      0
+5     35       0      1      0       1  67   12      0      1      0      0
+6     13       1      0      0       1  64   11      0      0      0      1
+  finc100 finc101 wealth89 race stckin89 irain89
+1       0       0   77.900    0        1       1
+2       0       0  154.900    0        1       1
+3       0       0  154.900    0        1       1
+4       0       0  232.500    0        1       1
+5       0       0  179.000    0        0       1
+6       0       0  120.025    0        1       0
 [1] 194  17
- [1] "pyears"   "prftshr"  "choice"   "female"   "married"  "age"      "educ"     "finc25"  
- [9] "finc35"   "finc50"   "finc75"   "finc100"  "finc101"  "wealth89" "race"     "stckin89"
-[17] "irain89" 
-     pyears        prftshr           choice           female          married      
- Min.   : 0.0   Min.   :0.0000   Min.   :0.0000   Min.   :0.0000   Min.   :0.0000  
- 1st Qu.: 4.0   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:1.0000  
- Median : 9.0   Median :0.0000   Median :1.0000   Median :1.0000   Median :1.0000  
- Mean   :11.3   Mean   :0.2062   Mean   :0.6134   Mean   :0.6031   Mean   :0.7577  
- 3rd Qu.:16.0   3rd Qu.:0.0000   3rd Qu.:1.0000   3rd Qu.:1.0000   3rd Qu.:1.0000  
- Max.   :45.0   Max.   :1.0000   Max.   :1.0000   Max.   :1.0000   Max.   :1.0000  
- NA's   :3                                                                         
-      age             educ           finc25           finc35           finc50      
- Min.   :54.00   Min.   : 8.00   Min.   :0.0000   Min.   :0.0000   Min.   :0.0000  
- 1st Qu.:57.00   1st Qu.:12.00   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000  
- Median :60.00   Median :12.00   Median :0.0000   Median :0.0000   Median :0.0000  
- Mean   :60.48   Mean   :13.57   Mean   :0.2062   Mean   :0.1753   Mean   :0.2371  
- 3rd Qu.:64.00   3rd Qu.:16.00   3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.:0.0000  
- Max.   :73.00   Max.   :18.00   Max.   :1.0000   Max.   :1.0000   Max.   :1.0000  
-                                                                                   
-     finc75         finc100         finc101           wealth89            race       
- Min.   :0.000   Min.   :0.000   Min.   :0.00000   Min.   :-580.00   Min.   :0.0000  
- 1st Qu.:0.000   1st Qu.:0.000   1st Qu.:0.00000   1st Qu.:  65.45   1st Qu.:0.0000  
- Median :0.000   Median :0.000   Median :0.00000   Median : 140.00   Median :0.0000  
- Mean   :0.134   Mean   :0.134   Mean   :0.06186   Mean   : 207.37   Mean   :0.1134  
- 3rd Qu.:0.000   3rd Qu.:0.000   3rd Qu.:0.00000   3rd Qu.: 251.00   3rd Qu.:0.0000  
- Max.   :1.000   Max.   :1.000   Max.   :1.00000   Max.   :1485.00   Max.   :1.0000  
-                                                                                     
-    stckin89         irain89      
- Min.   :0.0000   Min.   :0.0000  
- 1st Qu.:0.0000   1st Qu.:0.0000  
- Median :0.0000   Median :1.0000  
- Mean   :0.3402   Mean   :0.5155  
- 3rd Qu.:1.0000   3rd Qu.:1.0000  
- Max.   :1.0000   Max.   :1.0000  
-                                  
+ [1] "pyears"   "prftshr"  "choice"   "female"   "married"  "age"     
+ [7] "educ"     "finc25"   "finc35"   "finc50"   "finc75"   "finc100" 
+[13] "finc101"  "wealth89" "race"     "stckin89" "irain89" 
+     pyears        prftshr           choice           female      
+ Min.   : 0.0   Min.   :0.0000   Min.   :0.0000   Min.   :0.0000  
+ 1st Qu.: 4.0   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000  
+ Median : 9.0   Median :0.0000   Median :1.0000   Median :1.0000  
+ Mean   :11.3   Mean   :0.2062   Mean   :0.6134   Mean   :0.6031  
+ 3rd Qu.:16.0   3rd Qu.:0.0000   3rd Qu.:1.0000   3rd Qu.:1.0000  
+ Max.   :45.0   Max.   :1.0000   Max.   :1.0000   Max.   :1.0000  
+ NA's   :3                                                        
+    married            age             educ           finc25      
+ Min.   :0.0000   Min.   :54.00   Min.   : 8.00   Min.   :0.0000  
+ 1st Qu.:1.0000   1st Qu.:57.00   1st Qu.:12.00   1st Qu.:0.0000  
+ Median :1.0000   Median :60.00   Median :12.00   Median :0.0000  
+ Mean   :0.7577   Mean   :60.48   Mean   :13.57   Mean   :0.2062  
+ 3rd Qu.:1.0000   3rd Qu.:64.00   3rd Qu.:16.00   3rd Qu.:0.0000  
+ Max.   :1.0000   Max.   :73.00   Max.   :18.00   Max.   :1.0000  
+                                                                  
+     finc35           finc50           finc75         finc100     
+ Min.   :0.0000   Min.   :0.0000   Min.   :0.000   Min.   :0.000  
+ 1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.000   1st Qu.:0.000  
+ Median :0.0000   Median :0.0000   Median :0.000   Median :0.000  
+ Mean   :0.1753   Mean   :0.2371   Mean   :0.134   Mean   :0.134  
+ 3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.:0.000   3rd Qu.:0.000  
+ Max.   :1.0000   Max.   :1.0000   Max.   :1.000   Max.   :1.000  
+                                                                  
+    finc101           wealth89            race           stckin89     
+ Min.   :0.00000   Min.   :-580.00   Min.   :0.0000   Min.   :0.0000  
+ 1st Qu.:0.00000   1st Qu.:  65.45   1st Qu.:0.0000   1st Qu.:0.0000  
+ Median :0.00000   Median : 140.00   Median :0.0000   Median :0.0000  
+ Mean   :0.06186   Mean   : 207.37   Mean   :0.1134   Mean   :0.3402  
+ 3rd Qu.:0.00000   3rd Qu.: 251.00   3rd Qu.:0.0000   3rd Qu.:1.0000  
+ Max.   :1.00000   Max.   :1485.00   Max.   :1.0000   Max.   :1.0000  
+                                                                      
+    irain89      
+ Min.   :0.0000  
+ 1st Qu.:0.0000  
+ Median :1.0000  
+ Mean   :0.5155  
+ 3rd Qu.:1.0000  
+ Max.   :1.0000  
+                 
+
+Call:
+lm(formula = wealth89 ~ ., data = pension.clean)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-386.50 -120.98  -39.47   66.52 1145.50 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)   
+(Intercept) -713.980    304.756  -2.343  0.02027 * 
+pyears        -1.806      1.863  -0.970  0.33357   
+prftshr      -16.762     40.473  -0.414  0.67927   
+choice       -32.389     35.076  -0.923  0.35709   
+female        24.231     41.027   0.591  0.55554   
+married       53.474     43.742   1.222  0.22317   
+age           10.991      4.307   2.552  0.01157 * 
+educ           7.817      6.597   1.185  0.23767   
+finc25        -9.050     78.449  -0.115  0.90829   
+finc35        23.746     80.866   0.294  0.76937   
+finc50        57.815     80.381   0.719  0.47295   
+finc75       162.905     88.428   1.842  0.06714 . 
+finc100      127.974     87.031   1.470  0.14325   
+finc101      318.331    100.579   3.165  0.00183 **
+race         -44.536     53.597  -0.831  0.40714   
+stckin89     105.263     36.680   2.870  0.00462 **
+irain89       79.579     35.373   2.250  0.02572 * 
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 212.9 on 174 degrees of freedom
+Multiple R-squared:  0.317,	Adjusted R-squared:  0.2542 
+F-statistic: 5.047 on 16 and 174 DF,  p-value: 1.559e-08
+
 Stepwise Model Path 
 Analysis of Deviance Table
 
@@ -72,6 +114,31 @@ wealth89 ~ age + finc50 + finc75 + finc100 + finc101 + stckin89 +
 8   - pyears  1 52375.0676       181    8031620 2053.505
 9     - educ  1 52353.1422       182    8083973 2052.746
 10 - married  1 70340.5608       183    8154314 2052.401
+
+Call:
+lm(formula = step, data = pension.clean)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-413.65 -113.98  -46.41   69.79 1147.64 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept) -593.247    227.590  -2.607 0.009897 ** 
+age           10.677      3.736   2.858 0.004758 ** 
+finc50        58.452     39.542   1.478 0.141065    
+finc75       168.494     48.878   3.447 0.000703 ***
+finc100      151.098     47.842   3.158 0.001857 ** 
+finc101      350.426     70.951   4.939 1.76e-06 ***
+stckin89     109.376     34.821   3.141 0.001963 ** 
+irain89       90.154     33.367   2.702 0.007542 ** 
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 211.1 on 183 degrees of freedom
+Multiple R-squared:  0.2938,	Adjusted R-squared:  0.2668 
+F-statistic: 10.88 on 7 and 183 DF,  p-value: 1.888e-11
+
 Stepwise Model Path 
 Analysis of Deviance Table
 
@@ -120,3 +187,56 @@ wealth89 ~ pyears + prftshr + choice + female + married + age +
 26      + educ:finc50  1  66615.7725       155    3992440 1971.999
 27     - married:race  1  39158.8547       156    4031599 1971.863
 28     + race:irain89  1  44542.2414       155    3987057 1971.741
+
+Call:
+lm(formula = refined.formula, data = pension.clean)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-277.51  -83.03   -4.97   51.31  967.72 
+
+Coefficients:
+                   Estimate Std. Error t value Pr(>|t|)    
+(Intercept)      -1357.2558   490.3856  -2.768  0.00633 ** 
+pyears              50.1361    22.0609   2.273  0.02442 *  
+prftshr             -5.0036    36.0069  -0.139  0.88966    
+choice              11.6297    32.0365   0.363  0.71709    
+female            1098.6495   427.7513   2.568  0.01116 *  
+married             23.0794    41.2837   0.559  0.57694    
+age                 20.2261     7.8804   2.567  0.01122 *  
+educ                13.9549     6.1570   2.266  0.02480 *  
+finc50             310.1337   182.1977   1.702  0.09073 .  
+finc75             903.9643   169.5816   5.331 3.40e-07 ***
+finc100          -1055.6358   625.1455  -1.689  0.09330 .  
+finc101          -4853.5572  2038.8081  -2.381  0.01850 *  
+race               -37.8020    51.4382  -0.735  0.46351    
+stckin89           -10.9083    60.4771  -0.180  0.85710    
+irain89            119.0651    43.6835   2.726  0.00716 ** 
+married:finc75    -825.3649   172.1496  -4.794 3.79e-06 ***
+age:finc101        149.1101    26.5349   5.619 8.67e-08 ***
+female:finc101    1363.4674   268.4506   5.079 1.08e-06 ***
+pyears:finc50        6.4800     3.0576   2.119  0.03566 *  
+finc101:irain89  -1105.2580   208.7101  -5.296 4.00e-07 ***
+female:irain89     -67.7683    52.7681  -1.284  0.20096    
+prftshr:finc100    169.1147    98.1464   1.723  0.08687 .  
+female:finc100     217.4788    74.5411   2.918  0.00405 ** 
+female:age         -17.6923     6.9409  -2.549  0.01178 *  
+pyears:age          -0.8285     0.3561  -2.327  0.02128 *  
+choice:finc50     -147.1176    59.2673  -2.482  0.01412 *  
+prftshr:finc75    -174.3577    88.9518  -1.960  0.05177 .  
+prftshr:finc101  -1714.9650   329.5719  -5.204 6.11e-07 ***
+educ:finc101      -374.6280    80.4911  -4.654 6.93e-06 ***
+pyears:finc101      70.5327    21.3444   3.304  0.00118 ** 
+choice:finc101     996.0279   248.1238   4.014 9.26e-05 ***
+finc101:stckin89   717.0916   245.7146   2.918  0.00404 ** 
+married:stckin89   176.3666    68.5414   2.573  0.01102 *  
+age:finc100         16.5860    10.1157   1.640  0.10311    
+educ:finc50        -21.2994    13.0153  -1.636  0.10377    
+race:irain89      -109.9657    83.5664  -1.316  0.19015    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 160.4 on 155 degrees of freedom
+Multiple R-squared:  0.6547,	Adjusted R-squared:  0.5768 
+F-statistic: 8.397 on 35 and 155 DF,  p-value: < 2.2e-16
+

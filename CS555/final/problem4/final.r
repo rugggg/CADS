@@ -53,9 +53,15 @@ scatterplotMatrix(pension)
 base  <- lm(formula=wealth89 ~ .,data = pension.clean)
 step  <- stepAIC(base, trace = FALSE)
 step$anova
+refined.fit <- lm(formula = refined.formula, data=pension.clean)
+summary(refined.fit)
 
 step2  <- stepAIC(base, ~ .^2 + I(age)^2, trace = FALSE)
 step2$anova
+refined.formula  <- formula(step2)
+
+refined.fit <- lm(formula = refined.formula, data=pension.clean)
+summary(refined.fit)
 
 # unset sink file
 sink()

@@ -23,19 +23,19 @@ summary(pension)
 
 pension.clean  <-  na.omit(pension)
 # histogram and boxplot each col
-#for(col in 1:ncol(pension)){
-#    print(names(pension)[col])
-#    png(file=paste("hist_",names(pension)[col],".png"))
-#    hist(pension[,col], main=names(pension)[col], xlab=names(pension)[col])
-#    dev.off()
-#    # skip box plotting wealth
-#    if((names(pension)[col]) != "wealth89"){
-#        png(file=paste("boxplot_",names(pension)[col],".png"))
-#        f = as.formula(paste("wealth89 ~ ",names(pension)[col]))
-#        boxplot(f, data=pension, main=names(pension)[col], xlab=names(pension)[col])
-#        dev.off()
-#    }
-#}
+for(col in 1:ncol(pension)){
+    print(names(pension)[col])
+    png(file=paste("hist_",names(pension)[col],".png"))
+    hist(pension[,col], main=names(pension)[col], xlab=names(pension)[col])
+    dev.off()
+    # skip box plotting wealth
+    if((names(pension)[col]) != "wealth89"){
+        png(file=paste("boxplot_",names(pension)[col],".png"))
+        f = as.formula(paste("wealth89 ~ ",names(pension)[col]))
+        boxplot(f, data=pension, main=names(pension)[col], xlab=names(pension)[col])
+        dev.off()
+    }
+}
 
 #png(file="scatterplot_small.png")
 # some options to create a higher res scatterplot
@@ -47,7 +47,7 @@ pension.clean  <-  na.omit(pension)
 #  cex.axis = 2,
 #  cex.lab  = 2
 #)
-#scatterplotMatrix(pension)
+scatterplotMatrix(pension)
 #dev.off()
 
 base  <- lm(formula=wealth89 ~ .,data = pension.clean)

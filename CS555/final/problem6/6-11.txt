@@ -1,0 +1,73 @@
+[1] 9.40913
+
+	Paired t-test
+
+data:  d$V1 and d$V2
+t = 6.2609, df = 31, p-value = 5.854e-07
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+  61.9988 121.9075
+sample estimates:
+mean of the differences 
+               91.95312 
+
+
+	Paired t-test
+
+data:  d$V1 and d$V3
+t = 6.0363, df = 31, p-value = 1.107e-06
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+  94.18733 190.31267
+sample estimates:
+mean of the differences 
+                 142.25 
+
+
+	Paired t-test
+
+data:  d$V1 and d$V4
+t = 11.018, df = 31, p-value = 3.015e-12
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ 209.1197 304.1303
+sample estimates:
+mean of the differences 
+                256.625 
+
+
+	Paired t-test
+
+data:  d$V2 and d$V3
+t = 2.5385, df = 31, p-value = 0.01637
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+  9.88743 90.70632
+sample estimates:
+mean of the differences 
+               50.29688 
+
+
+	Paired t-test
+
+data:  d$V2 and d$V4
+t = 10.853, df = 31, p-value = 4.382e-12
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ 133.7258 195.6179
+sample estimates:
+mean of the differences 
+               164.6719 
+
+
+	Paired t-test
+
+data:  d$V3 and d$V4
+t = 7.2841, df = 31, p-value = 3.392e-08
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+  82.35042 146.39958
+sample estimates:
+mean of the differences 
+                114.375 
+

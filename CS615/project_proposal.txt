@@ -1,0 +1,5 @@
+For my CS615 project, I propose to implement a convulutional neural net to de-noise images.
+
+https://web.stanford.edu/class/cs331b/2016/projects/zhao.pdf
+http://stanford.edu/class/ee367/Winter2015/report_boddington.pdf
+https://papers.nips.cc/paper/4686-image-denoising-and-inpainting-with-deep-neural-networks.pdf

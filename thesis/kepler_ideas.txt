@@ -1,0 +1,23 @@
+Ok - 
+so maybe we should focus on a specific subset of planet types and attempt to model their profile and find them in the UNK data?
+
+Maybe we can take all of the UNK data, or just all of it, and use something like a SOM to cluster them 
+
+But I think we should stick to the Kepler data set - now then the question is what are we looking for?
+
+If we do that - then, what the hell are we looking for?
+
+
+Is it meant to be a different approach to classifying the exoplanets?
+ie: do we take an unsupervised learning algorithm using deep learning to cluster the UNK(UNK being the planets that were not manually vetted) and see if our classifications match to the Autovetter's training data?(which is the human validated "truth" data available)
+
+   I kinda like that idea. What algorithms could we use for this? What value are we getting? First thoughts: use a SOM - but it's difficult to determine distance metrics - welll difficult if we use all/most of the metrics. Can we actually cluster the folded, stacked, centered light curves? That's kind of interesting isn't it in a way? We
+
+Maybe we should be taking the planets that are known to exist, cluster them, and then cluster the UNK ones into that setup and maybe we see what is what? but again, what are we even clustering on?
+
+Unsupervised Deep Clustering algos: 
+
+DEC http://proceedings.mlr.press/v48/xieb16.pdf Unsupervised Deep Embedding for Clustering Analysis
+
+
+ -> let's take DEC and apply to Kepler data set - to see if we find something different/better than autovetter given that the paper on deep learning to find exoplanets says they have some mislabels. So therefore we then propose the use ofr DEC to sort and classify Kepler data - in fact, it's kind of nice bc autovetter has a Decision tree mapped already for us, as well as a baseline to compare to.

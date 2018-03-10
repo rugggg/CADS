@@ -1,5 +1,5 @@
-A = imread('../Cat.jpg');
-B = imread('../Moon.jpg');
+A = imread('../images/Cat.jpg');
+B = imread('../images/Moon.jpg');
 
 # fade one image into another
 # pointwise operation

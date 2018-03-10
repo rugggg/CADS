@@ -1,5 +1,5 @@
 # PART C
-I = imread('spot.jpg');
+I = imread('../images/spot.jpg');
 A = min(min(I))
 B = max(max(I))
 B = 50

@@ -1,0 +1,170 @@
+# This file was produced by the NASA Exoplanet Archive  http://exoplanetarchive.ipac.caltech.edu
+# Tue Feb 27 16:15:01 2018
+#
+# COLUMN kepid:          KepID
+# COLUMN tce_plnt_num:   Planet Number
+# COLUMN tce_rogue_flag: Rogue Flag
+# COLUMN tce_delivname:  Delivery Name
+# COLUMN rowupdate:      Date of Last Update
+# COLUMN tce_datalink_dvs: Link to DV Summary
+# COLUMN tce_datalink_dvr: Link to DV Report
+# COLUMN tce_period:     Orbital Period [days]
+# COLUMN tce_period_err: Orbital Period Unc. [days]
+# COLUMN tce_time0bk:    Transit Epoch [BKJD]
+# COLUMN tce_time0bk_err: Transit Epoch Unc. [BKJD]
+# COLUMN tce_time0:      Transit Epoch [BJD]
+# COLUMN tce_time0_err:  Transit Epoch Unc. [BJD]
+# COLUMN tce_ror:        Planet-Star Radius Ratio
+# COLUMN tce_ror_err:    Planet-Star Radius Ratio Unc.
+# COLUMN tce_dor:        Planet-Star Distance over Star Radius
+# COLUMN tce_dor_err:    Planet-Star Distance over Star Radius Unc.
+# COLUMN tce_incl:       Inclination [deg]
+# COLUMN tce_incl_err:   Inclination Unc. [deg]
+# COLUMN tce_impact:     Impact Parameter
+# COLUMN tce_impact_err: Impact Parameter Unc.
+# COLUMN tce_duration:   Transit Duration [hrs]
+# COLUMN tce_duration_err: Transit Duration Unc. [hrs]
+# COLUMN tce_ingress:    Ingress Duration [hrs]
+# COLUMN tce_ingress_err: Ingress Duration Unc. [hrs]
+# COLUMN tce_depth:      Transit Depth [ppm]
+# COLUMN tce_depth_err:  Transit Depth Unc. [ppm]
+# COLUMN tce_eccen:      Eccentricity
+# COLUMN tce_eccen_err:  Eccentricity  Unc.
+# COLUMN tce_longp:      Long. of Periastron [deg]
+# COLUMN tce_longp_err:  Long. of Periastron Unc. [deg]
+# COLUMN tce_limbdark_mod: Limb Darkening Model
+# COLUMN tce_ldm_coeff1: Limb Darkening Coeff. 1
+# COLUMN tce_ldm_coeff2: Limb Darkening Coeff. 2
+# COLUMN tce_ldm_coeff3: Limb Darkening Coeff. 3
+# COLUMN tce_ldm_coeff4: Limb Darkening Coeff. 4
+# COLUMN tce_num_transits: Number of Transits
+# COLUMN tce_trans_mod:  Transit Model
+# COLUMN tce_full_conv:  Full Convergence Flag
+# COLUMN tce_model_snr:  Transit Signal-to-Noise (SNR)
+# COLUMN tce_model_chisq: Chi-Square
+# COLUMN tce_model_dof:  Degrees of Freedom
+# COLUMN tce_robstat:    Robust Statistic
+# COLUMN tce_dof1:       Degrees of Freedom 1
+# COLUMN tce_dof2:       Degrees of Freedom 2
+# COLUMN tce_chisq1:     Chi-Square 1
+# COLUMN tce_chisq2:     Chi-Square 2
+# COLUMN tce_chisqgofdof: Chi-Square GOF DOF
+# COLUMN tce_chisqgof:   Chi-Square GOF
+# COLUMN tce_prad:       Planetary Radius [Earth radii]
+# COLUMN tce_prad_err:   Planetary Radius Unc. [Earth radii]
+# COLUMN tce_sma:        Orbit Semi-Major Axis [AU]
+# COLUMN tce_sma_err:    Orbit Semi-Major Axis Unc. [AU]
+# COLUMN tce_eqt:        Equilibrium Temperature [K]
+# COLUMN tce_eqt_err:    Equilibrium Temperature Unc. [K]
+# COLUMN tce_insol:      Insolation Flux [Earth flux]
+# COLUMN tce_insol_err:  Insolation Flux [Earth flux]
+# COLUMN tce_nkoi:       Number of Associated KOIs
+# COLUMN tce_ioflag:     Interesting Object Flag
+# COLUMN tce_quarters:   Quarters Passed
+# COLUMN tce_steff:      Stellar Effective Temperature [K]
+# COLUMN tce_steff_err:  Stellar Effective Temperature Unc. [K]
+# COLUMN tce_slogg:      Stellar Surface Gravity [log10(cm/s**2)]
+# COLUMN tce_slogg_err:  Stellar Surface Gravity Unc. [log10(cm/s**2)]
+# COLUMN tce_smet:       Stellar Metallicity [dex]
+# COLUMN tce_smet_err:   Stellar Metallicity Unc. [dex]
+# COLUMN tce_sradius:    Stellar Radius [Solar radii]
+# COLUMN tce_sradius_err: Stellar Radius Unc. [Solar radii]
+# COLUMN tce_steff_prov: Stellar Effective Temperature Provenance
+# COLUMN tce_slogg_prov: Stellar Surface Gravity Provenance
+# COLUMN tce_smet_prov:  Stellar Metallicity Provenance
+# COLUMN tce_sradius_prov: Stellar Radius Provenance
+# COLUMN tcet_period:    Orbital Period [days]
+# COLUMN tcet_period_err: Orbital Period Unc. [days]
+# COLUMN tcet_time0bk:   Transit Epoch [BKJD]
+# COLUMN tcet_time0bk_err: Transit Epoch Unc. [BKJD]
+# COLUMN tcet_time0:     Transit Epoch [BJD]
+# COLUMN tcet_time0_err: Transit Epoch Unc. [BJD]
+# COLUMN tcet_duration:  Transit Duration [hrs]
+# COLUMN tcet_duration_err: Transit Duration Unc. [hrs]
+# COLUMN tcet_ingress:   Ingress Duration [hrs]
+# COLUMN tcet_ingress_err: Ingress Duration Unc. [hrs]
+# COLUMN tcet_depth:     Transit Depth [ppm]
+# COLUMN tcet_depth_err: Transit Depth Unc. [ppm]
+# COLUMN tcet_full_conv: Full Convergence Flag
+# COLUMN tcet_model_chisq: Chi-Square
+# COLUMN tcet_model_dof: Degrees of Freedom
+# COLUMN wst_robstat:    Weak Secondary Robust Statistic
+# COLUMN wst_depth:      Weak Secondary Depth
+# COLUMN tce_mesmedian:  Weak Secondary Median MES
+# COLUMN tce_mesmad:     Weak Secondary MAD-MES
+# COLUMN tce_maxmes:     Weak Secondary Max MES
+# COLUMN tce_minmes:     Weak Secondary Min MES
+# COLUMN tce_maxmesd:    Weak Secondary Max MES Phase
+# COLUMN tce_minmesd:    Weak Secondary Min MES Phase
+# COLUMN tce_max_sngle_ev: Single Event Statistic
+# COLUMN tce_max_mult_ev: Multiple Event Statistic (MES)
+# COLUMN tce_bin_oedp_stat: Odd-Even Depth Comparison Statistic
+# COLUMN tce_rmesmad:    Calculated Ratio MES over MAD MES
+# COLUMN tce_rsnrmes:    Calculated Ratio SNR over MES
+# COLUMN tce_rminmes:    Calculated Ratio Min. MES over MES
+# COLUMN tce_albedo:     Secondary Geometric Albedo
+# COLUMN tce_albedo_err: Secondary Geometric Albedo Unc.
+# COLUMN tce_ptemp:      Planet Effective Temperature [K]
+# COLUMN tce_ptemp_err:  Planet Effective Temperature Unc. [K]
+# COLUMN tce_albedo_stat: Albedo Comparison Statistic
+# COLUMN tce_ptemp_stat: Effective Temperature Comparison Statistic
+# COLUMN av_vf_pc:       Autovetter Planet Candidate Vote Fraction [percentage]
+# COLUMN av_vf_pc_err:   Autovetter Planet Candidate Vote Fraction Unc. [percentage]
+# COLUMN av_vf_afp:      Autovetter Astrophysical False Positive Vote Fraction [percentage]
+# COLUMN av_vf_afp_err:  Autovetter Astrophysical False Positive Vote Fraction Unc. [percentage]
+# COLUMN av_vf_ntp:      Autovetter Non Transiting Phenomena Vote Fraction [percentage]
+# COLUMN av_vf_ntp_err:  Autovetter Non Transiting Phenomena Vote Fraction Unc. [percentage]
+# COLUMN av_pp_pc:       Autovetter Planet Candidate Posterior Probabilities [percentage]
+# COLUMN av_pp_afp:      Autovetter Astrophysical False Positive Posterior Probabilities [percentage]
+# COLUMN av_pp_ntp:      Autovetter Non Transiting Phenomena Posterior Probabilities [percentage]
+# COLUMN av_training_set: Autovetter Training Set Label
+# COLUMN av_pred_class:  Autovetter Predicted Classification
+# COLUMN boot_fap:       Bootstrap False Alarm Probability
+# COLUMN boot_mesthresh: Bootstrap MES Threshold
+# COLUMN boot_mesmean:   Bootstrap Mean of MES Distribution
+# COLUMN boot_messtd:    Bootstrap Standard Deviation of MES Distribution
+# COLUMN tce_cap_stat:   Ghost Core Aperture Statistic
+# COLUMN tce_hap_stat:   Ghost Halo Aperture Statistic
+# COLUMN tce_rb_tpdur:   Test Pulse Duration
+# COLUMN tce_rb_tcount0: Transit Counts 0
+# COLUMN tce_rb_tcount1: Transit Counts 1
+# COLUMN tce_rb_tcount2: Transit Counts 2
+# COLUMN tce_rb_tcount3: Transit Counts 3
+# COLUMN tce_rb_tcount4: Transit Counts 4
+# COLUMN tce_fwm_stat:   FW Offset Significance
+# COLUMN tce_fwm_sra:    FW Source &alpha;(OOT) [hrs]
+# COLUMN tce_fwm_sra_err: FW Source &alpha;(OOT) Unc. [hrs]
+# COLUMN tce_fwm_sdec:   FW Source &delta;(OOT) [deg]
+# COLUMN tce_fwm_sdec_err: FW Source &delta;(OOT) Unc. [deg]
+# COLUMN tce_fwm_srao:   FW Source &Delta;&alpha;(OOT) [sec]
+# COLUMN tce_fwm_srao_err: FW Source &Delta;&alpha;(OOT) Unc. [sec]
+# COLUMN tce_fwm_sdeco:  FW Source &Delta;&delta;(OOT) [arcsec]
+# COLUMN tce_fwm_sdeco_err: FW Source &Delta;&delta;(OOT) Unc. [arcsec]
+# COLUMN tce_fwm_prao:   FW &Delta;&alpha;(OOT) [sec]
+# COLUMN tce_fwm_prao_err: FW &Delta;&alpha;(OOT) Unc. [sec]
+# COLUMN tce_fwm_pdeco:  FW &Delta;&delta;(OOT) [arcsec]
+# COLUMN tce_fwm_pdeco_err: FW &Delta;&delta;(OOT) Unc. [arcsec]
+# COLUMN tce_dicco_mra:  PRF &Delta;&alpha;<sub>SQ</sub>(OOT) [arcsec]
+# COLUMN tce_dicco_mra_err: PRF &Delta;&alpha;<sub>SQ</sub>(OOT) Unc. [arcsec]
+# COLUMN tce_dicco_mdec: PRF &Delta;&delta;<sub>SQ</sub>(OOT) [arcsec]
+# COLUMN tce_dicco_mdec_err: PRF &Delta;&delta;<sub>SQ</sub>(OOT) Unc. [arcsec]
+# COLUMN tce_dicco_msky: PRF &Delta;&theta;<sub>SQ</sub>(OOT) [arcsec]
+# COLUMN tce_dicco_msky_err: PRF &Delta;&theta;<sub>SQ</sub>(OOT) Unc. [arcsec]
+# COLUMN tce_dikco_mra:  PRF &Delta;&alpha;<sub>SQ</sub>(KIC) [arcsec]
+# COLUMN tce_dikco_mra_err: PRF &Delta;&alpha;<sub>SQ</sub>(KIC) Unc. [arcsec]
+# COLUMN tce_dikco_mdec: PRF &Delta;&delta;<sub>SQ</sub>(KIC) [arcsec]
+# COLUMN tce_dikco_mdec_err: PRF &Delta;&delta;<sub>SQ</sub>(KIC) Unc. [arcsec]
+# COLUMN tce_dikco_msky: PRF &Delta;&theta;<sub>SQ</sub>(KIC) [arcsec]
+# COLUMN tce_dikco_msky_err: PRF &Delta;&theta;<sub>SQ</sub>(KIC) Unc. [arcsec]
+#
+rowid,kepid,tce_plnt_num,tce_rogue_flag,tce_delivname,rowupdate,tce_datalink_dvs,tce_datalink_dvr,tce_period,tce_period_err,tce_time0bk,tce_time0bk_err,tce_time0,tce_time0_err,tce_ror,tce_ror_err,tce_dor,tce_dor_err,tce_incl,tce_incl_err,tce_impact,tce_impact_err,tce_duration,tce_duration_err,tce_ingress,tce_ingress_err,tce_depth,tce_depth_err,tce_eccen,tce_eccen_err,tce_longp,tce_longp_err,tce_limbdark_mod,tce_ldm_coeff1,tce_ldm_coeff2,tce_ldm_coeff3,tce_ldm_coeff4,tce_num_transits,tce_trans_mod,tce_full_conv,tce_model_snr,tce_model_chisq,tce_model_dof,tce_robstat,tce_dof1,tce_dof2,tce_chisq1,tce_chisq2,tce_chisqgofdof,tce_chisqgof,tce_prad,tce_prad_err,tce_sma,tce_sma_err,tce_eqt,tce_eqt_err,tce_insol,tce_insol_err,tce_nkoi,tce_ioflag,tce_quarters,tce_steff,tce_steff_err,tce_slogg,tce_slogg_err,tce_smet,tce_smet_err,tce_sradius,tce_sradius_err,tce_steff_prov,tce_slogg_prov,tce_smet_prov,tce_sradius_prov,tcet_period,tcet_period_err,tcet_time0bk,tcet_time0bk_err,tcet_time0,tcet_time0_err,tcet_duration,tcet_duration_err,tcet_ingress,tcet_ingress_err,tcet_depth,tcet_depth_err,tcet_full_conv,tcet_model_chisq,tcet_model_dof,wst_robstat,wst_depth,tce_mesmedian,tce_mesmad,tce_maxmes,tce_minmes,tce_maxmesd,tce_minmesd,tce_max_sngle_ev,tce_max_mult_ev,tce_bin_oedp_stat,tce_rmesmad,tce_rsnrmes,tce_rminmes,tce_albedo,tce_albedo_err,tce_ptemp,tce_ptemp_err,tce_albedo_stat,tce_ptemp_stat,av_vf_pc,av_vf_pc_err,av_vf_afp,av_vf_afp_err,av_vf_ntp,av_vf_ntp_err,av_pp_pc,av_pp_afp,av_pp_ntp,av_training_set,av_pred_class,boot_fap,boot_mesthresh,boot_mesmean,boot_messtd,tce_cap_stat,tce_hap_stat,tce_rb_tpdur,tce_rb_tcount0,tce_rb_tcount1,tce_rb_tcount2,tce_rb_tcount3,tce_rb_tcount4,tce_fwm_stat,tce_fwm_sra,tce_fwm_sra_err,tce_fwm_sdec,tce_fwm_sdec_err,tce_fwm_srao,tce_fwm_srao_err,tce_fwm_sdeco,tce_fwm_sdeco_err,tce_fwm_prao,tce_fwm_prao_err,tce_fwm_pdeco,tce_fwm_pdeco_err,tce_dicco_mra,tce_dicco_mra_err,tce_dicco_mdec,tce_dicco_mdec_err,tce_dicco_msky,tce_dicco_msky_err,tce_dikco_mra,tce_dikco_mra_err,tce_dikco_mdec,tce_dikco_mdec_err,tce_dikco_msky,tce_dikco_msky_err
+1,1162345,2,,q1_q17_dr24_tce,2015-01-15,001/001162/001162345/dv/kplr001162345-002-20141002224145_dvs.pdf,001/001162/001162345/dv/kplr001162345-20141002224145_dvr.pdf,0.831850,6.693070000e-05,132.227,3.519700000e-02,2.45497e+06,3.519700000e-02,2.70426620000e-03,4.21286370000e-03,1.0220117,4.03245930000e-01,25.040,2.4310000e+02,9.2600000e-01,1.4710000e+00,2.3920,2.1000000e+01,4.4530000e-02,5.1160000e-01,6.0920000e+00,2.63600e+00,0,0,0,0,claret_nonlinear_limb_darkening_model_2011,0.2818856,0.9843984,-0.8891672,0.2972176,1609,mandel-agol_geometric_transit_model,1,2.9500000e+00,2.228e+04,2.629e+04,1.341e+01,2.062e+04,1585,3.074e+04,4.78300e+03,,,0.5099000,7.9440000e-01,0.018770,1.0070000e-06,2.76e+03,6.370000e+02,,,0,,11111111111111111,6510.00,207.00,4.07,0.26,-0.240,0.300,1.728,0.791,PHO1,KIC0,KIC0,DSEP,,,,,,,,,,,,,,,,,,,4.30900,1.090000e+01,-6.3880e+00,0.55690,0.43810,4.959e+00,1.041e+01,1.0970000e-03,2.4160e+00,2.8340000e-01,6.1370000e-01,,,,,,,0.0031,0.0027,99.4727,0.0423,0.5241,0.0423,0.0000,99.9224,0.0776,AFP,AFP,1.8486e-57,2.2715e+00,-4.1805e+00,9.1566e-01,,,,,,,,,2.43430000e+01,19.418054,5.450000e-05,36.855089,8.070000e-04,2.2230000e+00,2.360000,6.1870000e+00,2.910000,-1.7450000e-05,1.440000e-05,-3.9420000e-05,1.770000e-05,-5.51770000e-02,1.1300,5.04060000e-01,1.2900,5.07070000e-01,1.1200,-1.83490000e-01,1.2100,4.24890000e-01,1.3000,0.4628200,1.1000
+2,1292087,2,,q1_q17_dr24_tce,2015-01-15,001/001292/001292087/dv/kplr001292087-002-20141002224145_dvs.pdf,001/001292/001292087/dv/kplr001292087-20141002224145_dvr.pdf,1.095240,1.009340000e-05,132.133,2.685010000e-03,2.45497e+06,2.685010000e-03,5.43967200000e-03,3.88090080000e-03,3.8340026,1.29846260000e+01,86.170,2.1240000e+02,2.5630000e-01,1.3310000e+01,2.1220,4.7550000e-01,1.2280000e-02,9.5180000e-02,3.4530000e+01,4.42700e+00,0,0,0,0,claret_nonlinear_limb_darkening_model_2011,0.3605912,0.7376160,-0.5678580,0.1660276,1218,mandel-agol_geometric_transit_model,1,1.0600000e+01,1.610e+04,1.818e+04,1.043e+01,1.552e+04,1193,1.980e+04,2.26100e+03,,,0.8916000,6.3610000e-01,0.021870,1.3440000e-07,2.31e+03,6.610000e+02,,,0,,11111111111111111,6328.00,207.00,4.15,0.29,-0.080,0.300,1.502,0.852,PHO1,KIC0,KIC0,DSEP,,,,,,,,,,,,,,,,,,,1.44300,5.722000e+00,-5.3080e+00,0.64730,0.54830,3.914e+00,9.321e+00,3.7400000e-01,6.4610e+00,1.1370000e+00,5.6940000e-01,,,,,,,5.1115,0.0706,19.3632,0.1346,75.5253,0.1711,1.8455,6.5568,91.5978,UNK,NTP,9.7175e-16,8.2283e+00,-2.4854e-01,1.2045e+00,,,,,,,,,8.37090000e+00,19.383281,2.370000e-05,36.961993,3.510000e-04,-7.4640000e-01,1.020000,-1.3930000e+00,1.260000,2.5110000e-05,3.530000e-05,5.7440000e-05,4.370000e-05,6.19580000e-02,0.2110,-7.57980000e-02,0.2120,9.78990000e-02,0.2090,2.06520000e-01,0.2250,-7.72140000e-02,0.2380,0.2204900,0.2200
+3,1293031,2,,q1_q17_dr24_tce,2015-01-15,001/001293/001293031/dv/kplr001293031-002-20141002224145_dvs.pdf,001/001293/001293031/dv/kplr001293031-20141002224145_dvr.pdf,0.719273,1.388330000e-05,132.227,2.786260000e-03,2.45497e+06,2.786260000e-03,5.35700510000e-03,1.58175380000e-03,2.6067476,3.34350010000e+00,74.420,4.5640000e+01,7.0000000e-01,1.1030000e+00,1.5210,3.1830000e-01,1.5810000e-02,4.8680000e-02,2.9680000e+01,5.24800e+00,0,0,0,0,claret_nonlinear_limb_darkening_model_2011,0.3529232,0.8012172,-0.6755324,0.2176708,1200,mandel-agol_geometric_transit_model,1,8.3020000e+00,1.446e+04,1.601e+04,9.968e+00,1.417e+04,1089,1.494e+04,2.07500e+03,,,1.4550000,4.2960000e-01,0.017660,2.2720000e-07,3.33e+03,7.030000e+02,,,1,,11111111111111111,6363.00,214.00,3.80,0.35,-0.060,0.280,2.489,1.036,PHO1,KIC0,KIC0,DSEP,,,,,,,,,,,,,,,,,,,1.76500,5.164000e+00,-4.4460e+00,0.35370,0.43490,7.494e+00,9.099e+00,8.4540000e-24,5.1550e+00,9.1240000e-01,4.8860000e-01,,,,,,,2.4834,0.0399,16.8867,0.1217,80.6298,0.1134,0.2498,4.9261,94.8242,UNK,NTP,1.3169e-13,8.7499e+00,-2.0863e-01,1.2725e+00,,,,,,,,,3.62320000e+01,19.401465,2.300000e-05,36.903948,3.420000e-04,2.8430000e+00,0.993000,1.0730000e+00,1.230000,-8.5390000e-05,2.950000e-05,-4.5440000e-05,3.650000e-05,-2.89400000e-01,0.2370,3.37380000e-01,0.2890,4.44500000e-01,0.2240,-3.08090000e-01,0.1910,2.83570000e-01,0.2240,0.4187200,0.2070
+4,1162345,3,,q1_q17_dr24_tce,2015-01-15,001/001162/001162345/dv/kplr001162345-003-20141002224145_dvs.pdf,001/001162/001162345/dv/kplr001162345-20141002224145_dvr.pdf,0.831833,9.431020000e-06,131.919,2.209140000e-03,2.45496e+06,2.209140000e-03,4.80578280000e-03,4.50112800000e-03,2.9148341,1.27528600000e+01,88.130,1.0260000e+03,9.5360000e-02,5.1770000e+01,2.1810,1.2110000e+00,1.0530000e-02,1.0830000e-01,2.7100000e+01,3.55000e+00,0,0,0,0,claret_nonlinear_limb_darkening_model_2011,0.2818856,0.9843984,-0.8891672,0.2972176,1611,mandel-agol_geometric_transit_model,1,1.1950000e+01,1.920e+04,1.952e+04,1.452e+01,2.054e+04,1579,3.221e+04,5.56000e+03,,,0.9062000,8.4880000e-01,0.018770,1.4190000e-07,2.76e+03,6.370000e+02,,,0,,11111111111111111,6510.00,207.00,4.07,0.26,-0.240,0.300,1.728,0.791,PHO1,KIC0,KIC0,DSEP,,,,,,,,,,,,,,,,,,,1.18000,1.696000e-02,-5.3320e+00,0.11670,-0.13750,5.621e+00,1.003e+01,1.2510000e-05,8.5000e+00,1.1920000e+00,5.3170000e-01,,,,,,,0.0125,0.0060,99.7779,0.0264,0.2096,0.0247,0.0000,99.9323,0.0677,AFP,AFP,3.8867e-45,2.2528e+00,-5.5963e+00,1.1121e+00,,,,,,,,,3.25970000e+00,19.417992,1.360000e-05,36.853089,2.170000e-04,-4.7450000e-01,0.587000,-1.0120000e+00,0.780000,-4.5320000e-06,1.590000e-05,1.9720000e-05,2.110000e-05,1.90430000e-01,0.2070,1.67200000e-01,0.1830,2.53410000e-01,0.1970,8.70660000e-02,0.2510,1.06320000e-01,0.1720,0.1374200,0.1960
+5,1164109,1,,q1_q17_dr24_tce,2015-01-15,001/001164/001164109/dv/kplr001164109-001-20141002224145_dvs.pdf,001/001164/001164109/dv/kplr001164109-20141002224145_dvr.pdf,622.408000,8.547390000e-03,162.256,9.840370000e-03,2.45500e+06,9.840370000e-03,1.17133960000e-02,1.44013160000e-02,400.6364200,2.79352220000e+03,90.000,3.1360000e+02,3.1900000e-03,2.1930000e+03,12.0100,1.8430000e+00,1.3900000e-01,2.1120000e+00,1.6130000e+02,5.90800e+01,0,0,0,0,claret_nonlinear_limb_darkening_model_2011,0.2752972,1.0216995,-0.9528764,0.3250118,3,mandel-agol_geometric_transit_model,1,3.7190000e+00,2.526e+02,3.301e+02,1.312e+01,3.900e+01,2,6.672e+02,1.08600e+01,,,2.1140000,2.5990000e+00,1.546000,1.4150000e-05,3.02e+02,7.500000e+01,,,0,,11111111111111111,6609.00,200.00,4.11,0.28,-0.260,0.300,1.654,0.816,PHO1,KIC0,KIC0,DSEP,,,,,,,,,,,,,,,,,,,0.71320,3.913000e+00,-4.3780e+00,88.42000,136.90000,1.524e+01,9.081e+00,1.4480000e-02,1.2730e+01,4.0950000e-01,4.8210000e-01,,,,,,,4.5252,0.0630,4.1121,0.0747,91.3627,0.1058,0.2574,1.1588,98.5838,UNK,NTP,7.3721e-13,9.0473e+00,-1.4963e+00,1.4998e+00,,,,,,,,,9.93010000e+00,19.443514,5.830000e-05,36.896735,7.600000e-04,1.8310000e-01,2.520000,6.1730000e+00,2.730000,-9.9800000e-05,4.080000e-04,-8.2920000e-04,4.430000e-04,-1.10940000e+01,0.0892,1.03580000e+01,0.0894,1.51770000e+01,0.0893,-1.10600000e+01,0.0892,1.04370000e+01,0.0894,15.2070000,0.0893
+6,757450,1,,q1_q17_dr24_tce,2015-01-15,000/000757/000757450/dv/kplr000757450-001-20141002224145_dvs.pdf,000/000757/000757450/dv/kplr000757450-20141002224145_dvr.pdf,8.884920,1.186150000e-06,134.452,1.014910000e-04,2.45497e+06,1.014910000e-04,1.14895220000e-01,1.66965280000e-03,36.3778310,1.94409800000e+00,89.910,1.5010000e+00,5.6770000e-02,9.5020000e-01,2.0780,2.3950000e-02,2.1470000e-01,2.6200000e-02,1.6310000e+04,3.95300e+01,0,0,0,0,claret_nonlinear_limb_darkening_model_2011,0.5702584,-0.2570312,0.9047128,-0.4371792,153,mandel-agol_geometric_transit_model,1,4.7330000e+02,2.783e+03,3.032e+03,5.480e+02,1.937e+03,148,2.884e+04,1.40500e+03,,,10.5700000,1.5360000e-01,0.078590,6.9940000e-09,7.70e+02,2.760000e+01,,,1,,11111111111111111,5332.00,102.00,4.50,0.04,-0.080,0.160,0.843,0.051,SPE51,TRA51,SPE51,DSEP,,,,,,,,,,,,,,,,,,,0.70400,3.430000e+00,-3.0850e+00,-0.11250,-1.34700,1.130e+02,5.240e+02,3.8250000e-02,7.4440e+02,9.0320000e-01,5.8870000e-03,,,,,,,80.2546,0.2800,19.2652,0.2709,0.4803,0.0242,87.1409,10.6668,2.1923,PC,PC,0.0000e+00,8.0605e+00,-1.4075e-01,1.1479e+00,,,,,,,,,5.28610000e+02,19.409176,5.440000e-07,36.576875,6.440000e-06,1.5890000e-01,0.023600,-1.8190000e+00,0.023200,-2.4900000e-03,1.970000e-03,-4.2040000e-03,2.430000e-03,4.51880000e-03,0.0710,7.22210000e-02,0.0697,7.23620000e-02,0.0694,6.95810000e-02,0.0719,-1.03820000e-01,0.0782,0.1249800,0.0763
+7,892667,1,,q1_q17_dr24_tce,2015-01-15,000/000892/000892667/dv/kplr000892667-001-20141002224145_dvs.pdf,000/000892/000892667/dv/kplr000892667-20141002224145_dvr.pdf,2.262110,2.726600000e-05,132.171,6.531110000e-03,2.45497e+06,6.531110000e-03,5.04587020000e-03,3.23317800000e-03,2.2076606,6.10270740000e+00,82.190,2.9970000e+02,3.0000000e-01,1.0610000e+01,7.5090,5.1980000e+00,4.1410000e-02,2.8570000e-01,2.9410000e+01,3.40300e+00,0,0,0,0,claret_nonlinear_limb_darkening_model_2011,0.2752972,1.0216995,-0.9528764,0.3250118,599,mandel-agol_geometric_transit_model,1,9.2390000e+00,3.389e+04,4.125e+04,1.435e+01,7.618e+03,585,1.227e+04,1.70800e+03,,,0.9107000,5.8360000e-01,0.036540,2.9360000e-07,1.96e+03,4.860000e+02,,,0,,11111111111111111,6609.00,236.00,4.11,0.28,-0.260,0.300,1.654,0.811,PHO1,KIC0,KIC0,DSEP,,,,,,,,,,,,,,,,,,,1.39500,5.444000e+00,-2.9160e+00,0.59260,0.87860,6.832e+00,8.037e+00,1.0630000e-03,5.7610e+00,1.1500000e+00,3.6290000e-01,,,,,,,0.0253,0.0071,1.0272,0.0815,98.9475,0.0853,0.0000,0.9968,99.0032,NTP,NTP,1.0784e-11,8.4561e+00,-9.5350e-02,1.2146e+00,,,,,,,,,6.28660000e+00,19.408488,2.740000e-05,36.621451,3.370000e-04,1.1850000e+00,1.190000,-1.4730000e+00,1.210000,-4.2390000e-05,3.500000e-05,1.6500000e-05,3.570000e-05,2.76870000e-01,0.1080,3.03870000e-01,0.1920,4.11080000e-01,0.1370,1.39510000e-01,0.0883,1.15410000e-01,0.1630,0.1810600,0.1240
+8,892772,1,,q1_q17_dr24_tce,2015-01-15,000/000892/000892772/dv/kplr000892772-001-20141002224145_dvs.pdf,000/000892/000892772/dv/kplr000892772-20141002224145_dvr.pdf,5.092600,3.144550000e-05,133.451,4.821040000e-03,2.45497e+06,4.821040000e-03,1.41521520000e-02,2.11004860000e-02,11.0882190,5.73858680000e+01,88.450,9.1190000e+01,3.0000000e-01,1.6090000e+01,3.3990,2.4260000e-01,5.2050000e-02,6.2310000e-01,2.4650000e+02,1.73800e+01,0,0,0,0,claret_nonlinear_limb_darkening_model_2011,0.5923188,-0.4469600,1.1850752,-0.5344602,225,mandel-agol_geometric_transit_model,1,1.5250000e+01,5.974e+03,7.190e+03,1.691e+01,2.899e+03,222,1.910e+03,2.78500e+02,,,1.1600000,1.7290000e+00,0.052050,2.1430000e-07,8.44e+02,7.860000e+01,,,1,,00011111111111111,5037.00,197.00,4.55,0.12,-0.200,0.340,0.751,0.127,KIC0,KIC0,KIC0,DSEP,,,,,,,,,,,,,,,,,,,0.63140,2.248000e+00,-2.5880e+00,2.67000,1.03500,4.690e+00,1.562e+01,9.9460000e-02,2.4730e+01,9.7660000e-01,1.6570000e-01,,,,,,,1.0105,0.0400,98.7528,0.0509,0.2367,0.0287,0.0209,99.9027,0.0765,AFP,AFP,2.5720e-51,7.3627e+00,7.8862e-02,1.0344e+00,,,,,,,,,1.88930000e+02,19.410063,2.040000e-05,36.677856,2.310000e-04,-6.9810000e+00,0.882000,-3.5430000e+00,0.830000,1.6690000e-03,2.180000e-04,3.9220000e-04,2.050000e-04,-4.74640000e+00,0.1600,-1.29630000e+00,0.1230,4.92020000e+00,0.1610,-4.96220000e+00,0.1580,-1.55510000e+00,0.1170,5.2002000,0.1650
+9,1026032,1,,q1_q17_dr24_tce,2015-01-15,001/001026/001026032/dv/kplr001026032-001-20141002224145_dvs.pdf,001/001026/001026032/dv/kplr001026032-20141002224145_dvr.pdf,8.460440,3.822250000e-07,133.774,3.816630000e-05,2.45497e+06,3.816630000e-05,4.17762770000e-01,2.67223050000e-02,13.7466190,2.63414440000e-02,85.900,1.4440000e-01,9.8290000e-01,3.6380000e-02,4.8040,2.0100000e-03,1.0660000e+01,1.1870000e+01,7.6500000e+04,3.26100e+01,0,0,0,0,claret_nonlinear_limb_darkening_model_2011,0.1117782,1.3988718,-1.2823762,0.4306218,164,mandel-agol_geometric_transit_model,1,2.3680000e+03,9.418e+03,6.679e+03,4.143e+03,2.106e+03,161,1.056e+06,2.48700e+04,,,32.0900000,2.0530000e+00,0.074930,2.2570000e-09,8.01e+02,1.040000e+02,,,1,1,11111111111111111,5923.00,191.00,4.64,0.18,-1.020,0.300,0.704,0.178,PHO1,KIC0,KIC0,DSEP,,,,,,,,,,,,,,,,,,,3.09400,1.413000e+03,-2.6700e+02,4.45500,4.30500,4.957e+02,3.889e+03,6.0570000e-02,1.2570e+03,6.0880000e-01,6.8660000e-02,,,,,,,4.7880,0.0626,92.5200,0.0709,2.6919,0.0355,0.1832,98.6194,1.1974,UNK,AFP,0.0000e+00,7.3616e+00,-1.2297e-02,1.0471e+00,,,,,,,,,6.09720000e+03,19.402941,7.980000e-08,36.728853,8.450000e-07,1.2730000e-01,0.003450,-1.5000000e+00,0.003040,-9.8440000e-03,8.440000e-03,-1.0960000e-02,1.050000e-02,6.00110000e-02,0.0671,5.13520000e-02,0.0669,7.89830000e-02,0.0673,-4.23290000e-03,0.0737,-6.44480000e-02,0.0770,0.0645870,0.0770
+10,1026032,2,,q1_q17_dr24_tce,2015-01-15,001/001026/001026032/dv/kplr001026032-002-20141002224145_dvs.pdf,001/001026/001026032/dv/kplr001026032-20141002224145_dvr.pdf,4.230220,7.327150000e-07,133.998,1.392290000e-04,2.45497e+06,1.392290000e-04,2.67894250000e-01,2.74160540000e-02,5.4764440,3.34314000000e-02,79.490,4.7270000e-01,9.9910000e-01,3.8540000e-02,4.6060,6.9320000e-03,2.3030000e+00,3.4660000e-03,2.8810000e+04,9.38900e+01,0,0,0,0,claret_nonlinear_limb_darkening_model_2011,0.1117782,1.3988718,-1.2823762,0.4306218,313,mandel-agol_geometric_transit_model,1,1.3110000e+03,2.577e+04,8.397e+03,1.645e+03,1.989e+03,152,2.238e+05,4.15500e+03,,,20.5800000,2.1060000e+00,0.047200,5.4510000e-09,1.01e+03,1.320000e+02,,,1,,11111111111111111,5923.00,191.00,4.64,0.18,-1.020,0.300,0.704,0.178,PHO1,KIC0,KIC0,DSEP,,,,,,,,,,,,,,,,,,,0.79150,3.102000e+00,-2.5010e+00,1.73000,-0.85140,1.704e+02,1.440e+03,0.0000000e+00,1.8190e+03,9.1040000e-01,1.7370000e-03,,,,,,,11.8115,0.0816,79.0037,0.0912,9.1847,0.0549,7.6790,85.6876,6.6334,UNK,AFP,0.0000e+00,7.3628e+00,-1.0644e-02,1.0470e+00,,,,,,,,,2.66120000e+02,19.402939,1.480000e-07,36.728825,1.600000e-06,6.2240000e-02,0.006430,-1.6020000e+00,0.005760,-1.5950000e-03,8.280000e-03,-8.8210000e-04,1.030000e-02,5.10940000e-02,0.0676,-3.02690000e-03,0.0678,5.11840000e-02,0.0676,-1.47580000e-02,0.0716,-1.37870000e-01,0.0841,0.1386500,0.0840
